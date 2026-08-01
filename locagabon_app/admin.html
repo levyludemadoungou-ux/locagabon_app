@@ -197,7 +197,7 @@
       </div>
     </div>
 
-    <!-- NOUVEAU MODULE DE GESTION EN DIRECT DE LA RUBRIQUE CONTACTS & SIÈGE SOCIAL -->
+    <!-- MODULE DE GESTION EN DIRECT DE LA RUBRIQUE CONTACTS & SIÈGE SOCIAL -->
     <div class="admin-chart-box mb-4" style="border-color: var(--accent-emerald);">
       <div class="chart-header">
         <h3><i class="ri-edit-2-line" style="color: var(--accent-emerald);"></i> Modifier la rubrique "Éditeur & Contacts Officiels" (Bas de Page Site Public)</h3>
@@ -208,17 +208,17 @@
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
           <div>
             <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-map-pin-2-line"></i> Siège Social</label>
-            <input type="text" id="adminInputSiege" value="Libreville, République Gabonaise" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+            <input type="text" id="adminInputSiege" value="Charbonnages, Libreville, République Gabonaise" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
           </div>
 
           <div>
             <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-mail-line"></i> Email Officiel</label>
-            <input type="email" id="adminInputEmail" value="contact@locagabon.ga" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+            <input type="email" id="adminInputEmail" value="levyludemadoungou@outlook.com" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
           </div>
 
           <div>
             <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-whatsapp-line"></i> WhatsApp Support</label>
-            <input type="text" id="adminInputWhatsapp" value="+241 77 00 00 00" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+            <input type="text" id="adminInputWhatsapp" value="+33 7 66 96 45 32" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
           </div>
 
           <div>
@@ -451,9 +451,9 @@
     // GESTION DYNAMIQUE DE LA MODIFICATION DES CONTACTS DEPUIS L'ADMINISTRATION
     document.addEventListener("DOMContentLoaded", () => {
       const savedContacts = JSON.parse(localStorage.getItem("locagabon_official_contacts")) || {
-        siege: "Libreville, République Gabonaise",
-        email: "contact@locagabon.ga",
-        whatsapp: "+241 77 00 00 00",
+        siege: "Charbonnages, Libreville, République Gabonaise",
+        email: "levyludemadoungou@outlook.com",
+        whatsapp: "+33 7 66 96 45 32",
         platform: "PropTech 100% Gabonaise"
       };
 

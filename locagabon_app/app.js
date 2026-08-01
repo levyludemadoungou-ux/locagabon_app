@@ -1,5 +1,5 @@
 ﻿/* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC PHOTOS VRAIES BASE64
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC GEOLOCALISATION GPS PAR IA
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -33,6 +33,7 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.villaOcre,
       GABON_PHOTOS.cloture
     ],
+    gps: { lat: 0.5283, lng: 9.4215, address: "Concession AngondjÃ© ChÃ¢teau, Akanda", zone: "Akanda AngondjÃ©" },
     description: "Superbe villa duplex R+1 situÃ©e dans une concession calme Ã  AngondjÃ© ChÃ¢teau. 3 grandes chambres climatisÃ©es Ã  l'Ã©tage avec balcons, vaste sÃ©jour staffÃ© au rez-de-chaussÃ©e, jardin engazonnÃ©, surpresseur d'eau SEEG et compteur EDAN individuel.",
     verified: true,
     bailleur: "Immo Gabon Pro SA (NIF: 2026-B-89192)"
@@ -56,6 +57,7 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.cloture,
       GABON_PHOTOS.duplex
     ],
+    gps: { lat: 0.4042, lng: 9.4398, address: "Avenue du Bord de Mer, Quartier Louis, Libreville", zone: "Quartier Louis" },
     description: "Belle rÃ©sidence moderne entiÃ¨rement clÃ´turÃ©e avec portail coulissant et abri de voiture couvert au Quartier Louis Ã  Libreville. Proche bord de mer et commerces. Eau SEEG assurÃ©e avec rÃ©serve de 2000L.",
     verified: true,
     bailleur: "Mme NTOUTOUME Carine (Particulier Direct)"
@@ -79,6 +81,7 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.villaOcre,
       GABON_PHOTOS.cloture
     ],
+    gps: { lat: 0.4211, lng: 9.4352, address: "Rue des RÃ©sidences, Batterie IV, Libreville", zone: "Batterie IV" },
     description: "Luxueuse villa couleur ocre Ã  Batterie IV avec grande cour entiÃ¨rement pavÃ©e. 4 chambres indÃ©pendantes, vaste terrasse couverte avec colonnes, dÃ©pendance gardien et garage. Titre Foncier dÃ©finitif vÃ©rifiÃ© au Cadastre.",
     verified: true,
     bailleur: "Agence Cabinet Foncier Gabon SA"
@@ -102,6 +105,7 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.maisonSNI,
       GABON_PHOTOS.citeOctra
     ],
+    gps: { lat: 0.5140, lng: 9.4120, address: "CitÃ© SNI Avorbam, Akanda", zone: "Avorbam" },
     description: "Charmante maison basse individuelle de type SNI construite sur parcelle clÃ´turÃ©e Ã  Avorbam. 3 chambres, salon, cuisine Ã©quipÃ©e, terrasse et cour bÃ©tonnÃ©e. Titre Foncier disponible immÃ©diatement.",
     verified: true,
     bailleur: "M. ONDO Jean-Marc (Particulier)"
@@ -125,6 +129,7 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.citeOctra,
       GABON_PHOTOS.maisonSNI
     ],
+    gps: { lat: 0.2985, lng: 9.5080, address: "CitÃ© Octra, Owendo", zone: "Owendo Octra" },
     description: "Logement dans une citÃ© rÃ©sidentielle calme Ã  Owendo. Peinture neuve, 2 chambres, terrasse d'entrÃ©e couverte, espace vert et accÃ¨s goudronnÃ©. Eau SEEG et Ã©lectricitÃ© EDAN individuel.",
     verified: true,
     bailleur: "M. ONDO Paul (Particulier)"
@@ -148,6 +153,7 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.villaOcre,
       GABON_PHOTOS.duplex
     ],
+    gps: { lat: -0.7193, lng: 8.7815, address: "Quartier NtchorÃ©rÃ©, Port-Gentil", zone: "Port-Gentil NtchorÃ©rÃ©" },
     description: "Villa climatisÃ©e et meublÃ©e avec haut niveau de sÃ©curitÃ© Ã  Port-Gentil NtchorÃ©rÃ©. SÃ©jour avec baie vitrÃ©e, cuisine moderne, groupe Ã©lectrogÃ¨ne et cuve Ã  eau 3000L.",
     verified: true,
     bailleur: "Agence OgoouÃ© Immobilier Pro"
@@ -215,18 +221,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function updateFooterContactsUI() {
-  const saved = JSON.parse(localStorage.getItem("locagabon_official_contacts"));
-  if (!saved) return;
+  const saved = JSON.parse(localStorage.getItem("locagabon_official_contacts")) || {
+    siege: "Charbonnages, Libreville, RÃ©publique Gabonaise",
+    email: "levyludemadoungou@outlook.com",
+    whatsapp: "+33 7 66 96 45 32",
+    platform: "PropTech 100% Gabonaise"
+  };
 
   const siegeEl = document.getElementById("footerSiegeSocial");
   const emailEl = document.getElementById("footerEmail");
   const whatsappEl = document.getElementById("footerWhatsapp");
   const platformEl = document.getElementById("footerPlatform");
 
-  if (siegeEl && saved.siege) siegeEl.textContent = saved.siege;
-  if (emailEl && saved.email) emailEl.textContent = saved.email;
-  if (whatsappEl && saved.whatsapp) whatsappEl.textContent = saved.whatsapp;
-  if (platformEl && saved.platform) platformEl.textContent = saved.platform;
+  if (siegeEl) siegeEl.textContent = saved.siege;
+  if (emailEl) emailEl.textContent = saved.email;
+  if (whatsappEl) whatsappEl.textContent = saved.whatsapp;
+  if (platformEl) platformEl.textContent = saved.platform;
 }
 
 // --- NAVIGATION & DEPLIAGE ---
@@ -343,7 +353,7 @@ function setupProfileEditAndSecurity() {
     const codeEntered = document.getElementById("inputSecurityCode").value.trim();
 
     if (codeEntered !== "892104" && codeEntered.length < 4) {
-      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour le test de validation.");
+      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour la vÃ©rification test.");
       return;
     }
 
@@ -587,6 +597,7 @@ function updateUserHeaderUI() {
   }
 }
 
+// --- RENDU DES ANNONCES AVEC REPERAGE GPS PAR IA ---
 function renderProperties(props) {
   const grid = document.getElementById("propertyGrid");
   const countEl = document.getElementById("resultsCount");
@@ -606,6 +617,7 @@ function renderProperties(props) {
   grid.innerHTML = props.map(p => {
     const isSale = p.operation === "Vente";
     const isAgency = p.sellerType === "Agence Pro";
+    const gpsInfo = p.gps || { lat: 0.4042, lng: 9.4398, address: p.city };
 
     return `
       <div class="property-card" data-id="${p.id}">
@@ -623,8 +635,15 @@ function renderProperties(props) {
 
         <div class="prop-content">
           <h3 class="prop-title btn-open-detail" data-id="${p.id}">${p.title}</h3>
+          
           <div class="prop-location">
             <i class="ri-map-pin-2-fill"></i> ${p.city} | ${p.bailleur}
+          </div>
+
+          <div style="margin-bottom: 0.8rem;">
+            <button class="btn-gps-trigger" data-id="${p.id}" style="background: rgba(16,185,129,0.12); color: var(--accent-emerald); border: 1px solid rgba(16,185,129,0.3); padding: 0.3rem 0.6rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">
+              <i class="ri-radar-line"></i> ðŸ“ GPS IA : ${gpsInfo.lat.toFixed(4)}, ${gpsInfo.lng.toFixed(4)}
+            </button>
           </div>
 
           <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; flex: 1;">
@@ -653,6 +672,15 @@ function renderProperties(props) {
     });
   });
 
+  document.querySelectorAll(".btn-gps-trigger").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const propId = btn.getAttribute("data-id");
+      const targetProp = state.properties.find(p => p.id === propId);
+      if (targetProp) openGpsMapModal(targetProp);
+    });
+  });
+
   document.querySelectorAll(".btn-pay-prop").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -663,6 +691,32 @@ function renderProperties(props) {
   });
 }
 
+function openGpsMapModal(p) {
+  const gps = p.gps || { lat: 0.4042, lng: 9.4398, address: p.city, zone: p.city };
+  
+  const titleEl = document.getElementById("gpsModalPropertyTitle");
+  const addrEl = document.getElementById("gpsModalAddress");
+  const latEl = document.getElementById("gpsModalLat");
+  const lngEl = document.getElementById("gpsModalLng");
+  const iframeEl = document.getElementById("gpsIframeMap");
+  const linkEl = document.getElementById("btnOpenExternalGoogleMaps");
+
+  if (titleEl) titleEl.textContent = p.title;
+  if (addrEl) addrEl.textContent = `${gps.address} (${p.city})`;
+  if (latEl) latEl.textContent = `${gps.lat} N`;
+  if (lngEl) lngEl.textContent = `${gps.lng} E`;
+
+  // Dynamic OpenStreetMap Bounding Box
+  const delta = 0.008;
+  const bbox = `${gps.lng - delta},${gps.lat - delta},${gps.lng + delta},${gps.lat + delta}`;
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${gps.lat},${gps.lng}`;
+
+  if (iframeEl) iframeEl.src = mapUrl;
+  if (linkEl) linkEl.href = `https://www.google.com/maps?q=${gps.lat},${gps.lng}`;
+
+  openModal("gpsMapModal");
+}
+
 function openPropertyDetailModal(p) {
   const modalContent = document.getElementById("propertyDetailContent");
   if (!modalContent) return;
@@ -670,6 +724,7 @@ function openPropertyDetailModal(p) {
   const isSale = p.operation === "Vente";
   const isAgency = p.sellerType === "Agence Pro";
   const gallery = p.gallery || [p.image];
+  const gps = p.gps || { lat: 0.4042, lng: 9.4398, address: p.city };
 
   modalContent.innerHTML = `
     <div class="detail-header">
@@ -683,8 +738,12 @@ function openPropertyDetailModal(p) {
       </div>
 
       <h2 style="margin-top:0.6rem;">${p.title}</h2>
-      <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem;">
-        <i class="ri-map-pin-2-fill" style="color: var(--accent-emerald);"></i> <strong>${p.city}</strong> | RÃ©fÃ©rence : #${p.id.toUpperCase()}
+      <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between;">
+        <span><i class="ri-map-pin-2-fill" style="color: var(--accent-emerald);"></i> <strong>${p.city}</strong> | RÃ©fÃ©rence : #${p.id.toUpperCase()}</span>
+        
+        <button class="btn-gps-trigger-detail" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); border: 1px solid var(--accent-emerald); padding: 0.35rem 0.75rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <i class="ri-radar-fill"></i> Carte & CoordonnÃ©es GPS IA
+        </button>
       </div>
 
       <div class="detail-price-tag">
@@ -745,6 +804,14 @@ function openPropertyDetailModal(p) {
       </p>
     </div>
 
+    <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1rem;">
+      <h4 style="font-size: 0.9rem; color: var(--accent-emerald); margin-bottom: 0.4rem;"><i class="ri-map-pin-user-line"></i> RepÃ©rage Cartographique & GÃ©olocalisation GPS</h4>
+      <p style="font-size: 0.82rem; color: var(--text-secondary);">
+        Adresse estimÃ©e : <strong>${gps.address}</strong><br>
+        CoordonnÃ©es GPS : <strong>${gps.lat} N, ${gps.lng} E</strong>
+      </p>
+    </div>
+
     <div class="detail-landlord-card">
       <div>
         <span style="font-size: 0.78rem; color: var(--text-secondary);">Annonce proposÃ©e par :</span>
@@ -762,6 +829,10 @@ function openPropertyDetailModal(p) {
       </button>
     </div>
   `;
+
+  document.querySelector(".btn-gps-trigger-detail")?.addEventListener("click", () => {
+    openGpsMapModal(p);
+  });
 
   document.getElementById("btnBookFromDetail")?.addEventListener("click", () => {
     closeModal("propertyDetailModal");
@@ -814,6 +885,7 @@ function generateAILeaseContract(prop, phone, method) {
       <div class="lease-section">
         <h4>2. DÃ‰SIGNATION DU BIEN & TITRE FONCIER</h4>
         <p><strong>Objet :</strong> Vente dÃ©finitive de : <em>${prop.title}</em> situÃ© Ã  <strong>${prop.city}</strong>.</p>
+        <p><strong>CoordonnÃ©es GPS :</strong> ${prop.gps ? `${prop.gps.lat} N, ${prop.gps.lng} E` : 'RÃ©publique Gabonaise'}</p>
         <p><strong>Garantie FonciÃ¨re :</strong> Bien certifiÃ© avec Titre Foncier authentifiÃ© auprÃ¨s de la Conservation FonciÃ¨re du Gabon.</p>
       </div>
 
@@ -840,14 +912,14 @@ function generateAILeaseContract(prop, phone, method) {
 
     <div class="lease-section">
       <h4>ARTICLE 2 : OBJET DU CONTRAT & Ã‰QUIPEMENTS</h4>
-      <p>Location Ã  usage d'habitation exclusive du bien : <strong>${prop.title}</strong> situÃ© Ã  <strong>${prop.city}</strong>.</p>
+      <p>Location Ã  usage d'habitation exclusive du bien : <strong>${prop.title}</strong> situÃ© Ã  <strong>${prop.city}</strong> (GPS: ${prop.gps ? `${prop.gps.lat}N, ${prop.gps.lng}E` : 'Gabon'}).</p>
       <p><strong>Raccordements :</strong> Compteur Ã‰lectrique EDAN individuel et abonnement Eau SEEG conforme.</p>
     </div>
 
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÃ‰GALE (PLAFOND GABON)</h4>
       <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>DÃ©pÃ´t de Garantie (Caution LÃ©gale) :</strong> FixÃ©e Ã  <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictly conforme au plafond lÃ©gal gabonais.</p>
+      <p><strong>DÃ©pÃ´t de Garantie (Caution LÃ©gale) :</strong> FixÃ©e Ã  <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond lÃ©gal gabonais.</p>
     </div>
 
     <div class="lease-section">
@@ -1014,7 +1086,8 @@ function filterProperties(query, operation, sellerType, city, type) {
       p.title.toLowerCase().includes(q) || 
       p.city.toLowerCase().includes(q) || 
       p.description.toLowerCase().includes(q) ||
-      p.bailleur.toLowerCase().includes(q)
+      p.bailleur.toLowerCase().includes(q) ||
+      (p.gps && p.gps.address.toLowerCase().includes(q))
     );
   }
 
@@ -1200,6 +1273,7 @@ function setupModals() {
   document.getElementById("closeReceiptModal")?.addEventListener("click", () => closeModal("receiptModal"));
   document.getElementById("closePropertyDetailModal")?.addEventListener("click", () => closeModal("propertyDetailModal"));
   document.getElementById("closeSecurityModal")?.addEventListener("click", () => closeModal("securityCodeModal"));
+  document.getElementById("closeGpsModal")?.addEventListener("click", () => closeModal("gpsMapModal"));
 }
 
 function openModal(id) { document.getElementById(id)?.classList.remove("hidden"); }
