@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LocaGabon - Plateforme Immobilière (Location & Vente) | Particuliers & Agences au Gabon</title>
-  <meta name="description" content="La première plateforme d'annonces immobilières (Location & Vente) au Gabon pour Particuliers et Agences Immobilières Pro. Assistant IA Juridique et paiement Airtel/Moov Money.">
+  <meta name="description" content="La première plateforme d'annonces immobilières (Location & Vente) au Gabon pour Particuliers et Agences Immobilières Pro. Assistant IA Juridique, Geolocation GPS et paiement Airtel/Moov Money.">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,9 @@
         <button class="nav-btn" id="btnNavEspace" data-target="section-locataire">
           <i class="ri-user-settings-line"></i> <span id="lblNavEspace">Mon Espace</span>
         </button>
+        <a href="admin.html" class="nav-btn" style="color: var(--accent-gold); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;" title="Accès Dashboard Administration (PIN: 241077)">
+          <i class="ri-shield-keyhole-fill"></i> <span>Admin</span>
+        </a>
       </nav>
 
       <div class="header-actions" id="headerAuthZone">
@@ -65,10 +68,10 @@
   <section class="hero-section">
     <div class="hero-content">
       <div class="hero-tag">
-        <i class="ri-shield-check-fill"></i> Contrats de Bail IA & Paiements Digitaux Certifiés au Gabon
+        <i class="ri-map-pin-user-fill"></i> Géolocalisation GPS par IA, Contrats de Bail IA & Paiements Digitaux au Gabon
       </div>
       <h1>Louez ou Achetez au Gabon en toute transparence avec l'IA</h1>
-      <p>Trouvez des <strong>locations</strong> et <strong>ventes immobilières</strong> vérifiées (terrains avec Titre Foncier, villas, appartements) à Libreville, Akanda, Port-Gentil. Direct Particulier ou via Agence Immobilière Pro.</p>
+      <p>Trouvez des <strong>locations</strong> et <strong>ventes immobilières</strong> vérifiées (terrains avec Titre Foncier, villas, appartements) avec <strong>coordonnées GPS par IA</strong> à Libreville, Akanda, Port-Gentil. Direct Particulier ou via Agence Immobilière Pro.</p>
 
       <!-- Smart AI Search Box -->
       <div class="ai-search-card">
@@ -80,12 +83,12 @@
         <div class="search-body" id="aiSearchContainer">
           <div class="ai-input-wrapper">
             <i class="ri-magic-line ai-input-icon"></i>
-            <input type="text" id="aiSearchInput" placeholder="Ex: Terrain à vendre avec Titre Foncier à Akanda, ou appartement en location à Louis par Agence Pro...">
+            <input type="text" id="aiSearchInput" placeholder="Ex: Villa avec GPS à Akanda, ou appartement en location à Louis avec Titre Foncier...">
             <button class="btn-accent" id="btnRunAISearch"><i class="ri-send-plane-fill"></i> Analyser</button>
           </div>
           <div class="ai-suggestions">
             <span class="sug-label">Exemples :</span>
-            <button class="sug-chip" data-query="Terrain à vendre Akanda Angondjé Titre Foncier">Terrain Vente Angondjé</button>
+            <button class="sug-chip" data-query="Terrain à vendre Akanda Angondjé Titre Foncier GPS">Terrain Vente Angondjé GPS</button>
             <button class="sug-chip" data-query="Location appartement Agence Pro Louis ou Batterie IV">Appartement Agence Louis</button>
             <button class="sug-chip" data-query="Direct Particulier sans frais d'agence studio Libreville">Direct Particulier Studio</button>
           </div>
@@ -150,7 +153,7 @@
       <div class="section-header">
         <div>
           <h2><i class="ri-building-4-line"></i> Offres Immobilières au Gabon</h2>
-          <p>Cliquez sur une annonce pour consulter la fiche détaillée, les photos et le contrat IA.</p>
+          <p>Cliquez sur une annonce pour consulter la fiche détaillée, les coordonnées <strong>GPS par IA</strong> et le contrat IA.</p>
         </div>
         <div class="results-count" id="resultsCount">6 annonces trouvées</div>
       </div>
@@ -176,8 +179,8 @@
 
         <div class="about-card">
           <div class="about-icon"><i class="ri-sparkles-fill"></i></div>
-          <h3>Innovation par l'IA</h3>
-          <p>Nous intégrons un Assistant IA juridique entraîné sur la législation gabonaise pour guider gratuitement les usagers et générer automatiquement des contrats de bail conformes à la loi.</p>
+          <h3>Innovation par l'IA & GPS</h3>
+          <p>Nous intégrons un Assistant IA juridique entraîné sur la législation gabonaise ainsi qu'un système de repérage cartographique GPS par IA pour géolocaliser chaque logement avec précision.</p>
         </div>
 
         <div class="about-card">
@@ -198,21 +201,21 @@
       <div class="faq-accordion-container">
         <div class="faq-item">
           <button class="faq-question">
-            <span>Comment modifier mon email ou mon numéro de téléphone ?</span>
+            <span>Comment se repérer avec les coordonnées GPS par IA des biens ?</span>
             <i class="ri-add-line faq-icon"></i>
           </button>
           <div class="faq-answer">
-            <p>Connectez-vous à votre compte et rendez-vous dans la rubrique <strong>"Mon Profil & Sécurité"</strong> dans votre espace. Modifiez vos informations puis validez le <strong>code de sécurité à 6 chiffres</strong> envoyé par SMS/Email pour enregistrer les modifications.</p>
+            <p>Sur chaque annonce, cliquez sur le macaron <strong>"📍 GPS IA & Carte"</strong>. Une carte interactive d'orientation s'affiche avec la latitude et longitude exactes, vous permettant de lancer le guidage GPS direct vers le logement au Gabon.</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Comment consulter une annonce et ses photos en détail ?</span>
+            <span>Comment modifier mon email ou mon numéro de téléphone ?</span>
             <i class="ri-add-line faq-icon"></i>
           </button>
           <div class="faq-answer">
-            <p>Cliquez simplement sur l'image ou sur le bouton <strong>"Consulter l'annonce"</strong> sur n'importe quelle carte. Une fiche détaillée s'ouvre avec la galerie photo HD, le détail du loyer/prix, les équipements (EDAN, SEEG, gardien) et les garanties d'agences.</p>
+            <p>Connectez-vous à votre compte et rendez-vous dans la rubrique <strong>"Mon Profil & Sécurité"</strong> dans votre espace. Modifiez vos informations puis validez le <strong>code de sécurité à 6 chiffres</strong> envoyé par SMS/Email pour enregistrer les modifications.</p>
           </div>
         </div>
 
@@ -509,6 +512,57 @@
     </section>
 
   </main>
+
+  <!-- MODAL GÉOLOCALISATION GPS PAR IA -->
+  <div class="modal-overlay hidden" id="gpsMapModal">
+    <div class="modal-box" style="max-width: 720px;">
+      <button class="modal-close" id="closeGpsModal"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);"><i class="ri-map-pin-user-fill"></i></div>
+        <div>
+          <h3>Localisation GPS par IA - République Gabonaise</h3>
+          <p id="gpsModalPropertyTitle">Repérage cartographique du logement</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div style="background: var(--bg-primary); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1.2rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+            <div>
+              <span style="font-size: 0.78rem; color: var(--text-secondary);">Zone & Adresse :</span>
+              <h4 id="gpsModalAddress" style="color: var(--text-primary); margin-top: 0.2rem;">Charbonnages, Libreville</h4>
+            </div>
+            <span class="badge-status-ok" style="font-size: 0.78rem;"><i class="ri-radar-fill"></i> Précision GPS IA : 100%</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; background: var(--bg-surface); padding: 0.8rem; border-radius: var(--radius-sm); font-size: 0.85rem;">
+            <div>
+              <span style="color: var(--text-muted);">Latitude GPS :</span>
+              <strong id="gpsModalLat" style="color: var(--accent-emerald); display: block;">0.5283 N</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-muted);">Longitude GPS :</span>
+              <strong id="gpsModalLng" style="color: var(--accent-emerald); display: block;">9.4215 E</strong>
+            </div>
+          </div>
+        </div>
+
+        <div id="gpsMapContainer" style="width: 100%; height: 260px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-color-glow); position: relative; background: #1e293b;">
+          <iframe id="gpsIframeMap" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
+        </div>
+
+        <div class="confirm-actions-grid mt-3">
+          <a id="btnOpenExternalGoogleMaps" href="#" target="_blank" class="btn-pay-submit" style="text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            <i class="ri-navigation-fill"></i> Lancer le Guidage GPS Google Maps
+          </a>
+          <button class="btn-secondary" onclick="closeModal('gpsMapModal')">
+            <i class="ri-close-line"></i> Fermer la carte
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL DE SÉCURITÉ : VÉRIFICATION DU CODE SECRETS SMS/EMAIL POUR MODIFICATION DU PROFIL -->
   <div class="modal-overlay hidden" id="securityCodeModal">
@@ -857,16 +911,16 @@
 
       <div class="downface-grid">
         
-        <!-- BULLE 1 : ÉDITEUR & SIÈGE SOCIAL (DYNAMIQUE) -->
+        <!-- BULLE 1 : ÉDITEUR & SIÈGE SOCIAL (VRAIES COORDONNÉES) -->
         <div class="downface-bubble-card">
           <div class="downface-bubble-icon emerald">
             <i class="ri-building-2-fill"></i>
           </div>
           <h3>Éditeur & Contacts Officiels</h3>
           <ul class="downface-list">
-            <li><i class="ri-map-pin-2-fill"></i> <strong>Siège social :</strong> <span id="footerSiegeSocial">Libreville, République Gabonaise</span></li>
-            <li><i class="ri-mail-fill"></i> <strong>Email :</strong> <span id="footerEmail">contact@locagabon.ga</span></li>
-            <li><i class="ri-whatsapp-fill"></i> <strong>WhatsApp :</strong> <span id="footerWhatsapp">+241 77 00 00 00</span></li>
+            <li><i class="ri-map-pin-2-fill"></i> <strong>Siège social :</strong> <span id="footerSiegeSocial">Charbonnages, Libreville, République Gabonaise</span></li>
+            <li><i class="ri-mail-fill"></i> <strong>Email :</strong> <span id="footerEmail">levyludemadoungou@outlook.com</span></li>
+            <li><i class="ri-whatsapp-fill"></i> <strong>WhatsApp :</strong> <span id="footerWhatsapp">+33 7 66 96 45 32</span></li>
             <li><i class="ri-global-fill"></i> <strong>Plateforme :</strong> <span id="footerPlatform">PropTech 100% Gabonaise</span></li>
           </ul>
         </div>
