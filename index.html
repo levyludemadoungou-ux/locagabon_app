@@ -160,179 +160,75 @@
       </div>
     </section>
 
-    <!-- SECTION DÉPLIANTS / ACCORDÉONS (QUI SOMMES-NOUS, FAQ, MENTIONS ET ASSISTANT IA) -->
-    <div class="foldable-sections-wrapper mt-4 mb-4">
+    <!-- SECTION 2: QUI SOMMES-NOUS ? -->
+    <section id="section-about" class="app-section">
+      <div class="section-header center">
+        <h2><i class="ri-team-fill" style="color: var(--accent-emerald);"></i> Qui Sommes-Nous ?</h2>
+        <p>La première PropTech 100% gabonaise conçue pour moderniser et sécuriser l'immobilier au Gabon.</p>
+      </div>
 
-      <!-- DÉPLIANT 1: QUI SOMMES-NOUS ? -->
-      <section id="section-about" class="app-section foldable-card">
-        <button class="foldable-header" data-toggle="about-content">
-          <div class="foldable-title">
-            <div class="foldable-icon-bg emerald"><i class="ri-team-fill"></i></div>
-            <div>
-              <h3>Qui Sommes-Nous ?</h3>
-              <span class="foldable-subtitle">La 1ère PropTech 100% gabonaise pour sécuriser l'immobilier</span>
-            </div>
-          </div>
-          <i class="ri-add-line foldable-arrow"></i>
-        </button>
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon"><i class="ri-flag-fill"></i></div>
+          <h3>Notre Mission au Gabon</h3>
+          <p>Éliminer les litiges locatifs et les arnaques immobilières en offrant une plateforme transparente qui connecte locataires, propriétaires particuliers et agences immobilières certifiées à Libreville, Akanda, Owendo et Port-Gentil.</p>
+        </div>
 
-        <div class="foldable-body hidden" id="about-content">
-          <div class="about-grid">
-            <div class="about-card">
-              <div class="about-icon"><i class="ri-flag-fill"></i></div>
-              <h3>Notre Mission au Gabon</h3>
-              <p>Éliminer les litiges locatifs et les arnaques immobilières en offrant une plateforme transparente qui connecte locataires, propriétaires particuliers et agences immobilières certifiées à Libreville, Akanda, Owendo et Port-Gentil.</p>
-            </div>
+        <div class="about-card">
+          <div class="about-icon"><i class="ri-sparkles-fill"></i></div>
+          <h3>Innovation par l'IA</h3>
+          <p>Nous intégrons un Assistant IA juridique entraîné sur la législation gabonaise pour guider gratuitement les usagers et générer automatiquement des contrats de bail conformes à la loi.</p>
+        </div>
 
-            <div class="about-card">
-              <div class="about-icon"><i class="ri-sparkles-fill"></i></div>
-              <h3>Innovation par l'IA</h3>
-              <p>Nous intégrons un Assistant IA juridique entraîné sur la législation gabonaise pour guider gratuitement les usagers et générer automatiquement des contrats de bail conformes à la loi.</p>
-            </div>
+        <div class="about-card">
+          <div class="about-icon"><i class="ri-smartphone-fill"></i></div>
+          <h3>Paiement 100% Digital</h3>
+          <p>En partenariat avec les solutions Airtel Money (*150#) et Moov Money (*555#), nous digitalisons la collecte des loyers et la délivrance de quittances numériques certifiées.</p>
+        </div>
+      </div>
+    </section>
 
-            <div class="about-card">
-              <div class="about-icon"><i class="ri-smartphone-fill"></i></div>
-              <h3>Paiement 100% Digital</h3>
-              <p>En partenariat avec les solutions Airtel Money (*150#) et Moov Money (*555#), nous digitalisons la collecte des loyers et la délivrance de quittances numériques certifiées.</p>
-            </div>
+    <!-- SECTION 3: FAQ & FOIRE AUX QUESTIONS -->
+    <section id="section-faq" class="app-section">
+      <div class="section-header center">
+        <h2><i class="ri-question-answer-fill" style="color: var(--accent-gold);"></i> Foire aux Questions (FAQ)</h2>
+        <p>Toutes les réponses à vos questions sur l'utilisation de LocaGabon AI.</p>
+      </div>
+
+      <div class="faq-accordion-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment modifier mon email ou mon numéro de téléphone ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Connectez-vous à votre compte et rendez-vous dans la rubrique <strong>"Mon Profil & Sécurité"</strong> dans votre espace. Modifiez vos informations puis validez le <strong>code de sécurité à 6 chiffres</strong> envoyé par SMS/Email pour enregistrer les modifications.</p>
           </div>
         </div>
-      </section>
 
-      <!-- DÉPLIANT 2: FOIRE AUX QUESTIONS (FAQ & AIDE) -->
-      <section id="section-faq" class="app-section foldable-card">
-        <button class="foldable-header" data-toggle="faq-content">
-          <div class="foldable-title">
-            <div class="foldable-icon-bg gold"><i class="ri-question-answer-fill"></i></div>
-            <div>
-              <h3>Foire aux Questions (FAQ & Aide)</h3>
-              <span class="foldable-subtitle">Toutes les réponses à vos questions sur LocaGabon AI</span>
-            </div>
-          </div>
-          <i class="ri-add-line foldable-arrow"></i>
-        </button>
-
-        <div class="foldable-body hidden" id="faq-content">
-          <div class="faq-accordion-container">
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>Comment modifier mon email ou mon numéro de téléphone ?</span>
-                <i class="ri-add-line faq-icon"></i>
-              </button>
-              <div class="faq-answer">
-                <p>Connectez-vous à votre compte et rendez-vous dans la rubrique <strong>"Mon Profil & Sécurité"</strong> dans votre espace. Modifiez vos informations puis validez le <strong>code de sécurité à 6 chiffres</strong> envoyé par SMS/Email pour enregistrer les modifications.</p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>Comment consulter une annonce et ses photos en détail ?</span>
-                <i class="ri-add-line faq-icon"></i>
-              </button>
-              <div class="faq-answer">
-                <p>Cliquez simplement sur l'image ou sur le bouton <strong>"Consulter l'annonce"</strong> sur n'importe quelle carte. Une fiche détaillée s'ouvre avec la galerie photo HD, le détail du loyer/prix, les équipements (EDAN, SEEG, gardien) et les garanties d'agences.</p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>Comment fonctionne la génération automatique du contrat de bail par l'IA ?</span>
-                <i class="ri-add-line faq-icon"></i>
-              </button>
-              <div class="faq-answer">
-                <p>Lorsque vous cliquez sur réserver un logement, l'<strong>Intelligence Artificielle LocaGabon</strong> rédige instantanément votre <strong>Contrat de Bail d'Habitation Officiel</strong> avec l'ensemble des clauses légales gabonaises. Vous pouvez lire, valider et signer numériquement votre bail avant de procéder au règlement Mobile Money.</p>
-              </div>
-            </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment consulter une annonce et ses photos en détail ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Cliquez simplement sur l'image ou sur le bouton <strong>"Consulter l'annonce"</strong> sur n'importe quelle carte. Une fiche détaillée s'ouvre avec la galerie photo HD, le détail du loyer/prix, les équipements (EDAN, SEEG, gardien) et les garanties d'agences.</p>
           </div>
         </div>
-      </section>
 
-      <!-- DÉPLIANT 3: MENTIONS LÉGALES & CNPDCP GABON -->
-      <section id="section-mentions-legales" class="app-section foldable-card">
-        <button class="foldable-header" data-toggle="legal-content">
-          <div class="foldable-title">
-            <div class="foldable-icon-bg azure"><i class="ri-shield-keyhole-fill"></i></div>
-            <div>
-              <h3>Mentions Légales & Conformité CNPDCP Gabon</h3>
-              <span class="foldable-subtitle">Protection des données personnelles (Loi n°001/2011 du Gabon)</span>
-            </div>
-          </div>
-          <i class="ri-add-line foldable-arrow"></i>
-        </button>
-
-        <div class="foldable-body hidden" id="legal-content">
-          <div class="legal-terms-box">
-            <h3>1. Éditeur de la Plateforme</h3>
-            <p>La plateforme **LocaGabon AI** est éditée et exploitée au Gabon. Siège social : Libreville, République Gabonaise. Contact : <code>contact@locagabon.ga</code> / WhatsApp : <code>+241 77 00 00 00</code>.</p>
-
-            <h3 class="mt-3">2. Protection des Données Personnelles (CNPDCP Gabon - Loi n°001/2011)</h3>
-            <p>Conformément à la loi n°001/2011 du 25 septembre 2011 relative à la protection des données à caractère personnel en République Gabonaise, les informations collectées lors des inscriptions, vérifications KYC (CNI, NIF/RCCM) et opérations Mobile Money font l'objet d'un traitement strictement chiffré et sécurisé.</p>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment fonctionne la génération automatique du contrat de bail par l'IA ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Lorsque vous cliquez sur réserver un logement, l'<strong>Intelligence Artificielle LocaGabon</strong> rédige instantanément votre <strong>Contrat de Bail d'Habitation Officiel</strong> avec l'ensemble des clauses légales gabonaises. Vous pouvez lire, valider et signer numériquement votre bail avant de procéder au règlement Mobile Money.</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- DÉPLIANT 4: ASSISTANT IA JURIDIQUE JURIS-IMMO GABON -->
-      <section id="section-ia-juridique" class="app-section foldable-card">
-        <button class="foldable-header" data-toggle="ia-content">
-          <div class="foldable-title">
-            <div class="foldable-icon-bg purple"><i class="ri-robot-2-fill"></i></div>
-            <div>
-              <h3>Bonjour ! Je suis l'Assistant IA Juris-Immo Gabon</h3>
-              <span class="foldable-subtitle">Posez toutes vos questions juridiques ou générez un contrat type</span>
-            </div>
-          </div>
-          <i class="ri-add-line foldable-arrow"></i>
-        </button>
-
-        <div class="foldable-body hidden" id="ia-content">
-          <div class="ia-workspace mt-3">
-            <div class="ia-sidebar">
-              <div class="ia-brand">
-                <div class="ia-avatar"><i class="ri-robot-2-line"></i></div>
-                <div>
-                  <h3>Assistant IA Juris-Immo Gabon</h3>
-                  <span class="status-online"><i class="ri-checkbox-blank-circle-fill"></i> Spécialiste Loi Gabonaise</span>
-                </div>
-              </div>
-              <p class="ia-intro-text">Posez n'importe quelle question sur la réglementation des baux d'habitation au Gabon, les droits du locataire, du bailleur ou générez un contrat type.</p>
-
-              <div class="preset-questions">
-                <h4><i class="ri-questionnaire-line"></i> Questions fréquentes :</h4>
-                <button class="btn-preset-ia" data-prompt="Combien de mois de caution un bailleur peut-il exiger au Gabon selon la loi ?">
-                  <i class="ri-scales-line"></i> Plafond légal de la caution au Gabon ?
-                </button>
-                <button class="btn-preset-ia" data-prompt="Qui doit payer les réparations de plomberie et d'étanchéité entre le bailleur et le locataire ?">
-                  <i class="ri-tools-line"></i> Réparation : Locataire ou Bailleur ?
-                </button>
-                <button class="btn-preset-ia" data-prompt="Quel est le préavis légal pour résilier un contrat de bail d'habitation au Gabon ?">
-                  <i class="ri-time-line"></i> Préavis légal de résiliation
-                </button>
-              </div>
-            </div>
-
-            <div class="ia-chat-container">
-              <div class="chat-messages" id="chatMessages">
-                <div class="message msg-ai">
-                  <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
-                  <div class="msg-content">
-                    <p><strong>Bonjour ! Je suis l'Assistant IA LocaGabon.</strong></p>
-                    <p>Je connais parfaitement la réglementation gabonaise sur les baux d'habitation et la vente immobilière. Comment puis-je vous aider aujourd'hui ?</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="chat-input-area">
-                <textarea id="chatInput" placeholder="Posez votre question juridique ou décrivez votre litige locatif..." rows="2"></textarea>
-                <button id="btnSendChatMessage" class="btn-send-chat"><i class="ri-send-plane-2-fill"></i> Envoyer</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- SECTION FORMULES D'ABONNEMENT SÉPARÉES PAR BLOCS -->
+    <!-- SECTION 4: FORMULES D'ABONNEMENT SÉPARÉES PAR BLOCS -->
     <section id="section-tarifs" class="app-section">
       <div class="section-header center">
         <h2><i class="ri-vip-crown-fill" style="color: var(--accent-gold);"></i> Tarifs & Formules d'Abonnement</h2>
@@ -451,6 +347,71 @@
         </div>
       </div>
 
+    </section>
+
+    <!-- SECTION 5: MENTIONS LÉGALES & CONFORMITÉ CNPDCP GABON -->
+    <section id="section-mentions-legales" class="app-section">
+      <div class="section-header center">
+        <h2><i class="ri-shield-keyhole-fill" style="color: var(--accent-azure);"></i> Mentions Légales & Conformité CNPDCP Gabon</h2>
+        <p>Informations réglementaires et protection des données personnelles (Loi n°001/2011 du Gabon).</p>
+      </div>
+
+      <div class="legal-terms-box">
+        <h3>1. Éditeur de la Plateforme</h3>
+        <p>La plateforme **LocaGabon AI** est éditée et exploitée au Gabon. Siège social : Libreville, République Gabonaise. Contact : <code>contact@locagabon.ga</code> / WhatsApp : <code>+241 77 00 00 00</code>.</p>
+
+        <h3 class="mt-3">2. Protection des Données Personnelles (CNPDCP Gabon - Loi n°001/2011)</h3>
+        <p>Conformément à la loi n°001/2011 du 25 septembre 2011 relative à la protection des données à caractère personnel en République Gabonaise, les informations collectées lors des inscriptions, vérifications KYC (CNI, NIF/RCCM) et opérations Mobile Money font l'objet d'un traitement strictement chiffré et sécurisé.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 6: ASSISTANT IA JURIDIQUE CHAT -->
+    <section id="section-ia-juridique" class="app-section">
+      <div class="ia-workspace">
+        <div class="ia-sidebar">
+          <div class="ia-brand">
+            <div class="ia-avatar"><i class="ri-robot-2-line"></i></div>
+            <div>
+              <h3>Assistant IA Juris-Immo Gabon</h3>
+              <span class="status-online"><i class="ri-checkbox-blank-circle-fill"></i> Spécialiste Loi Gabonaise</span>
+            </div>
+          </div>
+          <p class="ia-intro-text">Posez n'importe quelle question sur la réglementation des baux d'habitation au Gabon, les droits du locataire, du bailleur ou générez un contrat type.</p>
+
+          <div class="preset-questions">
+            <h4><i class="ri-questionnaire-line"></i> Questions fréquentes :</h4>
+            <button class="btn-preset-ia" data-prompt="Combien de mois de caution un bailleur peut-il exiger au Gabon selon la loi ?">
+              <i class="ri-scales-line"></i> Plafond légal de la caution au Gabon ?
+            </button>
+            <button class="btn-preset-ia" data-prompt="Qui doit payer les réparations de plomberie et d'étanchéité entre le bailleur et le locataire ?">
+              <i class="ri-tools-line"></i> Réparation : Locataire ou Bailleur ?
+            </button>
+            <button class="btn-preset-ia" data-prompt="Quel est le préavis légal pour résilier un contrat de bail d'habitation au Gabon ?">
+              <i class="ri-time-line"></i> Préavis légal de résiliation
+            </button>
+            <button class="btn-preset-ia" data-prompt="Génère-moi les clauses essentielles d'un contrat de bail conforme au Gabon.">
+              <i class="ri-file-text-line"></i> Modèle de contrat de bail IA
+            </button>
+          </div>
+        </div>
+
+        <div class="ia-chat-container">
+          <div class="chat-messages" id="chatMessages">
+            <div class="message msg-ai">
+              <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
+              <div class="msg-content">
+                <p><strong>Bonjour ! Je suis l'Assistant IA LocaGabon.</strong></p>
+                <p>Je connais parfaitement la réglementation gabonaise sur les baux d'habitation et la vente immobilière. Comment puis-je vous aider aujourd'hui ?</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <textarea id="chatInput" placeholder="Posez votre question juridique ou décrivez votre litige locatif..." rows="2"></textarea>
+            <button id="btnSendChatMessage" class="btn-send-chat"><i class="ri-send-plane-2-fill"></i> Envoyer</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SECTION ESPACE MEMBRE LOCATAIRE ET BAILLEUR + GESTION DU PROFIL & SÉCURITÉ -->
@@ -881,39 +842,6 @@
       <div class="receipt-actions">
         <button class="btn-primary" onclick="window.print()"><i class="ri-printer-line"></i> Imprimer / Enregistrer en PDF</button>
       </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="app-footer">
-    <div class="footer-container">
-      <div class="footer-col">
-        <div class="logo">
-          <i class="ri-home-heart-fill"></i> LocaGabon AI
-        </div>
-        <p>Plateforme numérique de référence pour les locations et ventes immobilières (Particuliers & Agences Pro) au Gabon.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigation & Aide</h4>
-        <ul>
-          <li><a href="#" onclick="document.querySelector('.nav-btn[data-target=\'section-about\']').click(); return false;">Qui sommes-nous ?</a></li>
-          <li><a href="#" onclick="document.querySelector('.nav-btn[data-target=\'section-faq\']').click(); return false;">Foire aux Questions (FAQ)</a></li>
-          <li><a href="#" onclick="document.querySelector('.nav-btn[data-target=\'section-tarifs\']').click(); return false;">Tarifs & Abonnements</a></li>
-          <li><a href="#" onclick="document.querySelector('.nav-btn[data-target=\'section-mentions-legales\']').click(); return false;">Mentions Légales (CNPDCP)</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Paiements Digitaux</h4>
-        <ul>
-          <li>Airtel Money Gabon (*150#)</li>
-          <li>Moov Money (*555#)</li>
-          <li>Cartes Visa / Mastercard</li>
-          <li>Virements Bancaires</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 LocaGabon - Plateforme Immobilière pour Particuliers & Agences Pro (Conforme CNPDCP Gabon Loi n°001/2011).</p>
     </div>
   </footer>
 
