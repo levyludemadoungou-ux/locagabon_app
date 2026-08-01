@@ -1,8 +1,10 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC VRAIES PHOTOS DU GABON
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC VRAIES PHOTOS GABONAISES
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
+
+const FALLBACK_GABON_IMG = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80";
 
 const INITIAL_PROPERTIES = [
   {
@@ -19,11 +21,11 @@ const INITIAL_PROPERTIES = [
     gardien: true,
     clim: true,
     titreFoncier: true,
-    image: "images/gabon_duplex_libreville.jpg",
+    image: "./images/gabon_duplex_libreville.jpg",
     gallery: [
-      "images/gabon_duplex_libreville.jpg",
-      "images/gabon_villa_louer_akanda.jpg",
-      "images/gabon_residence_cloturee.jpg"
+      "./images/gabon_duplex_libreville.jpg",
+      "./images/gabon_villa_louer_akanda.jpg",
+      "./images/gabon_residence_cloturee.jpg"
     ],
     description: "Superbe villa duplex R+1 située dans une concession calme à Angondjé Château. 3 grandes chambres climatisées à l'étage avec balcons, vaste séjour staffé au rez-de-chaussée, jardin engazonné, surpresseur d'eau SEEG et compteur EDAN individuel.",
     verified: true,
@@ -43,10 +45,10 @@ const INITIAL_PROPERTIES = [
     gardien: true,
     clim: true,
     titreFoncier: false,
-    image: "images/gabon_residence_cloturee.jpg",
+    image: "./images/gabon_residence_cloturee.jpg",
     gallery: [
-      "images/gabon_residence_cloturee.jpg",
-      "images/gabon_duplex_libreville.jpg"
+      "./images/gabon_residence_cloturee.jpg",
+      "./images/gabon_duplex_libreville.jpg"
     ],
     description: "Belle résidence moderne entièrement clôturée avec portail coulissant et abri de voiture couvert au Quartier Louis à Libreville. Proche bord de mer et commerces. Eau SEEG assurée avec réserve de 2000L.",
     verified: true,
@@ -66,10 +68,10 @@ const INITIAL_PROPERTIES = [
     gardien: true,
     clim: true,
     titreFoncier: true,
-    image: "images/gabon_villa_louer_akanda.jpg",
+    image: "./images/gabon_villa_louer_akanda.jpg",
     gallery: [
-      "images/gabon_villa_louer_akanda.jpg",
-      "images/gabon_residence_cloturee.jpg"
+      "./images/gabon_villa_louer_akanda.jpg",
+      "./images/gabon_residence_cloturee.jpg"
     ],
     description: "Luxueuse villa couleur ocre à Batterie IV avec grande cour entièrement pavée. 4 chambres indépendantes, vaste terrasse couverte avec colonnes, dépendance gardien et garage. Titre Foncier définitif vérifié au Cadastre.",
     verified: true,
@@ -89,10 +91,10 @@ const INITIAL_PROPERTIES = [
     gardien: false,
     clim: true,
     titreFoncier: true,
-    image: "images/gabon_maison_bassam_angondje.jpg",
+    image: "./images/gabon_maison_bassam_angondje.jpg",
     gallery: [
-      "images/gabon_maison_bassam_angondje.jpg",
-      "images/gabon_cite_sni_avorbam.jpg"
+      "./images/gabon_maison_bassam_angondje.jpg",
+      "./images/gabon_cite_sni_avorbam.jpg"
     ],
     description: "Charmante maison basse individuelle de type SNI construite sur parcelle clôturée à Avorbam. 3 chambres, salon, cuisine équipée, terrasse et cour bétonnée. Titre Foncier disponible immédiatement.",
     verified: true,
@@ -112,10 +114,10 @@ const INITIAL_PROPERTIES = [
     gardien: false,
     clim: true,
     titreFoncier: false,
-    image: "images/gabon_cite_sni_avorbam.jpg",
+    image: "./images/gabon_cite_sni_avorbam.jpg",
     gallery: [
-      "images/gabon_cite_sni_avorbam.jpg",
-      "images/gabon_maison_bassam_angondje.jpg"
+      "./images/gabon_cite_sni_avorbam.jpg",
+      "./images/gabon_maison_bassam_angondje.jpg"
     ],
     description: "Logement dans une cité résidentielle calme à Owendo. Peinture neuve, 2 chambres, terrasse d'entrée couverte, espace vert et accès goudronné. Eau SEEG et électricité EDAN individuel.",
     verified: true,
@@ -135,10 +137,10 @@ const INITIAL_PROPERTIES = [
     gardien: true,
     clim: true,
     titreFoncier: false,
-    image: "images/gabon_villa_louer_akanda.jpg",
+    image: "./images/gabon_villa_louer_akanda.jpg",
     gallery: [
-      "images/gabon_villa_louer_akanda.jpg",
-      "images/gabon_duplex_libreville.jpg"
+      "./images/gabon_villa_louer_akanda.jpg",
+      "./images/gabon_duplex_libreville.jpg"
     ],
     description: "Villa climatisée et meublée avec haut niveau de sécurité à Port-Gentil Ntchoréré. Séjour avec baie vitrée, cuisine moderne, groupe électrogène et cuve à eau 3000L.",
     verified: true,
@@ -496,7 +498,7 @@ function renderProperties(props) {
     return `
       <div class="property-card" data-id="${p.id}">
         <div class="prop-img-wrapper btn-open-detail" data-id="${p.id}">
-          <img src="${p.image}" alt="${p.title}" loading="lazy">
+          <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.onerror=null; this.src='${FALLBACK_GABON_IMG}';">
           
           ${isAgency ? 
             `<span class="badge-seller-pro"><i class="ri-building-2-fill"></i> Agence Pro</span>` : 
@@ -580,13 +582,13 @@ function openPropertyDetailModal(p) {
 
     <div class="prop-gallery-container">
       <div class="prop-main-photo">
-        <img id="mainGalleryPhoto" src="${gallery[0]}" alt="${p.title}">
+        <img id="mainGalleryPhoto" src="${gallery[0]}" alt="${p.title}" onerror="this.onerror=null; this.src='${FALLBACK_GABON_IMG}';">
       </div>
       ${gallery.length > 1 ? `
         <div class="prop-thumbs-row">
           ${gallery.map((imgUrl, idx) => `
             <div class="prop-thumb ${idx === 0 ? 'active' : ''}" onclick="changeMainGalleryPhoto('${imgUrl}', this)">
-              <img src="${imgUrl}" alt="Photo ${idx+1}">
+              <img src="${imgUrl}" alt="Photo ${idx+1}" onerror="this.onerror=null; this.src='${FALLBACK_GABON_IMG}';">
             </div>
           `).join('')}
         </div>
@@ -733,7 +735,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÉGALE (PLAFOND GABON)</h4>
       <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictly conforme au plafond légal gabonais.</p>
+      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond légal gabonais.</p>
     </div>
 
     <div class="lease-section">
