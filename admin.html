@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocaGabon - Tableau de Bord Super-Admin par Blocs Fonctionnels</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Protection Overlay Lock Screen */
+    #adminLockOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #0b132b;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .lock-card {
+      background: #1c2541;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+    }
+    .lock-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 1.2rem;
+    }
+
+    /* Blocks Layout styling */
+    .theme-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+    }
+    .theme-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.8rem;
+    }
+    .theme-block-title {
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .theme-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+    }
+    .theme-badge.gold { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .theme-badge.emerald { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .theme-badge.azure { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .theme-badge.purple { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3); }
+  </style>
+</head>
+<body style="background-color: var(--bg-primary);">
+
+  <!-- ÉCRAN DE VERROUILLAGE ADMINISTRATEUR -->
+  <div id="adminLockOverlay">
+    <div class="lock-card">
+      <div class="lock-icon"><i class="ri-lock-2-fill"></i></div>
+      <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Espace Administrateur Sécurisé</h2>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">
+        Cet espace est réservé exclusivement au fondateur de LocaGabon. Saisissez votre code secret d'accès :
+      </p>
+
+      <form id="formAdminMasterLock">
+        <div class="form-group mb-3">
+          <input type="password" id="adminMasterPassword" placeholder="Code secret Master Admin..." style="width: 100%; padding: 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff; text-align: center; font-size: 1.2rem; letter-spacing: 4px;" required>
+        </div>
+        <button type="submit" class="btn-pricing-gold" style="width: 100%; padding: 0.85rem; font-size: 1rem; font-weight: 800;">
+          <i class="ri-key-fill"></i> Déverrouiller le Tableau de Bord
+        </button>
+      </form>
+      
+      <p style="margin-top: 1.2rem; font-size: 0.78rem; color: var(--text-muted);">
+        Code secret par défaut : <strong>241077</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- Header Admin -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo">
+        <div class="logo-icon" style="background: linear-gradient(135deg, var(--accent-gold), #ea580c);">
+          <i class="ri-shield-user-fill"></i>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">LocaGabon <span class="badge-ia" style="background: var(--accent-azure);">SUPER-ADMIN</span></span>
+          <span class="brand-sub">Tableau de Bord Fonctionnel & Thématique</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span class="admin-location-badge"><i class="ri-bank-line"></i> Compte Marchand Gabon (FCFA)</span>
+        <a href="index.html" class="btn-secondary" style="padding: 0.5rem 1rem; border-radius: var(--radius-full);">
+          <i class="ri-arrow-left-line"></i> App Publique
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Dashboard Structuré par Blocs Fonctionnels -->
+  <main class="main-content" style="padding: 2rem 1.5rem;">
+
+    <div class="section-header">
+      <div>
+        <h2><i class="ri-dashboard-line"></i> Centre de Contrôle Général LocaGabon</h2>
+        <p>Gestion par blocs thématiques : Finances, Offres Immobilières, Utilisateurs, Mobile Money, Moteur IA & Réglementation.</p>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         BLOC 1 : FINANCES & MÉTRIQUES CLÉS (KPIS)
+         ========================================================================== -->
+    <div class="theme-block">
+      <div class="theme-block-header">
+        <h3 class="theme-block-title"><i class="ri-wallet-3-fill" style="color: var(--accent-emerald);"></i> BLOC 1 : Vue d'Ensemble Financière</h3>
+        <span class="theme-badge emerald">Finances & Trésorerie</span>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card primary">
+          <div class="admin-stat-head">
+            <span>Volume Global Bruts</span>
+            <i class="ri-wallet-3-line"></i>
+          </div>
+          <h2 id="adminTotalVolume">181 030 000 FCFA</h2>
+          <span class="sub-text">Total des loyers & ventes traités</span>
+        </div>
+
+        <div class="admin-stat-card success green-glow">
+          <div class="admin-stat-head">
+            <span>Commissions Nettes (3%)</span>
+            <i class="ri-hand-coin-line"></i>
+          </div>
+          <h2 id="adminCommissionFCFA" style="color: var(--accent-emerald);">5 430 900 FCFA</h2>
+          <span class="sub-text" id="adminCommissionEUR" style="color: var(--accent-emerald); font-weight: 700;">Revenus LocaGabon disponibles</span>
+        </div>
+
+        <div class="admin-stat-card bank-gabon">
+          <div class="admin-stat-head">
+            <span>Compte Bancaire Gabon (BGFI/UGB)</span>
+            <div class="gabon-flag-badge"><i class="ri-bank-card-fill"></i> GA</div>
+          </div>
+          <h2 id="adminGabonBankBalance" style="color: var(--accent-gold);">5 430 900 FCFA</h2>
+          <span class="sub-text">Solde disponible sur compte national</span>
+        </div>
+
+        <div class="admin-stat-card azure">
+          <div class="admin-stat-head">
+            <span>Taux de Succès Mobile Money</span>
+            <i class="ri-checkbox-circle-fill" style="color: var(--accent-emerald);"></i>
+          </div>
+          <h2>98.4 %</h2>
+          <span class="sub-text">880 transactions traitées sans incident</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         BLOC 2 : GESTION DES ANNONCES & TRANSACTIONS (LOCATIONS & VENTES)
+         ========================================================================== -->
+    <div class="theme-block">
+      <div class="theme-block-header">
+        <h3 class="theme-block-title"><i class="ri-building-4-fill" style="color: var(--accent-azure);"></i> BLOC 2 : Parc Immobilier (Locations & Ventes)</h3>
+        <span class="theme-badge azure">Modération & Offres</span>
+      </div>
+
+      <div class="dash-stats">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="ri-home-line"></i></div>
+          <div>
+            <span class="stat-val">148</span>
+            <span class="stat-lbl">Locations Mensuelles Actives</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon gold"><i class="ri-landscape-line"></i></div>
+          <div>
+            <span class="stat-val">32</span>
+            <span class="stat-lbl">Ventes de Terrains & Villas</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="ri-shield-check-line"></i></div>
+          <div>
+            <span class="stat-val">100 %</span>
+            <span class="stat-lbl">Titres Fonciers Vérifiés</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-tables mt-3">
+        <h3><i class="ri-list-check"></i> Dernières Transactions & Encaissements</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID Tx</th>
+                <th>Bien Concerné</th>
+                <th>Montant Brut</th>
+                <th>Commission (3%)</th>
+                <th>Mode de Règlement</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody id="adminTransactionsTable">
+              <!-- Dynamique JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         BLOC 3 : GESTION DES UTILISATEURS (PARTICULIERS & AGENCES PRO)
+         ========================================================================== -->
+    <div class="theme-block">
+      <div class="theme-block-header">
+        <h3 class="theme-block-title"><i class="ri-user-star-fill" style="color: var(--accent-gold);"></i> BLOC 3 : Utilisateurs & Agences Immobilières Pro</h3>
+        <span class="theme-badge gold">Comptes & Certifications</span>
+      </div>
+
+      <div class="charts-grid-container">
+        <div class="chart-card half">
+          <div class="chart-header">
+            <h3><i class="ri-user-follow-line"></i> Évolution des Inscriptions</h3>
+            <span class="chart-subtitle">Locataires, Bailleurs Particuliers & Agences Pro</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="growthChart"></canvas>
+          </div>
+        </div>
+
+        <div class="averages-summary-card half">
+          <h3><i class="ri-shield-user-fill" style="color: var(--accent-gold);"></i> Registre des Membres</h3>
+          <ul class="avg-list">
+            <li>
+              <span>Locataires / Acheteurs Inscrits :</span>
+              <strong style="color: var(--accent-emerald);">1 250 membres</strong>
+            </li>
+            <li>
+              <span>Bailleurs Particuliers Privés :</span>
+              <strong>98 propriétaires</strong>
+            </li>
+            <li>
+              <span>Agences Immobilières Pro (NIF/RCCM) :</span>
+              <strong style="color: var(--accent-azure);">50 agences certifiées</strong>
+            </li>
+            <li>
+              <span>Abonnés Pass Premium :</span>
+              <strong>310 utilisateurs</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         BLOC 4 : PASSERELLE MOBILE MONEY & RETRAITS BANCAIRES GABON
+         ========================================================================== -->
+    <div class="theme-block">
+      <div class="theme-block-header">
+        <h3 class="theme-block-title"><i class="ri-bank-card-fill" style="color: #ec4899;"></i> BLOC 4 : Passerelle Financière & Virements Gabon</h3>
+        <span class="theme-badge purple">Mobile Money & Banques</span>
+      </div>
+
+      <div class="charts-grid-container">
+        <div class="chart-card half">
+          <div class="chart-header">
+            <h3><i class="ri-pie-chart-2-line"></i> Ventilation des Canaux de Paiement</h3>
+            <span class="chart-subtitle">Airtel Money (*150#) vs Moov Money (*555#) vs Virements</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="financeChart"></canvas>
+          </div>
+        </div>
+
+        <div class="revolut-payout-card half" style="border-color: rgba(245, 158, 11, 0.4);">
+          <div class="revolut-header">
+            <div class="revolut-icon-bg" style="background: var(--accent-gold);"><i class="ri-bank-line"></i></div>
+            <div>
+              <h3>Virement vers votre Compte Bancaire au Gabon</h3>
+              <p style="font-size: 0.82rem; color: var(--text-secondary);">Transférez vos gains en FCFA depuis le Compte Marchand vers votre banque (BGFI, UGB, Ecobank, Orabank).</p>
+            </div>
+          </div>
+
+          <div class="revolut-form-grid">
+            <div class="form-group">
+              <label>Banque Gabon de destination :</label>
+              <select id="payoutGabonBank" style="background: var(--bg-primary); border: 1px solid var(--border-color); color: #fff; padding: 0.6rem; border-radius: var(--radius-sm);">
+                <option value="BGFI Bank Gabon">BGFI Bank Gabon</option>
+                <option value="Union Gabonaise de Banque (UGB)">Union Gabonaise de Banque (UGB)</option>
+                <option value="Ecobank Gabon">Ecobank Gabon</option>
+                <option value="Orabank Gabon">Orabank Gabon</option>
+                <option value="Compte Marchand Airtel Money">Compte Marchand Airtel Money Enterprise</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Montant des commissions (FCFA) :</label>
+              <input type="number" id="payoutAmountFCFA" value="5430900">
+            </div>
+
+            <div class="form-group full">
+              <label>Numéro de Compte / RIB Gabon (24 chiffres) :</label>
+              <input type="text" id="payoutGabonRIB" value="GA89 1000 1000 0012 3456 7890 123" placeholder="GA89 XXXX XXXX XXXX XXXX XXXX XXX">
+            </div>
+          </div>
+
+          <button class="btn-pricing-gold" id="btnTriggerGabonBankTransfer" style="width: 100%; padding: 0.9rem; font-size: 1rem;">
+            <i class="ri-send-plane-fill"></i> Effectuer le Virement vers la Banque Gabon
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
+         BLOC 5 : MOTEUR IA JURIS-IMMO & CONFORMITÉ LÉGALE CNPDCP GABON
+         ========================================================================== -->
+    <div class="theme-block">
+      <div class="theme-block-header">
+        <h3 class="theme-block-title"><i class="ri-robot-2-fill" style="color: var(--accent-emerald);"></i> BLOC 5 : Moteur IA Juridique & Réglementation CNPDCP</h3>
+        <span class="theme-badge emerald">Intelligence Artificielle & Droit</span>
+      </div>
+
+      <div class="averages-summary-card">
+        <h3><i class="ri-scales-3-line"></i> Audit & Conformité Gabonaise (Loi n°001/2011)</h3>
+        <ul class="avg-list">
+          <li>
+            <span>Requêtes IA Juridiques traitées ce mois :</span>
+            <strong style="color: var(--accent-emerald);">1 420 réponses délivrées</strong>
+          </li>
+          <li>
+            <span>Quittances Numériques Certifiées générées :</span>
+            <strong>842 quittances imprimables</strong>
+          </li>
+          <li>
+            <span>Plafond de caution respecté (max 3 mois) :</span>
+            <strong style="color: var(--accent-emerald);">100 % de conformité</strong>
+          </li>
+          <li>
+            <span>Statut Registre Données Personnelles CNPDCP :</span>
+            <strong style="color: var(--accent-azure);">Dossier Chiffré & Audité</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    // Protection par code secret Master Admin
+    const MASTER_SECRET = "241077";
+    const lockOverlay = document.getElementById("adminLockOverlay");
+    const lockForm = document.getElementById("formAdminMasterLock");
+
+    if (sessionStorage.getItem("locagabon_admin_unlocked") === "true") {
+      lockOverlay.style.display = "none";
+    }
+
+    lockForm?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const pwd = document.getElementById("adminMasterPassword").value.trim();
+      if (pwd === MASTER_SECRET) {
+        sessionStorage.setItem("locagabon_admin_unlocked", "true");
+        lockOverlay.style.display = "none";
+        if (typeof initDashboardCharts === 'function') initDashboardCharts();
+      } else {
+        alert("Code secret d'administration incorrect.");
+      }
+    });
+  </script>
+</body>
+</html>

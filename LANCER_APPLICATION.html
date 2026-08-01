@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocaGabon AI - Portail de Lancement</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0b132b, #1c2541);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    .card {
+      background: #1c2541;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    h1 {
+      color: #10b981;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.05rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+    .btn-app {
+      background: #10b981;
+      color: #0b132b;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .btn-admin {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0b132b;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    }
+    .footer-note {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>LocaGabon AI</h1>
+    <p>Plateforme Numérique Immobilière du Gabon (Locations & Ventes - Particuliers, Agences & Super-Admin)</p>
+
+    <div class="btn-group">
+      <a href="index.html" class="btn btn-app">
+        🏠 Ouvrir l'Application Publique (Locataires / Bailleurs / Agences)
+      </a>
+
+      <a href="admin.html" class="btn btn-admin">
+        🛡️ Accéder au Tableau de Bord Super-Admin (Compte Marchand Gabon)
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Dossier du projet : <code>c:\Users\levyl\Desktop\locagabon_app</code>
+    </div>
+  </div>
+</body>
+</html>
