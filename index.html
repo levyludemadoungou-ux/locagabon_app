@@ -42,14 +42,15 @@
           <i class="ri-robot-2-fill"></i> <span>Assistant IA</span>
         </button>
         <button class="nav-btn" data-target="section-tarifs">
-          <i class="ri-vip-crown-line"></i> <span>Tarifs</span>
+          <i class="ri-vip-crown-line"></i> <span>Tarifs & Abonnements</span>
         </button>
         <button class="nav-btn" data-target="section-mentions-legales">
           <i class="ri-shield-check-line"></i> <span>Mentions Légales</span>
         </button>
       </nav>
 
-      <div class="header-actions">
+      <div class="header-actions" id="headerAuthZone">
+        <!-- État Non Connecté (Par défaut) -->
         <button class="btn-auth-outline" id="btnOpenAuthModal">
           <i class="ri-user-3-line"></i> <span>Connexion / Inscription</span>
         </button>
@@ -67,7 +68,7 @@
         <i class="ri-shield-check-fill"></i> Contrats de Bail IA & Paiements Digitaux Certifiés au Gabon
       </div>
       <h1>Louez ou Achetez au Gabon en toute transparence avec l'IA</h1>
-      <p>Trouvez des <strong>locations</strong> et <strong>ventes immobilières</strong> vérifiées (terrains, villas, appartements) à Libreville, Akanda, Port-Gentil. Direct Particulier ou via Agence Immobilière Pro.</p>
+      <p>Trouvez des <strong>locations</strong> et <strong>ventes immobilières</strong> vérifiées (terrains avec Titre Foncier, villas, appartements) à Libreville, Akanda, Port-Gentil. Direct Particulier ou via Agence Immobilière Pro.</p>
 
       <!-- Smart AI Search Box -->
       <div class="ai-search-card">
@@ -197,6 +198,16 @@
       <div class="faq-accordion-container">
         <div class="faq-item">
           <button class="faq-question">
+            <span>Comment créer un compte et se connecter ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Vous pouvez vous connecter avec votre <strong>adresse email</strong>, votre <strong>nom d'utilisateur</strong> ou votre <strong>numéro de téléphone gabonais (+241)</strong>. Pour l'inscription, vous avez le choix entre le formulaire direct ou la connexion instantanée <strong>"Continuer avec Google / Gmail"</strong>.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
             <span>Comment consulter une annonce et ses photos en détail ?</span>
             <i class="ri-add-line faq-icon"></i>
           </button>
@@ -214,89 +225,134 @@
             <p>Lorsque vous cliquez sur réserver un logement, l'<strong>Intelligence Artificielle LocaGabon</strong> rédige instantanément votre <strong>Contrat de Bail d'Habitation Officiel</strong> avec l'ensemble des clauses légales gabonaises (montant du loyer, caution plafonnée à 2-3 mois, préavis, compteurs EDAN/SEEG). Vous pouvez lire, valider et signer numériquement votre bail avant de procéder au règlement Mobile Money.</p>
           </div>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>Comment payer mon loyer via Airtel Money ou Moov Money ?</span>
-            <i class="ri-add-line faq-icon"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Il vous suffit d'accéder à votre <strong>Espace Locataire</strong> ou de cliquer sur <em>"Payer le Loyer"</em>. Vous choisissez <strong>Airtel Money (*150#)</strong> ou <strong>Moov Money (*555#)</strong>, renseignez votre numéro de téléphone gabonais, puis vous validez la notification Push USSD reçue sur votre mobile. Une quittance numérique officielle est immédiatement délivrée.</p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- SECTION 4: FORMULES D'ABONNEMENT PRO & ESSENTIEL -->
+    <!-- SECTION 4: FORMULES D'ABONNEMENT SÉPARÉES PAR BLOCS (LOCATAIRES VS BAILLEURS & AGENCES) -->
     <section id="section-tarifs" class="app-section">
       <div class="section-header center">
-        <h2><i class="ri-vip-crown-fill" style="color: var(--accent-gold);"></i> Nos Formules (Locataires, Bailleurs & Agences)</h2>
-        <p>Des abonnements sur-mesure pour les particuliers et les professionnels de l'immobilier au Gabon.</p>
+        <h2><i class="ri-vip-crown-fill" style="color: var(--accent-gold);"></i> Tarifs & Formules d'Abonnement</h2>
+        <p>Des offres adaptées et transparentes pour les Locataires, Propriétaires Privés et Agences Immobilières Pro au Gabon.</p>
       </div>
 
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="pricing-head">
-            <h3>Formule Découverte</h3>
-            <p>Pour consulter les annonces et tester l'Assistant IA.</p>
-            <div class="price-amount">0 FCFA <span>/mois</span></div>
-          </div>
-          <ul class="pricing-features">
-            <li><i class="ri-check-line"></i> Consultation des annonces vérifiées</li>
-            <li><i class="ri-check-line"></i> Assistant IA Juridique (3 questions / jour)</li>
-            <li><i class="ri-check-line"></i> Contact direct des annonceurs</li>
-            <li class="disabled"><i class="ri-close-line"></i> Contrat de bail automatique par l'IA</li>
-          </ul>
-          <button class="btn-pricing-outline btn-select-plan" data-plan="Découverte (Gratuit)">Choisir ce plan</button>
+      <!-- BLOC 1: FORMULES LOCATAIRES / ACHETEURS -->
+      <div class="subscription-block mb-4">
+        <div class="sub-block-header">
+          <h3><i class="ri-user-heart-fill" style="color: var(--accent-emerald);"></i> BLOC 1 : Offres Locataires & Acheteurs</h3>
+          <span class="sub-block-badge emerald">Pour trouver & sécuriser votre logement</span>
         </div>
 
-        <div class="pricing-card popular">
-          <div class="popular-badge">POUR LOCATAIRES</div>
-          <div class="pricing-head">
-            <h3>Pass Locataire</h3>
-            <p>Pour trouver rapidement et sécuriser votre bail.</p>
-            <div class="price-amount">2 500 FCFA <span>/mois</span></div>
+        <div class="pricing-grid">
+          <!-- Basique -->
+          <div class="pricing-card">
+            <div class="pricing-head">
+              <h3>Pass Basique Locataire</h3>
+              <p>Pour rechercher et consulter les offres.</p>
+              <div class="price-amount">0 FCFA <span>/mois</span></div>
+            </div>
+            <ul class="pricing-features">
+              <li><i class="ri-check-line"></i> Recherche d'annonces vérifiées</li>
+              <li><i class="ri-check-line"></i> Consultation des fiches détaillées & photos</li>
+              <li><i class="ri-check-line"></i> Assistant IA Juridique (3 questions/jour)</li>
+              <li class="disabled"><i class="ri-close-line"></i> Contrat de bail automatique par l'IA</li>
+            </ul>
+            <button class="btn-pricing-outline btn-select-plan" data-plan="Pass Basique Locataire (Gratuit)">Choisir cette formule</button>
           </div>
-          <ul class="pricing-features">
-            <li><i class="ri-check-line"></i> Tout le plan Découverte inclus</li>
-            <li><i class="ri-check-line"></i> <strong>Contrat de bail automatique généré par l'IA</strong></li>
-            <li><i class="ri-check-line"></i> <strong>Assistant IA Juridique Illimité 24/7</strong></li>
-            <li><i class="ri-check-line"></i> Quittances de loyer numériques certifiées</li>
-          </ul>
-          <button class="btn-pricing-accent btn-select-plan" data-plan="Pass Locataire (2 500 FCFA)">Souscrire par Airtel/Moov Money</button>
-        </div>
 
-        <div class="pricing-card">
-          <div class="pricing-head">
-            <h3>Bailleur Particulier</h3>
-            <p>Pour les propriétaires privés gérant leurs biens.</p>
-            <div class="price-amount">15 000 FCFA <span>/mois</span></div>
+          <!-- Essentiel -->
+          <div class="pricing-card popular">
+            <div class="popular-badge">RECOMMANDÉ LOCATAIRE</div>
+            <div class="pricing-head">
+              <h3>Pass Essentiel Locataire</h3>
+              <p>Pour réserver et signer votre bail numériquement.</p>
+              <div class="price-amount">2 500 FCFA <span>/mois</span></div>
+            </div>
+            <ul class="pricing-features">
+              <li><i class="ri-check-line"></i> Tout le plan Basique inclus</li>
+              <li><i class="ri-check-line"></i> <strong>Contrat de Bail IA automatique certifié</strong></li>
+              <li><i class="ri-check-line"></i> <strong>Alerte SMS/WhatsApp nouveaux biens</strong></li>
+              <li><i class="ri-check-line"></i> Quittances numériques imprimables</li>
+            </ul>
+            <button class="btn-pricing-accent btn-select-plan" data-plan="Pass Essentiel Locataire (2 500 FCFA)">Activer par Airtel/Moov Money</button>
           </div>
-          <ul class="pricing-features">
-            <li><i class="ri-check-line"></i> Publication jusqu'à 5 annonces (Location/Vente)</li>
-            <li><i class="ri-check-line"></i> Encaissement Airtel / Moov Money</li>
-            <li><i class="ri-check-line"></i> Contrats types de bail gabonais par l'IA</li>
-            <li><i class="ri-check-line"></i> Reçus et suivi des impayés</li>
-          </ul>
-          <button class="btn-pricing-outline btn-select-plan" data-plan="Bailleur Particulier (15 000 FCFA)">Activer l'offre Particulier</button>
-        </div>
 
-        <div class="pricing-card pro">
-          <div class="popular-badge" style="background: var(--accent-gold);">RÉSERVÉ PRO / AGENCE</div>
-          <div class="pricing-head">
-            <h3>Pack Agence Immobilière</h3>
-            <p>Pour les agences professionnelles & promoteurs.</p>
-            <div class="price-amount">35 000 FCFA <span>/mois</span></div>
+          <!-- Pro / Premium -->
+          <div class="pricing-card">
+            <div class="pricing-head">
+              <h3>Pass Pro Locataire Premium</h3>
+              <p>Assistance prioritaire & garantie de séquestre.</p>
+              <div class="price-amount">5 000 FCFA <span>/mois</span></div>
+            </div>
+            <ul class="pricing-features">
+              <li><i class="ri-check-line"></i> Tout le Pass Essentiel inclus</li>
+              <li><i class="ri-check-line"></i> <strong>Assistant IA Juridique Illimité 24/7</strong></li>
+              <li><i class="ri-check-line"></i> <strong>Garantie Séquestre Anti-Litige</strong></li>
+              <li><i class="ri-check-line"></i> Support client dédié WhatsApp VIP</li>
+            </ul>
+            <button class="btn-pricing-outline btn-select-plan" data-plan="Pass Pro Locataire (5 000 FCFA)">Souscrire au Pass Pro</button>
           </div>
-          <ul class="pricing-features">
-            <li><i class="ri-check-line"></i> <strong>Annonces illimitées (Locations & Ventes de terrains/villas)</strong></li>
-            <li><i class="ri-check-line"></i> <strong>Génération illimitée de contrats de bail IA certifiés</strong></li>
-            <li><i class="ri-check-line"></i> Badge "Agence Pro Vérifiée" & NIF/RCCM</li>
-            <li><i class="ri-check-line"></i> Support prioritaire dédié & rapports mensuels</li>
-          </ul>
-          <button class="btn-pricing-gold btn-select-plan" data-plan="Pack Agence Immobilière (35 000 FCFA)">Activer le Pack Agence Pro</button>
         </div>
       </div>
+
+      <!-- BLOC 2: FORMULES BAILLEURS PARTICULIERS & AGENCES IMMOBILIÈRES PRO -->
+      <div class="subscription-block">
+        <div class="sub-block-header">
+          <h3><i class="ri-building-4-fill" style="color: var(--accent-gold);"></i> BLOC 2 : Offres Bailleurs Particuliers & Agences Pro</h3>
+          <span class="sub-block-badge gold">Pour encaisser & gérer vos biens</span>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Basique Bailleur -->
+          <div class="pricing-card">
+            <div class="pricing-head">
+              <h3>Pack Basique Propriétaire</h3>
+              <p>Pour publier un premier bien en direct.</p>
+              <div class="price-amount">0 FCFA <span>/mois</span></div>
+            </div>
+            <ul class="pricing-features">
+              <li><i class="ri-check-line"></i> 1 Annonce active (Location ou Vente)</li>
+              <li><i class="ri-check-line"></i> Contact direct des candidats</li>
+              <li class="disabled"><i class="ri-close-line"></i> Encaissement Mobile Money automatique</li>
+              <li class="disabled"><i class="ri-close-line"></i> Badge Agence Pro Certifiée</li>
+            </ul>
+            <button class="btn-pricing-outline btn-select-plan" data-plan="Pack Basique Propriétaire (Gratuit)">Activer mon offre</button>
+          </div>
+
+          <!-- Essentiel Bailleur Particulier -->
+          <div class="pricing-card">
+            <div class="pricing-head">
+              <h3>Pack Essentiel Bailleur</h3>
+              <p>Pour les propriétaires privés (jusqu'à 5 biens).</p>
+              <div class="price-amount">15 000 FCFA <span>/mois</span></div>
+            </div>
+            <ul class="pricing-features">
+              <li><i class="ri-check-line"></i> Jusqu'à 5 Annonces (Locations & Ventes)</li>
+              <li><i class="ri-check-line"></i> <strong>Encaissement Airtel Money / Moov Money</strong></li>
+              <li><i class="ri-check-line"></i> Contrats de bail IA conformes au Droit Gabonais</li>
+              <li><i class="ri-check-line"></i> Suivi des loyers & quittances certifiées</li>
+            </ul>
+            <button class="btn-pricing-accent btn-select-plan" data-plan="Pack Essentiel Bailleur (15 000 FCFA)">Activer par Mobile Money</button>
+          </div>
+
+          <!-- Pro Agence Immobilière -->
+          <div class="pricing-card pro">
+            <div class="popular-badge" style="background: var(--accent-gold);">RÉSERVÉ AGENCE PRO</div>
+            <div class="pricing-head">
+              <h3>Pack Pro Agence Immobilière</h3>
+              <p>Pour les agences professionnelles & promoteurs.</p>
+              <div class="price-amount">35 000 FCFA <span>/mois</span></div>
+            </div>
+            <ul class="pricing-features">
+              <li><i class="ri-check-line"></i> <strong>Annonces illimitées (Locations & Ventes Terrains/Villas)</strong></li>
+              <li><i class="ri-check-line"></i> <strong>Badge "Agence Pro Certifiée" (NIF / RCCM)</strong></li>
+              <li><i class="ri-check-line"></i> Multi-comptes pour agents immobiliers</li>
+              <li><i class="ri-check-line"></i> Reversement automatique sur Banque Gabon (BGFI/UGB)</li>
+            </ul>
+            <button class="btn-pricing-gold btn-select-plan" data-plan="Pack Pro Agence (35 000 FCFA)">Activer le Pack Agence Pro</button>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- SECTION 5: MENTIONS LÉGALES & CONFORMITÉ CNPDCP GABON -->
@@ -311,7 +367,7 @@
         <p>La plateforme **LocaGabon AI** est éditée et exploitée au Gabon. Siège social : Libreville, République Gabonaise. Contact : <code>contact@locagabon.ga</code> / WhatsApp : <code>+241 77 00 00 00</code>.</p>
 
         <h3 class="mt-3">2. Protection des Données Personnelles (CNPDCP Gabon - Loi n°001/2011)</h3>
-        <p>Conformément à la loi n°001/2011 du 25 septembre 2011 relative à la protection des données à caractère personnel en République Gabonaise, les informations collectées lors des inscriptions, vérifications KYC (CNI, NIF/RCCM) et opérations Mobile Money font l'objet d'un traitement strictement chiffré et sécurisé.</p>
+        <p>Conformément à la loi n°001/2011 du 25 septembre 2011 relative à la protection des données à caractère personnel en République Gabonaise, les informations collectées lors des inscriptions, vérifications KYC (CNI, NIF/RCCM) et opérations Mobile Money font l'objet d'un traitement strictly chiffré et sécurisé.</p>
       </div>
     </section>
 
@@ -364,124 +420,9 @@
       </div>
     </section>
 
-    <!-- SECTION 7: ESPACE BAILLEUR & AGENCE PRO -->
-    <section id="section-bailleur" class="app-section">
-      <div class="section-header">
-        <div>
-          <h2><i class="ri-dashboard-3-line"></i> Espace Propriétaires Particuliers & Agences Pro</h2>
-          <p>Gérez vos logements et ventes, suivez vos encaissements Airtel/Moov Money et validez les mandats.</p>
-        </div>
-        <button class="btn-primary" id="openAddModalBtn"><i class="ri-add-line"></i> Publier un bien (Location/Vente)</button>
-      </div>
-
-      <div class="dash-stats">
-        <div class="stat-card">
-          <div class="stat-icon green"><i class="ri-home-4-line"></i></div>
-          <div>
-            <span class="stat-val">5</span>
-            <span class="stat-lbl">Biens (3 Locations / 2 Ventes)</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon gold"><i class="ri-wallet-3-line"></i></div>
-          <div>
-            <span class="stat-val">1 250 000 FCFA</span>
-            <span class="stat-lbl">Encaissements ce mois</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon blue"><i class="ri-shield-user-line"></i></div>
-          <div>
-            <span class="stat-val">Agence Pro</span>
-            <span class="stat-lbl">NIF/RCCM Certifié</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="dash-tables">
-        <h3><i class="ri-list-check"></i> Vos Annonces & Suivi de Gestion</h3>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Bien</th>
-                <th>Type d'opération</th>
-                <th>Annonceur</th>
-                <th>Prix</th>
-                <th>Statut</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="bailleurTableBody">
-              <!-- Dynamique via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 8: ESPACE LOCATAIRE / ACHETEUR -->
-    <section id="section-locataire" class="app-section">
-      <div class="section-header">
-        <div>
-          <h2><i class="ri-user-3-line"></i> Mon Espace Locataire / Acheteur</h2>
-          <p>Payez votre loyer par Mobile Money, téléchargez vos quittances et suivez vos offres d'achat.</p>
-        </div>
-      </div>
-
-      <div class="locataire-container">
-        <div class="loc-card-active">
-          <div class="loc-header">
-            <span class="badge-status-ok"><i class="ri-checkbox-circle-fill"></i> Bail Actif</span>
-            <span class="loc-id">Contrat #GAB-2026-884</span>
-          </div>
-          <h3>Appartement 3 Pièces - Akanda (Angondjé Château)</h3>
-          <p><i class="ri-map-pin-line"></i> Rue des Écoles, Akanda | Agence : <strong>Immo Gabon Pro SA</strong></p>
-
-          <div class="loc-details-grid">
-            <div class="detail-box">
-              <span class="label">Loyer Mensuel</span>
-              <span class="val highlight">250 000 FCFA</span>
-            </div>
-            <div class="detail-box">
-              <span class="label">Échéance</span>
-              <span class="val">Le 5 de chaque mois</span>
-            </div>
-            <div class="detail-box">
-              <span class="label">Compteur Électricité</span>
-              <span class="val">EDAN #0429188291</span>
-            </div>
-            <div class="detail-box">
-              <span class="label">Statut du mois</span>
-              <span class="val text-warning" id="tenantRentStatus"><i class="ri-time-line"></i> À régler pour le mois en cours</span>
-            </div>
-          </div>
-
-          <div class="loc-actions">
-            <button class="btn-accent-lg" id="btnPayRentNow">
-              <i class="ri-smartphone-line"></i> Payer le loyer (Airtel / Moov Money)
-            </button>
-            <button class="btn-secondary" id="btnDownloadReceipt">
-              <i class="ri-file-download-line"></i> Quittances reçues (PDF)
-            </button>
-            <button class="btn-outline" id="btnReportIssue">
-              <i class="ri-alert-line"></i> Signaler un incident
-            </button>
-          </div>
-        </div>
-
-        <div class="history-card">
-          <h3><i class="ri-history-line"></i> Historique des Paiements & Quittances Digitale</h3>
-          <ul class="history-list" id="receiptHistoryList">
-            <!-- Dynamique via JS -->
-          </ul>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- MODAL FICHE DÉTAILLÉE D'UNE ANNONCE (STYLE STYLE IMMOBILIER EN FRANCE : SELOGER / LEBONCOIN) -->
+  <!-- MODAL FICHE DÉTAILLÉE D'UNE ANNONCE (STYLE SELOGER / LEBONCOIN) -->
   <div class="modal-overlay hidden" id="propertyDetailModal">
     <div class="modal-box" style="max-width: 820px; max-height: 92vh; overflow-y: auto;">
       <button class="modal-close" id="closePropertyDetailModal"><i class="ri-close-line"></i></button>
@@ -655,7 +596,7 @@
     </div>
   </div>
 
-  <!-- MODAL AUTHENTIFICATION -->
+  <!-- MODAL AUTHENTIFICATION (LOGIN & INSCRIPTION MULTI-OPTIONS + GMAIL) -->
   <div class="modal-overlay hidden" id="authModal">
     <div class="modal-box card-auth">
       <button class="modal-close" id="closeAuthModal"><i class="ri-close-line"></i></button>
@@ -665,18 +606,26 @@
         <button class="auth-tab-btn" id="tabAuthRegister"><i class="ri-user-add-line"></i> S'inscrire</button>
       </div>
 
-      <form id="formLogin" class="auth-form">
-        <h3>Connexion à votre compte LocaGabon</h3>
-        <p class="modal-subtitle">Accédez à vos annonces, ventes, baux et quittances.</p>
+      <!-- BOUTON ACCÈS RAPIDE GOOGLE / GMAIL -->
+      <div class="social-login-box mt-3 mb-3">
+        <button class="btn-google-login" id="btnSocialGoogle">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 10.8 0 12.5s.7 2.8 1.9 5.2l3.7-2.9z"/><path fill="#34a853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 17C3.7 20.7 7.5 24 12 24z"/></svg>
+          <span>Continuer avec Google / Gmail</span>
+        </button>
 
+        <div class="auth-divider"><span>OU AVEC VOS IDENTIFIANTS</span></div>
+      </div>
+
+      <!-- FORMULAIRE SE CONNECTER -->
+      <form id="formLogin" class="auth-form">
         <div class="form-group">
-          <label>Email ou Numéro Téléphone (Gabon)</label>
-          <input type="text" placeholder="077 12 34 56 ou exemple@email.ga" required>
+          <label><i class="ri-user-line"></i> Email, Nom d'utilisateur ou Téléphone (+241)</label>
+          <input type="text" id="loginIdentifier" placeholder="Ex: 077123456, marc.kassa ou email@domaine.ga" value="077 45 89 12" required>
         </div>
 
         <div class="form-group">
-          <label>Mot de passe</label>
-          <input type="password" placeholder="••••••••" required>
+          <label><i class="ri-lock-line"></i> Mot de passe</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" value="123456" required>
         </div>
 
         <button type="submit" class="btn-primary-block mt-3">
@@ -684,42 +633,40 @@
         </button>
       </form>
 
+      <!-- FORMULAIRE S'INSCRIRE -->
       <form id="formRegister" class="auth-form hidden">
-        <h3>Créer un compte sur LocaGabon</h3>
-        <p class="modal-subtitle">Rejoignez la 1ère plateforme immobilière au Gabon.</p>
-
         <div class="form-group">
-          <label>Type de profil :</label>
+          <label><i class="ri-user-star-line"></i> Vous êtes ?</label>
           <select id="userRoleSelect">
-            <option value="locataire">Locataire / Acheteur</option>
+            <option value="locataire">Locataire / Acheteur (Pass Locataire)</option>
             <option value="particulier">Bailleur Particulier (Propriétaire privé)</option>
-            <option value="agence">Agence Immobilière Pro (Entreprise / Promoteur)</option>
+            <option value="agence">Agence Immobilière Pro (NIF / RCCM)</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label id="lblRegisterName">Nom complet / Nom de l'Agence</label>
-          <input type="text" id="regNameInput" placeholder="Ex: Marc KASSA ou Immo Gabon Pro" required>
+          <label id="lblRegisterName">Nom complet / Nom d'utilisateur</label>
+          <input type="text" id="regNameInput" placeholder="Ex: KASSA Marc ou Immo Gabon Pro" required>
         </div>
 
         <div class="form-group" id="groupAgencyNif" style="display: none;">
           <label>Numéro NIF / RCCM (Si Agence Pro)</label>
-          <input type="text" placeholder="Ex: RCCM-2026-B-89192">
+          <input type="text" id="regNifInput" placeholder="Ex: RCCM-2026-B-89192">
         </div>
 
         <div class="form-group">
           <label>Numéro Téléphone (Airtel / Moov Gabon)</label>
-          <input type="tel" placeholder="077 XX XX XX ou 066 XX XX XX" required>
+          <input type="tel" id="regPhoneInput" placeholder="077 XX XX XX ou 066 XX XX XX" required>
         </div>
 
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="votre.email@domaine.ga" required>
+          <label>Adresse Email</label>
+          <input type="email" id="regEmailInput" placeholder="votre.email@domaine.ga" required>
         </div>
 
         <div class="form-group">
           <label>Mot de passe</label>
-          <input type="password" placeholder="••••••••" required>
+          <input type="password" id="regPasswordInput" placeholder="••••••••" required>
         </div>
 
         <button type="submit" class="btn-primary-block mt-3">

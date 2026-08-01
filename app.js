@@ -1,9 +1,10 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE, FICHE DÉTAILLÉE (STYLE SE LOGER / LEBONCOIN)
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE, AUTH MULTI-IDENTIFIANTS & PHOTOS GABON
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
 
+// --- BASE DE DONNÉES ANNONCES REALISTES AU GABON ---
 const INITIAL_PROPERTIES = [
   {
     id: "prop-1",
@@ -25,13 +26,13 @@ const INITIAL_PROPERTIES = [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
     ],
-    description: "Superbe appartement comprenant un grand séjour lumineux, 2 chambres climatisées avec placards intégrés, 2 salles de bain indépendantes, cuisine équipée et balcon privé. Compteur EDAN individuel et surpresseur d'eau SEEG sans aucune coupure. Environnement sécurisé à 2 minutes du goudron principal.",
+    description: "Bel appartement en résidence sécurisée à Angondjé Château. Comprend un grand salon staffé, 2 chambres climatisées, cuisine moderne avec débarras, balcon. Compteur EDAN individuel et surpresseur d'eau SEEG. Gardien 24h/24.",
     verified: true,
     bailleur: "Immo Gabon Pro SA (NIF: 2026-B-89192)"
   },
   {
     id: "prop-2",
-    title: "Studio Moderne Haut Standing - Quartier Louis",
+    title: "Studio Meublé Haut Standing - Quartier Louis",
     city: "Libreville (Centre)",
     type: "Studio",
     operation: "Location",
@@ -48,7 +49,7 @@ const INITIAL_PROPERTIES = [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
     ],
-    description: "Studio entièrement rénové et staffé situé en direct propriétaire (Zéro frais d'agence) au cœur du Quartier Louis. Proche du bord de mer et des restaurants. Gardiennage 24h/24, parking privé et surpresseur d'eau.",
+    description: "Studio refait à neuf en direct propriétaire (Zéro frais d'agence) au Quartier Louis à Libreville. Proche du bord de mer. Climatisation, lit double, canal+, gardiennage et réserve d'eau SEEG.",
     verified: true,
     bailleur: "Mme NTOUTOUME Carine (Particulier Direct)"
   },
@@ -71,13 +72,13 @@ const INITIAL_PROPERTIES = [
       "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"
     ],
-    description: "Magnifique parcelle plate de 1 000 m² prête à bâtir dans la zone d'Avorbam. Titre Foncier individuel définitif et vérifié auprès de la Conservation Foncière du Gabon. Accès facile, électricité EDAN et eau SEEG en bordure du terrain.",
+    description: "Superbe parcelle plate de 1 000 m² prête pour construction de villa résidentielle à Avorbam. Titre Foncier individuel définitif et vérifié auprès du Cadastre. Raccordements EDAN et SEEG en bordure.",
     verified: true,
     bailleur: "Agence Cabinet Foncier Gabon SA"
   },
   {
     id: "prop-4",
-    title: "Villa Duplex 4 Chambres à Vendre - Batterie IV",
+    title: "Grande Villa Duplex 4 Chambres - Batterie IV",
     city: "Batterie IV",
     type: "Villa",
     operation: "Vente",
@@ -94,7 +95,7 @@ const INITIAL_PROPERTIES = [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
     ],
-    description: "Villa résidentielle haut standing à Batterie IV. Grand jardin, piscine privative, groupe électrogène automatique et réserve d'eau 2000L. Titre Foncier individuel disponible.",
+    description: "Villa de prestige à Batterie IV avec vue panoramique. 4 chambres autonomes, dépendance gardien, piscine, groupe électrogène automatique et réserve d'eau 3000L. Titre Foncier disponible.",
     verified: true,
     bailleur: "M. ONDO Jean-Marc (Particulier)"
   },
@@ -116,7 +117,7 @@ const INITIAL_PROPERTIES = [
     gallery: [
       "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
     ],
-    description: "Chambre avec salle de douche interne privée et cuisine américaine. Environnement sécurisé à Owendo, idéal pour étudiant ou travailleur.",
+    description: "Grande chambre clôturée avec douche interne et cuisine. Eau SEEG et électricité EDAN. Idéal pour étudiant ou jeune professionnel à Owendo.",
     verified: true,
     bailleur: "M. ONDO Paul (Particulier)"
   },
@@ -138,7 +139,7 @@ const INITIAL_PROPERTIES = [
     gallery: [
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
     ],
-    description: "Bel appartement en location sous mandat d'agence à Port-Gentil. Climatisation installée, environnement calme et gardiennage.",
+    description: "Appartement 2 pièces meublé sous gestion d'agence à Port-Gentil Ntchoréré. Séjour, chambre climatisée, gardien H24.",
     verified: true,
     bailleur: "Agence Ogooué Immobilier Pro"
   }
@@ -163,7 +164,7 @@ let state = {
   currentSection: "section-annonces",
   activePropertyForPay: INITIAL_PROPERTIES[0],
   pendingPayData: null,
-  currentUser: null
+  currentUser: JSON.parse(localStorage.getItem("locagabon_user")) || null
 };
 
 // --- INITIALISATION ---
@@ -182,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFAQAccordion();
   setupAdminGabonBankPayout();
   setupPricingAndContact();
+  updateUserHeaderUI();
 });
 
 // --- NAVIGATION ---
@@ -211,7 +213,135 @@ function setupNavigation() {
   });
 }
 
-// --- AFFICHAGE DES ANNONCES (AVEC OPTION CONSULTER LA FICHE DÉTAILLÉE) ---
+// --- SYSTÈME D'AUTHENTIFICATION COMPLET (EMAIL, USERNAME, TÉLÉPHONE & GMAIL) ---
+function setupAuthModal() {
+  const btnOpen = document.getElementById("btnOpenAuthModal");
+  const modal = document.getElementById("authModal");
+  const btnClose = document.getElementById("closeAuthModal");
+  const tabLogin = document.getElementById("tabAuthLogin");
+  const tabRegister = document.getElementById("tabAuthRegister");
+  const formLogin = document.getElementById("formLogin");
+  const formRegister = document.getElementById("formRegister");
+  const btnGoogle = document.getElementById("btnSocialGoogle");
+  const roleSelect = document.getElementById("userRoleSelect");
+  const groupNif = document.getElementById("groupAgencyNif");
+
+  if (!modal) return;
+
+  btnOpen?.addEventListener("click", () => openModal("authModal"));
+  btnClose?.addEventListener("click", () => closeModal("authModal"));
+
+  tabLogin?.addEventListener("click", () => {
+    tabLogin.classList.add("active");
+    tabRegister.classList.remove("active");
+    formLogin.classList.remove("hidden");
+    formRegister.classList.add("hidden");
+  });
+
+  tabRegister?.addEventListener("click", () => {
+    tabRegister.classList.add("active");
+    tabLogin.classList.remove("active");
+    formRegister.classList.remove("hidden");
+    formLogin.classList.add("hidden");
+  });
+
+  roleSelect?.addEventListener("change", (e) => {
+    if (e.target.value === "agence") {
+      groupNif.style.display = "block";
+    } else {
+      groupNif.style.display = "none";
+    }
+  });
+
+  // SUBMIT LOGIN
+  formLogin?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const identifier = document.getElementById("loginIdentifier").value.trim();
+
+    state.currentUser = {
+      name: identifier.includes("@") ? identifier.split("@")[0] : identifier,
+      role: "locataire",
+      identifier: identifier
+    };
+
+    localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
+    updateUserHeaderUI();
+    closeModal("authModal");
+    alert(`Bienvenue ${state.currentUser.name} ! Vous êtes maintenant connecté.`);
+  });
+
+  // SUBMIT REGISTER
+  formRegister?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("regNameInput").value.trim();
+    const role = document.getElementById("userRoleSelect").value;
+    const phone = document.getElementById("regPhoneInput").value.trim();
+    const email = document.getElementById("regEmailInput").value.trim();
+
+    state.currentUser = {
+      name: name,
+      role: role,
+      phone: phone,
+      email: email
+    };
+
+    localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
+    updateUserHeaderUI();
+    closeModal("authModal");
+    alert(`Félicitations ${name} ! Votre compte ${role.toUpperCase()} a été créé avec succès.`);
+  });
+
+  // GOOGLE / GMAIL LOGIN SIMULATION
+  btnGoogle?.addEventListener("click", () => {
+    state.currentUser = {
+      name: "Marc KASSA (Google)",
+      email: "marc.kassa.gabon@gmail.com",
+      role: "locataire"
+    };
+
+    localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
+    updateUserHeaderUI();
+    closeModal("authModal");
+    alert("Connecté avec succès via votre compte Google Gmail !");
+  });
+}
+
+function updateUserHeaderUI() {
+  const authZone = document.getElementById("headerAuthZone");
+  if (!authZone) return;
+
+  if (state.currentUser) {
+    authZone.innerHTML = `
+      <div class="user-logged-badge">
+        <div class="user-avatar-small">${state.currentUser.name.charAt(0).toUpperCase()}</div>
+        <span class="user-logged-name">${state.currentUser.name}</span>
+        <button class="btn-logout-small" id="btnLogout" title="Déconnexion"><i class="ri-logout-box-r-line"></i></button>
+      </div>
+      <button class="btn-primary-sm" id="quickAddPropertyBtn">
+        <i class="ri-add-circle-line"></i> <span>Publier un bien</span>
+      </button>
+    `;
+
+    document.getElementById("btnLogout")?.addEventListener("click", () => {
+      state.currentUser = null;
+      localStorage.removeItem("locagabon_user");
+      updateUserHeaderUI();
+      alert("Vous avez été déconnecté.");
+    });
+  } else {
+    authZone.innerHTML = `
+      <button class="btn-auth-outline" id="btnOpenAuthModal">
+        <i class="ri-user-3-line"></i> <span>Connexion / Inscription</span>
+      </button>
+      <button class="btn-primary-sm" id="quickAddPropertyBtn">
+        <i class="ri-add-circle-line"></i> <span>Publier un bien</span>
+      </button>
+    `;
+    document.getElementById("btnOpenAuthModal")?.addEventListener("click", () => openModal("authModal"));
+  }
+}
+
+// --- AFFICHAGE DES ANNONCES ---
 function renderProperties(props) {
   const grid = document.getElementById("propertyGrid");
   const countEl = document.getElementById("resultsCount");
@@ -269,7 +399,6 @@ function renderProperties(props) {
     `;
   }).join('');
 
-  // Event Listener : Cliquer sur une carte ou "Consulter l'annonce"
   document.querySelectorAll(".btn-open-detail").forEach(el => {
     el.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -289,7 +418,6 @@ function renderProperties(props) {
   });
 }
 
-// --- OUVERTURE DE LA FICHE DÉTAILLÉE D'UNE ANNONCE (STYLE SELOGER / LEBONCOIN) ---
 function openPropertyDetailModal(p) {
   const modalContent = document.getElementById("propertyDetailContent");
   if (!modalContent) return;
@@ -306,7 +434,7 @@ function openPropertyDetailModal(p) {
           `<span class="badge-seller-private" style="position:static;"><i class="ri-user-user-line"></i> Particulier Direct</span>`
         }
         <span class="badge-op-type ${isSale ? 'badge-op-sale' : 'badge-op-rent'}" style="position:static;">${p.operation}</span>
-        ${p.titreFoncier ? `<span class="tag-item highlight"><i class="ri-file-shield-2-line"></i> Titre Foncier Certifié</span>` : ''}
+        ${p.titreFoncier ? `<span class="tag-item highlight" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); font-weight: 700; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-size: 0.78rem;"><i class="ri-file-shield-2-line"></i> Titre Foncier Certifié</span>` : ''}
       </div>
 
       <h2 style="margin-top:0.6rem;">${p.title}</h2>
@@ -361,7 +489,7 @@ function openPropertyDetailModal(p) {
       <div class="feature-box">
         <i class="ri-shield-keyhole-line"></i>
         <div>
-          <span>Garantie Légal</span>
+          <span>Garantie Légale</span>
           <strong>${isSale ? 'Titre Foncier' : `Caution : ${p.cautionMois} mois`}</strong>
         </div>
       </div>
@@ -395,7 +523,6 @@ function openPropertyDetailModal(p) {
     </div>
   `;
 
-  // Bouton Réserver depuis la fiche détaillée
   document.getElementById("btnBookFromDetail")?.addEventListener("click", () => {
     closeModal("propertyDetailModal");
     openPaymentModal(p);
@@ -440,7 +567,7 @@ function generateAILeaseContract(prop, phone, method) {
       <div class="lease-section">
         <h4>1. PARTIES CONTRACTANTES</h4>
         <p><strong>Vendeur :</strong> ${prop.bailleur}</p>
-        <p><strong>Acheteur :</strong> Mme/M. KASSA Marc (Téléphone : ${phone})</p>
+        <p><strong>Acheteur :</strong> ${state.currentUser ? state.currentUser.name : 'Mme/M. KASSA Marc'} (Téléphone : ${phone})</p>
       </div>
 
       <div class="lease-section">
@@ -467,7 +594,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 1 : DÉSIGNATION DES PARTIES</h4>
       <p><strong>Bailleur / Agence :</strong> ${prop.bailleur}</p>
-      <p><strong>Locataire :</strong> Mme/M. KASSA Marc (Téléphone enregistré : ${phone})</p>
+      <p><strong>Locataire :</strong> ${state.currentUser ? state.currentUser.name : 'Mme/M. KASSA Marc'} (Téléphone enregistré : ${phone})</p>
     </div>
 
     <div class="lease-section">
@@ -595,19 +722,9 @@ function setupThreeStepPaymentSystem() {
       renderAdminDashboard();
 
       closeModal("paymentConfirmModal");
-      openReceiptModal(receiptId, "Mme/M. KASSA Marc", data.bailleur, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
+      openReceiptModal(receiptId, state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc", data.bailleur, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
     }, 1200);
   });
-}
-
-function setupAuthModal() {
-  const btnOpen = document.getElementById("btnOpenAuthModal");
-  const modal = document.getElementById("authModal");
-  const btnClose = document.getElementById("closeAuthModal");
-
-  if (!modal) return;
-  btnOpen?.addEventListener("click", () => openModal("authModal"));
-  btnClose?.addEventListener("click", () => closeModal("authModal"));
 }
 
 function setupPricingAndContact() {
@@ -616,9 +733,13 @@ function setupPricingAndContact() {
     btn.addEventListener("click", () => {
       const planName = btn.getAttribute("data-plan");
       if (planName.includes("Gratuit")) {
-        alert("Formule Découverte sélectionnée.");
+        alert(`${planName} activé avec succès.`);
       } else {
-        openPaymentModal({ title: planName, price: planName.includes("2 500") ? 2500 : 15000, bailleur: "LocaGabon Services", operation: "Location" });
+        let price = 2500;
+        if (planName.includes("5 000")) price = 5000;
+        if (planName.includes("15 000")) price = 15000;
+        if (planName.includes("35 000")) price = 35000;
+        openPaymentModal({ title: planName, price: price, bailleur: "LocaGabon Services", operation: "Location" });
       }
     });
   });
@@ -703,9 +824,6 @@ function setupAdminGabonBankPayout() {
   if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement exécuté !"));
 }
 
-function renderBailleurTable() {}
-function renderTenantReceipts() {}
-
 function setupModals() {
   document.getElementById("closePayModal")?.addEventListener("click", () => closeModal("paymentModal"));
   document.getElementById("closeLeaseModal")?.addEventListener("click", () => closeModal("leaseContractModal"));
@@ -716,9 +834,3 @@ function setupModals() {
 
 function openModal(id) { document.getElementById(id)?.classList.remove("hidden"); }
 function closeModal(id) { document.getElementById(id)?.classList.add("hidden"); }
-
-function escapeHtml(str) {
-  return str.replace(/[&<>"']/g, function(m) {
-    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
-  });
-}
