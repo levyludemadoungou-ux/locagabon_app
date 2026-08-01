@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE, CARTES DÉPLIANTES TARIFS & ESPACE
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC VRAIES PHOTOS DU GABON
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -7,126 +7,35 @@ const COMMISSION_RATE = 0.03; // 3% LocaGabon
 const INITIAL_PROPERTIES = [
   {
     id: "prop-1",
-    title: "Appartement 3 Pièces Spacieux - Angondjé Château",
+    title: "Villa Duplex Spacieuse 4 Pièces - Akanda Angondjé Château",
     city: "Akanda (Angondjé)",
-    type: "Appartement",
+    type: "Villa",
     operation: "Location",
     sellerType: "Agence Pro",
-    price: 250000,
+    price: 350000,
     cautionMois: 2,
     edan: true,
     seeg: true,
     gardien: true,
     clim: true,
-    titreFoncier: false,
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80",
+    titreFoncier: true,
+    image: "images/gabon_duplex_libreville.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+      "images/gabon_duplex_libreville.jpg",
+      "images/gabon_villa_louer_akanda.jpg",
+      "images/gabon_residence_cloturee.jpg"
     ],
-    description: "Bel appartement en résidence sécurisée à Angondjé Château. Comprend un grand salon staffé, 2 chambres climatisées, cuisine moderne avec débarras, balcon. Compteur EDAN individuel et surpresseur d'eau SEEG. Gardien 24h/24.",
+    description: "Superbe villa duplex R+1 située dans une concession calme à Angondjé Château. 3 grandes chambres climatisées à l'étage avec balcons, vaste séjour staffé au rez-de-chaussée, jardin engazonné, surpresseur d'eau SEEG et compteur EDAN individuel.",
     verified: true,
     bailleur: "Immo Gabon Pro SA (NIF: 2026-B-89192)"
   },
   {
     id: "prop-2",
-    title: "Studio Meublé Haut Standing - Quartier Louis",
+    title: "Résidence Sécurisée avec Portail & Abri Voitures - Quartier Louis",
     city: "Libreville (Centre)",
-    type: "Studio",
-    operation: "Location",
-    sellerType: "Particulier",
-    price: 180000,
-    cautionMois: 2,
-    edan: true,
-    seeg: true,
-    gardien: true,
-    clim: true,
-    titreFoncier: false,
-    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Studio refait à neuf en direct propriétaire (Zéro frais d'agence) au Quartier Louis à Libreville. Proche du bord de mer. Climatisation, lit double, canal+, gardiennage et réserve d'eau SEEG.",
-    verified: true,
-    bailleur: "Mme NTOUTOUME Carine (Particulier Direct)"
-  },
-  {
-    id: "prop-3",
-    title: "Terrain 1 000 m² à Vendre avec Titre Foncier - Avorbam",
-    city: "Akanda (Angondjé)",
-    type: "Terrain",
-    operation: "Vente",
-    sellerType: "Agence Pro",
-    price: 35000000,
-    cautionMois: 0,
-    edan: true,
-    seeg: true,
-    gardien: false,
-    clim: false,
-    titreFoncier: true,
-    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Superbe parcelle plate de 1 000 m² prête pour construction de villa résidentielle à Avorbam. Titre Foncier individuel définitif et vérifié auprès du Cadastre. Raccordements EDAN et SEEG en bordure.",
-    verified: true,
-    bailleur: "Agence Cabinet Foncier Gabon SA"
-  },
-  {
-    id: "prop-4",
-    title: "Grande Villa Duplex 4 Chambres - Batterie IV",
-    city: "Batterie IV",
-    type: "Villa",
-    operation: "Vente",
-    sellerType: "Particulier",
-    price: 180000000,
-    cautionMois: 0,
-    edan: true,
-    seeg: true,
-    gardien: true,
-    clim: true,
-    titreFoncier: true,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Villa de prestige à Batterie IV avec vue panoramique. 4 chambres autonomes, dépendance gardien, piscine, groupe électrogène automatique et réserve d'eau 3000L. Titre Foncier disponible.",
-    verified: true,
-    bailleur: "M. ONDO Jean-Marc (Particulier)"
-  },
-  {
-    id: "prop-5",
-    title: "Chambre Confort Clôturée - Owendo Cité Octra",
-    city: "Owendo",
-    type: "Chambre",
-    operation: "Location",
-    sellerType: "Particulier",
-    price: 90000,
-    cautionMois: 2,
-    edan: true,
-    seeg: true,
-    gardien: false,
-    clim: false,
-    titreFoncier: false,
-    image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80",
-    gallery: [
-      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Grande chambre clôturée avec douche interne et cuisine. Eau SEEG et électricité EDAN. Idéal pour étudiant ou jeune professionnel à Owendo.",
-    verified: true,
-    bailleur: "M. ONDO Paul (Particulier)"
-  },
-  {
-    id: "prop-6",
-    title: "Appartement 2 Pièces Rénové - Port-Gentil Ntchoréré",
-    city: "Port-Gentil",
     type: "Appartement",
     operation: "Location",
-    sellerType: "Agence Pro",
+    sellerType: "Particulier",
     price: 220000,
     cautionMois: 2,
     edan: true,
@@ -134,11 +43,104 @@ const INITIAL_PROPERTIES = [
     gardien: true,
     clim: true,
     titreFoncier: false,
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80",
+    image: "images/gabon_residence_cloturee.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+      "images/gabon_residence_cloturee.jpg",
+      "images/gabon_duplex_libreville.jpg"
     ],
-    description: "Appartement 2 pièces meublé sous gestion d'agence à Port-Gentil Ntchoréré. Séjour, chambre climatisée, gardien H24.",
+    description: "Belle résidence moderne entièrement clôturée avec portail coulissant et abri de voiture couvert au Quartier Louis à Libreville. Proche bord de mer et commerces. Eau SEEG assurée avec réserve de 2000L.",
+    verified: true,
+    bailleur: "Mme NTOUTOUME Carine (Particulier Direct)"
+  },
+  {
+    id: "prop-3",
+    title: "Grande Villa Ocre Standing avec Cour Pavée - Batterie IV",
+    city: "Batterie IV",
+    type: "Villa",
+    operation: "Vente",
+    sellerType: "Agence Pro",
+    price: 165000000,
+    cautionMois: 0,
+    edan: true,
+    seeg: true,
+    gardien: true,
+    clim: true,
+    titreFoncier: true,
+    image: "images/gabon_villa_louer_akanda.jpg",
+    gallery: [
+      "images/gabon_villa_louer_akanda.jpg",
+      "images/gabon_residence_cloturee.jpg"
+    ],
+    description: "Luxueuse villa couleur ocre à Batterie IV avec grande cour entièrement pavée. 4 chambres indépendantes, vaste terrasse couverte avec colonnes, dépendance gardien et garage. Titre Foncier définitif vérifié au Cadastre.",
+    verified: true,
+    bailleur: "Agence Cabinet Foncier Gabon SA"
+  },
+  {
+    id: "prop-4",
+    title: "Maison Individuelle Moderne 3 Chambres - Cité SNI Avorbam",
+    city: "Akanda (Angondjé)",
+    type: "Villa",
+    operation: "Vente",
+    sellerType: "Particulier",
+    price: 45000000,
+    cautionMois: 0,
+    edan: true,
+    seeg: true,
+    gardien: false,
+    clim: true,
+    titreFoncier: true,
+    image: "images/gabon_maison_bassam_angondje.jpg",
+    gallery: [
+      "images/gabon_maison_bassam_angondje.jpg",
+      "images/gabon_cite_sni_avorbam.jpg"
+    ],
+    description: "Charmante maison basse individuelle de type SNI construite sur parcelle clôturée à Avorbam. 3 chambres, salon, cuisine équipée, terrasse et cour bétonnée. Titre Foncier disponible immédiatement.",
+    verified: true,
+    bailleur: "M. ONDO Jean-Marc (Particulier)"
+  },
+  {
+    id: "prop-5",
+    title: "Pavillon Résidentiel Clôturé - Cité Octra Owendo",
+    city: "Owendo",
+    type: "Appartement",
+    operation: "Location",
+    sellerType: "Particulier",
+    price: 150000,
+    cautionMois: 2,
+    edan: true,
+    seeg: true,
+    gardien: false,
+    clim: true,
+    titreFoncier: false,
+    image: "images/gabon_cite_sni_avorbam.jpg",
+    gallery: [
+      "images/gabon_cite_sni_avorbam.jpg",
+      "images/gabon_maison_bassam_angondje.jpg"
+    ],
+    description: "Logement dans une cité résidentielle calme à Owendo. Peinture neuve, 2 chambres, terrasse d'entrée couverte, espace vert et accès goudronné. Eau SEEG et électricité EDAN individuel.",
+    verified: true,
+    bailleur: "M. ONDO Paul (Particulier)"
+  },
+  {
+    id: "prop-6",
+    title: "Villa Meublée 3 Pièces avec Gardiennage - Port-Gentil Ntchoréré",
+    city: "Port-Gentil",
+    type: "Villa",
+    operation: "Location",
+    sellerType: "Agence Pro",
+    price: 280000,
+    cautionMois: 2,
+    edan: true,
+    seeg: true,
+    gardien: true,
+    clim: true,
+    titreFoncier: false,
+    image: "images/gabon_villa_louer_akanda.jpg",
+    gallery: [
+      "images/gabon_villa_louer_akanda.jpg",
+      "images/gabon_duplex_libreville.jpg"
+    ],
+    description: "Villa climatisée et meublée avec haut niveau de sécurité à Port-Gentil Ntchoréré. Séjour avec baie vitrée, cuisine moderne, groupe électrogène et cuve à eau 3000L.",
     verified: true,
     bailleur: "Agence Ogooué Immobilier Pro"
   }
@@ -731,7 +733,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÉGALE (PLAFOND GABON)</h4>
       <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond légal gabonais.</p>
+      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictly conforme au plafond légal gabonais.</p>
     </div>
 
     <div class="lease-section">
