@@ -1,10 +1,9 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE, AUTH MULTI-IDENTIFIANTS & PHOTOS GABON
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE & SÉCURITÉ DE MODIFICATION PROFIL
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
 
-// --- BASE DE DONNÉES ANNONCES REALISTES AU GABON ---
 const INITIAL_PROPERTIES = [
   {
     id: "prop-1",
@@ -164,7 +163,13 @@ let state = {
   currentSection: "section-annonces",
   activePropertyForPay: INITIAL_PROPERTIES[0],
   pendingPayData: null,
-  currentUser: JSON.parse(localStorage.getItem("locagabon_user")) || null
+  pendingProfileChanges: null,
+  currentUser: JSON.parse(localStorage.getItem("locagabon_user")) || {
+    name: "Marc KASSA",
+    email: "marc.kassa@email.ga",
+    phone: "077 45 89 12",
+    role: "locataire"
+  }
 };
 
 // --- INITIALISATION ---
@@ -183,7 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFAQAccordion();
   setupAdminGabonBankPayout();
   setupPricingAndContact();
+  setupProfileEditAndSecurity();
   updateUserHeaderUI();
+  updateProfileDisplay();
 });
 
 // --- NAVIGATION ---
@@ -213,7 +220,86 @@ function setupNavigation() {
   });
 }
 
-// --- SYSTÈME D'AUTHENTIFICATION COMPLET (EMAIL, USERNAME, TÉLÉPHONE & GMAIL) ---
+// --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VÉRIFICATION DE SÉCURITÉ ---
+function setupProfileEditAndSecurity() {
+  const formEdit = document.getElementById("formEditProfile");
+  const formSecurity = document.getElementById("formValidateSecurityCode");
+
+  formEdit?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newName = document.getElementById("editProfileName").value.trim();
+    const newEmail = document.getElementById("editProfileEmail").value.trim();
+    const newPhone = document.getElementById("editProfilePhone").value.trim();
+
+    state.pendingProfileChanges = {
+      name: newName,
+      email: newEmail,
+      phone: newPhone
+    };
+
+    openModal("securityCodeModal");
+  });
+
+  formSecurity?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const codeEntered = document.getElementById("inputSecurityCode").value.trim();
+
+    if (codeEntered !== "892104" && codeEntered.length < 4) {
+      alert("Code de sécurité invalide. Saisissez 892104 pour le test.");
+      return;
+    }
+
+    const changes = state.pendingProfileChanges;
+    if (changes) {
+      state.currentUser = {
+        ...state.currentUser,
+        name: changes.name,
+        email: changes.email,
+        phone: changes.phone
+      };
+
+      localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
+      updateUserHeaderUI();
+      updateProfileDisplay();
+      closeModal("securityCodeModal");
+
+      alert(
+        `✅ MIS À JOUR DE SÉCURITÉ RÉUSSIE !\n\n` +
+        `Vos coordonnées personnelles ont été modifiées et sécurisées :\n` +
+        `• Nom : ${changes.name}\n` +
+        `• Email : ${changes.email}\n` +
+        `• Téléphone : +241 ${changes.phone}\n\n` +
+        `Un e-mail et un SMS de confirmation vous ont été transmis selon la Loi CNPDCP Gabon.`
+      );
+    }
+  });
+}
+
+function updateProfileDisplay() {
+  if (!state.currentUser) return;
+  const user = state.currentUser;
+
+  const titleEl = document.getElementById("profileWelcomeTitle");
+  const roleEl = document.getElementById("profileUserRole");
+  const nameEl = document.getElementById("profileDisplayName");
+  const emailEl = document.getElementById("profileDisplayEmail");
+  const phoneEl = document.getElementById("profileDisplayPhone");
+
+  const inputName = document.getElementById("editProfileName");
+  const inputEmail = document.getElementById("editProfileEmail");
+  const inputPhone = document.getElementById("editProfilePhone");
+
+  if (titleEl) titleEl.textContent = `Bienvenue sur l'Espace Membre de ${user.name}`;
+  if (roleEl) roleEl.textContent = `Profil : ${user.role ? user.role.toUpperCase() : 'MEMBRE'}`;
+  if (nameEl) nameEl.textContent = user.name || "Marc KASSA";
+  if (emailEl) emailEl.textContent = user.email || "marc.kassa@email.ga";
+  if (phoneEl) phoneEl.textContent = user.phone ? `+241 ${user.phone}` : "+241 077 45 89 12";
+
+  if (inputName) inputName.value = user.name || "";
+  if (inputEmail) inputEmail.value = user.email || "";
+  if (inputPhone) inputPhone.value = user.phone || "";
+}
+
 function setupAuthModal() {
   const btnOpen = document.getElementById("btnOpenAuthModal");
   const modal = document.getElementById("authModal");
@@ -253,24 +339,25 @@ function setupAuthModal() {
     }
   });
 
-  // SUBMIT LOGIN
   formLogin?.addEventListener("submit", (e) => {
     e.preventDefault();
     const identifier = document.getElementById("loginIdentifier").value.trim();
 
     state.currentUser = {
       name: identifier.includes("@") ? identifier.split("@")[0] : identifier,
+      email: identifier.includes("@") ? identifier : "compte.demo@locagabon.ga",
+      phone: "077 45 89 12",
       role: "locataire",
       identifier: identifier
     };
 
     localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
     updateUserHeaderUI();
+    updateProfileDisplay();
     closeModal("authModal");
     alert(`Bienvenue ${state.currentUser.name} ! Vous êtes maintenant connecté.`);
   });
 
-  // SUBMIT REGISTER
   formRegister?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("regNameInput").value.trim();
@@ -287,20 +374,22 @@ function setupAuthModal() {
 
     localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
     updateUserHeaderUI();
+    updateProfileDisplay();
     closeModal("authModal");
     alert(`Félicitations ${name} ! Votre compte ${role.toUpperCase()} a été créé avec succès.`);
   });
 
-  // GOOGLE / GMAIL LOGIN SIMULATION
   btnGoogle?.addEventListener("click", () => {
     state.currentUser = {
       name: "Marc KASSA (Google)",
       email: "marc.kassa.gabon@gmail.com",
+      phone: "077 45 89 12",
       role: "locataire"
     };
 
     localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
     updateUserHeaderUI();
+    updateProfileDisplay();
     closeModal("authModal");
     alert("Connecté avec succès via votre compte Google Gmail !");
   });
@@ -341,7 +430,6 @@ function updateUserHeaderUI() {
   }
 }
 
-// --- AFFICHAGE DES ANNONCES ---
 function renderProperties(props) {
   const grid = document.getElementById("propertyGrid");
   const countEl = document.getElementById("resultsCount");
@@ -447,7 +535,6 @@ function openPropertyDetailModal(p) {
       </div>
     </div>
 
-    <!-- GALERIE PHOTOS HD -->
     <div class="prop-gallery-container">
       <div class="prop-main-photo">
         <img id="mainGalleryPhoto" src="${gallery[0]}" alt="${p.title}">
@@ -463,7 +550,6 @@ function openPropertyDetailModal(p) {
       ` : ''}
     </div>
 
-    <!-- ÉQUIPEMENTS & FICHE TECHNIQUE -->
     <div class="detail-features-grid">
       <div class="feature-box">
         <i class="ri-flashlight-line"></i>
@@ -495,7 +581,6 @@ function openPropertyDetailModal(p) {
       </div>
     </div>
 
-    <!-- DESCRIPTION DÉTAILLÉE RÉDIGÉE -->
     <div class="detail-description-card">
       <h4><i class="ri-article-line"></i> Description détaillée du bien</h4>
       <p style="font-size: 0.92rem; color: var(--text-primary); line-height: 1.7;">
@@ -503,7 +588,6 @@ function openPropertyDetailModal(p) {
       </p>
     </div>
 
-    <!-- ANNONCEUR / BAILLEUR -->
     <div class="detail-landlord-card">
       <div>
         <span style="font-size: 0.78rem; color: var(--text-secondary);">Annonce proposée par :</span>
@@ -512,7 +596,6 @@ function openPropertyDetailModal(p) {
       <span class="badge-status-ok"><i class="ri-shield-check-fill"></i> Annonceur Vérifié CNPDCP</span>
     </div>
 
-    <!-- BOUTONS D'ACTION (RÉSERVED / PAIEMENT MOBILE MONEY) -->
     <div class="confirm-actions-grid">
       <button class="btn-pay-submit" id="btnBookFromDetail" style="padding: 1rem; font-size: 1.05rem;">
         <i class="ri-file-text-line"></i> ${isSale ? 'Réserver & Générer le Compromis de Vente' : 'Réserver & Générer mon Contrat de Bail IA'}
@@ -555,6 +638,7 @@ function generateAILeaseContract(prop, phone, method) {
   const isSale = prop.operation === "Vente";
   const cautionAmount = prop.cautionMois ? (prop.price * prop.cautionMois) : (prop.price * 2);
   const currentDate = new Date().toLocaleDateString('fr-FR');
+  const tenantName = state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc";
 
   if (isSale) {
     return `
@@ -567,7 +651,7 @@ function generateAILeaseContract(prop, phone, method) {
       <div class="lease-section">
         <h4>1. PARTIES CONTRACTANTES</h4>
         <p><strong>Vendeur :</strong> ${prop.bailleur}</p>
-        <p><strong>Acheteur :</strong> ${state.currentUser ? state.currentUser.name : 'Mme/M. KASSA Marc'} (Téléphone : ${phone})</p>
+        <p><strong>Acheteur :</strong> ${tenantName} (Téléphone : ${phone})</p>
       </div>
 
       <div class="lease-section">
@@ -594,7 +678,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 1 : DÉSIGNATION DES PARTIES</h4>
       <p><strong>Bailleur / Agence :</strong> ${prop.bailleur}</p>
-      <p><strong>Locataire :</strong> ${state.currentUser ? state.currentUser.name : 'Mme/M. KASSA Marc'} (Téléphone enregistré : ${phone})</p>
+      <p><strong>Locataire :</strong> ${tenantName} (Téléphone enregistré : ${phone})</p>
     </div>
 
     <div class="lease-section">
@@ -606,7 +690,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÉGALE (PLAFOND GABON)</h4>
       <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond légal gabonais.</p>
+      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictly conforme au plafond légal gabonais.</p>
     </div>
 
     <div class="lease-section">
@@ -698,6 +782,7 @@ function setupThreeStepPaymentSystem() {
 
       const receiptId = `GAB-2026-${Math.floor(1000 + Math.random() * 9000)}`;
       const data = state.pendingPayData;
+      const tenantName = state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc";
 
       TENANT_RECEIPTS.unshift({
         id: receiptId,
@@ -722,7 +807,7 @@ function setupThreeStepPaymentSystem() {
       renderAdminDashboard();
 
       closeModal("paymentConfirmModal");
-      openReceiptModal(receiptId, state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc", data.bailleur, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
+      openReceiptModal(receiptId, tenantName, data.bailleur, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
     }, 1200);
   });
 }
@@ -830,6 +915,7 @@ function setupModals() {
   document.getElementById("closePayConfirmModal")?.addEventListener("click", () => closeModal("paymentConfirmModal"));
   document.getElementById("closeReceiptModal")?.addEventListener("click", () => closeModal("receiptModal"));
   document.getElementById("closePropertyDetailModal")?.addEventListener("click", () => closeModal("propertyDetailModal"));
+  document.getElementById("closeSecurityModal")?.addEventListener("click", () => closeModal("securityCodeModal"));
 }
 
 function openModal(id) { document.getElementById(id)?.classList.remove("hidden"); }
