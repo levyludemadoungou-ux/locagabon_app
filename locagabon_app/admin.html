@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super-Admin Dashboard - LocaGabon AI | Pilotage Financier & Opérationnel</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  <!-- Chart.js CDN pour graphiques interactifs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* STYLES SPÉCIFIQUES EXTENDED DASHBOARD ADMIN */
+    body { background: #070d1e; overflow-x: hidden; }
+    
+    .admin-extended-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .admin-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color-glow);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.8rem;
+      margin-bottom: 1.8rem;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .admin-title-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .admin-avatar-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-gold), #ea580c);
+      color: #0b132b;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    /* GRILLE ÉTENDUE MULTI-COLONNES (HORIZONTALE & ETENDUE) */
+    .admin-wide-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .admin-wide-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .admin-wide-grid-2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.4rem;
+      margin-bottom: 1.8rem;
+    }
+
+    /* BULLES 3D CARDS ADMIN */
+    .admin-bubble-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      transition: var(--transition-smooth);
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-bubble-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-emerald);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .bubble-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+
+    .bubble-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .bubble-icon.emerald { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .bubble-icon.gold { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .bubble-icon.azure { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .bubble-icon.purple { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3); }
+
+    .bubble-metric-val {
+      font-family: var(--font-heading);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .bubble-metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* GRAPHIES ET PANNEAUX ÉTENDUS */
+    .admin-chart-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.6rem;
+    }
+
+    .table-extended {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .table-extended th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-secondary);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+    }
+
+    .table-extended td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 1200px) {
+      .admin-wide-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .admin-wide-grid-3 { grid-template-columns: 1fr; }
+      .admin-wide-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="admin-extended-container">
+    
+    <!-- BARRE SUPÉRIEURE EN-TÊTE DASHBOARD -->
+    <div class="admin-top-bar">
+      <div class="admin-title-group">
+        <div class="admin-avatar-icon"><i class="ri-shield-user-fill"></i></div>
+        <div>
+          <h1 style="font-size: 1.5rem;">Super-Admin Dashboard LocaGabon AI</h1>
+          <span style="font-size: 0.82rem; color: var(--text-secondary);">
+            <i class="ri-checkbox-circle-fill" style="color: var(--accent-emerald);"></i> PIN de Sécurité Actif : <strong>241077</strong> | République Gabonaise
+          </span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.8rem;">
+        <button class="btn-pricing-accent" id="btnAdminExportData" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+          <i class="ri-file-excel-line"></i> Exporter Rapport PDF/Excel
+        </button>
+        <a href="index.html" class="btn-pricing-outline" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+          <i class="ri-external-link-line"></i> Voir le Site Public
+        </a>
+      </div>
+    </div>
+
+    <!-- NOUVEAU MODULE DE GESTION EN DIRECT DE LA RUBRIQUE CONTACTS & SIÈGE SOCIAL -->
+    <div class="admin-chart-box mb-4" style="border-color: var(--accent-emerald);">
+      <div class="chart-header">
+        <h3><i class="ri-edit-2-line" style="color: var(--accent-emerald);"></i> Modifier la rubrique "Éditeur & Contacts Officiels" (Bas de Page Site Public)</h3>
+        <span class="sub-block-badge emerald">Mise à jour en direct 100% Dynamique</span>
+      </div>
+
+      <form id="formAdminUpdateContacts">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-map-pin-2-line"></i> Siège Social</label>
+            <input type="text" id="adminInputSiege" value="Libreville, République Gabonaise" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-mail-line"></i> Email Officiel</label>
+            <input type="email" id="adminInputEmail" value="contact@locagabon.ga" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-whatsapp-line"></i> WhatsApp Support</label>
+            <input type="text" id="adminInputWhatsapp" value="+241 77 00 00 00" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-global-line"></i> Plateforme / Slogan</label>
+            <input type="text" id="adminInputPlatform" value="PropTech 100% Gabonaise" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-pricing-accent mt-3" style="padding: 0.75rem 1.5rem; font-size: 0.9rem;">
+          <i class="ri-save-3-line"></i> Enregistrer & Mettre à jour immédiatement sur le site public
+        </button>
+      </form>
+    </div>
+
+    <!-- BLOC 1 : BULLES KPIS ÉTENDUES - LIGNE 1 (4 COLONNES) -->
+    <div class="admin-wide-grid-4">
+      
+      <!-- BULLE 1 : VOLUME FINANCIER GLOBAL -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Volume Global Transactions</span>
+          <div class="bubble-icon gold"><i class="ri-money-cfa-box-fill"></i></div>
+        </div>
+        <div class="bubble-metric-val" id="adminTotalVolume">181 030 000 FCFA</div>
+        <div class="bubble-metric-sub">
+          <span style="color: var(--accent-emerald); font-weight: 700;"><i class="ri-arrow-up-line"></i> +14.2%</span> ce mois (Airtel/Moov/Bancaire)
+        </div>
+      </div>
+
+      <!-- BULLE 2 : COMMISSIONS CUMULÉES LOCAGABON (3%) -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Commissions LocaGabon (3%)</span>
+          <div class="bubble-icon emerald"><i class="ri-percent-line"></i></div>
+        </div>
+        <div class="bubble-metric-val" id="adminCommissionFCFA">5 430 900 FCFA</div>
+        <div class="bubble-metric-sub">
+          <span style="color: var(--accent-emerald); font-weight: 700;"><i class="ri-shield-check-fill"></i> Nette d'encaissement</span>
+        </div>
+      </div>
+
+      <!-- BULLE 3 : SOLDE BANQUE GABON (BGFI / UGB) -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Solde Compte BGFI/UGB</span>
+          <div class="bubble-icon azure"><i class="ri-bank-line"></i></div>
+        </div>
+        <div class="bubble-metric-val" id="adminGabonBankBalance">5 430 900 FCFA</div>
+        <div class="bubble-metric-sub">
+          <span style="color: var(--accent-azure); font-weight: 700;"><i class="ri-checkbox-circle-line"></i> Disponible Virement</span>
+        </div>
+      </div>
+
+      <!-- BULLE 4 : TAUX DE SUCCÈS PUSH USSD -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Taux de Succès USSD</span>
+          <div class="bubble-icon purple"><i class="ri-smartphone-fill"></i></div>
+        </div>
+        <div class="bubble-metric-val">98.4 %</div>
+        <div class="bubble-metric-sub">
+          <span style="color: var(--accent-emerald); font-weight: 700;"><i class="ri-pulse-line"></i> Airtel *150# / Moov *555#</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BLOC 2 : BULLES DE MOYENNES & RÉPARTITIONS - LIGNE 2 (4 COLONNES) -->
+    <div class="admin-wide-grid-4">
+      
+      <!-- BULLE 5 : LOCATAIRES & ACHETEURS -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Locataires & Acheteurs</span>
+          <div class="bubble-icon emerald"><i class="ri-user-heart-fill"></i></div>
+        </div>
+        <div class="bubble-metric-val">1 250 <small style="font-size: 0.9rem; color: var(--text-secondary);">inscrits</small></div>
+        <div class="bubble-metric-sub">
+          Moyenne dépenses : <strong>215 000 FCFA /mois</strong>
+        </div>
+      </div>
+
+      <!-- BULLE 6 : BAILLEURS & AGENCES PRO -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Bailleurs & Agences Pro</span>
+          <div class="bubble-icon gold"><i class="ri-building-4-fill"></i></div>
+        </div>
+        <div class="bubble-metric-val">148 <small style="font-size: 0.9rem; color: var(--text-secondary);">(98 Privés / 50 Agences)</small></div>
+        <div class="bubble-metric-sub">
+          Parc immobilier actif : <strong>342 biens certifiés</strong>
+        </div>
+      </div>
+
+      <!-- BULLE 7 : REVENUS ABONNEMENTS MENSUELS -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Revenus Abonnements</span>
+          <div class="bubble-icon azure"><i class="ri-vip-crown-fill"></i></div>
+        </div>
+        <div class="bubble-metric-val">1 850 000 FCFA</div>
+        <div class="bubble-metric-sub">
+          Packs Agences (35k) & Bailleurs (15k)
+        </div>
+      </div>
+
+      <!-- BULLE 8 : CONTRATS DE BAIL IA GÉNÉRÉS -->
+      <div class="admin-bubble-card">
+        <div class="bubble-head">
+          <span class="bubble-metric-sub">Baux IA Certifiés</span>
+          <div class="bubble-icon purple"><i class="ri-robot-2-fill"></i></div>
+        </div>
+        <div class="bubble-metric-val">412 <small style="font-size: 0.9rem; color: var(--text-secondary);">contrats</small></div>
+        <div class="bubble-metric-sub">
+          Conformité CNPDCP : <strong>100% Validé</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BLOC 3 : GRAPHIQUES ÉTENDUS INTERACTIFS (3 COLONNES) -->
+    <div class="admin-wide-grid-3">
+      
+      <!-- GRAPHIQUE 1 : ÉVOLUTION MENSUELLE VOLUME & INSCRIPTIONS -->
+      <div class="admin-chart-box">
+        <div class="chart-header">
+          <h3><i class="ri-line-chart-line" style="color: var(--accent-emerald);"></i> Évolution des Inscriptions & Volume</h3>
+          <span class="sub-block-badge emerald">Semestriel 2026</span>
+        </div>
+        <canvas id="growthChart" height="190"></canvas>
+      </div>
+
+      <!-- GRAPHIQUE 2 : RÉPARTITION PAIEMENTS (AIRTEL VS MOOV VS BANQUES) -->
+      <div class="admin-chart-box">
+        <div class="chart-header">
+          <h3><i class="ri-pie-chart-line" style="color: var(--accent-gold);"></i> Répartition des Canaux de Paiement</h3>
+          <span class="sub-block-badge gold">Airtel / Moov / Banques</span>
+        </div>
+        <canvas id="paymentChannelsChart" height="190"></canvas>
+      </div>
+
+      <!-- GRAPHIQUE 3 : MOYENNES & DISTRIBUTION DU PARC IMMOBILIER -->
+      <div class="admin-chart-box">
+        <div class="chart-header">
+          <h3><i class="ri-bar-chart-2-line" style="color: var(--accent-azure);"></i> Parc Immobilier par Zone & Type</h3>
+          <span class="sub-block-badge azure">Libreville / Akanda / Owendo</span>
+        </div>
+        <canvas id="propertyDistChart" height="190"></canvas>
+      </div>
+
+    </div>
+
+    <!-- BLOC 4 : ACTIONS DE VIREMENT BANCAIRE & HISTORIQUE DES TRANSACTIONS ÉTENDU (2 COLONNES) -->
+    <div class="admin-wide-grid-2">
+      
+      <!-- TRANSACTIONS RECENTES (TABLEAU LARGE) -->
+      <div class="admin-chart-box">
+        <div class="chart-header">
+          <h3><i class="ri-exchange-cfa-line" style="color: var(--accent-gold);"></i> Dernières Transactions & Commissions</h3>
+          <span style="font-size: 0.8rem; color: var(--text-secondary);">Mise à jour en temps réel</span>
+        </div>
+
+        <table class="table-extended">
+          <thead>
+            <tr>
+              <th>ID Trans.</th>
+              <th>Bien / Service</th>
+              <th>Montant Brut</th>
+              <th>Comm. (3%)</th>
+              <th>Canal</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="adminTxTableBody">
+            <tr>
+              <td><code>TX-99120</code></td>
+              <td>Appartement 3P - Akanda</td>
+              <td><strong>250 000 FCFA</strong></td>
+              <td style="color: var(--accent-emerald);"><strong>7 500 FCFA</strong></td>
+              <td>Airtel Money</td>
+              <td>01/08/2026</td>
+            </tr>
+            <tr>
+              <td><code>TX-99121</code></td>
+              <td>Studio Quartier Louis</td>
+              <td><strong>180 000 FCFA</strong></td>
+              <td style="color: var(--accent-emerald);"><strong>5 400 FCFA</strong></td>
+              <td>Moov Money</td>
+              <td>01/08/2026</td>
+            </tr>
+            <tr>
+              <td><code>TX-99122</code></td>
+              <td>Pack Pro Agence Immobilière</td>
+              <td><strong>35 000 FCFA</strong></td>
+              <td style="color: var(--accent-emerald);"><strong>1 050 FCFA</strong></td>
+              <td>Carte Bancaire</td>
+              <td>01/08/2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MODULE VIREMENT INSTANTANÉ BANQUE GABON -->
+      <div class="admin-chart-box" style="border-color: var(--accent-gold);">
+        <div class="chart-header">
+          <h3><i class="ri-bank-card-line" style="color: var(--accent-gold);"></i> Reversement Compte BGFI/UGB</h3>
+        </div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Exécutez un virement immédiat des commissions accumulées vers le compte commercial certifié LocaGabon SA.
+        </p>
+
+        <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1rem; border: 1px solid var(--border-color);">
+          <span style="font-size: 0.78rem; color: var(--text-muted);">Montant des commissions transférables :</span>
+          <h2 style="color: var(--accent-gold); margin-top: 0.2rem;" id="payoutAvailableVal">5 430 900 FCFA</h2>
+          <span style="font-size: 0.75rem; color: var(--accent-emerald);"><i class="ri-checkbox-circle-line"></i> RIB BGFI Gabon : 40001-09920-001928</span>
+        </div>
+
+        <button class="btn-pricing-gold" id="btnTriggerGabonBankTransfer" style="width: 100%; padding: 0.9rem; font-size: 0.95rem;">
+          <i class="ri-send-plane-fill"></i> Transférer 5 430 900 FCFA en 1-Clic
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // GESTION DYNAMIQUE DE LA MODIFICATION DES CONTACTS DEPUIS L'ADMINISTRATION
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedContacts = JSON.parse(localStorage.getItem("locagabon_official_contacts")) || {
+        siege: "Libreville, République Gabonaise",
+        email: "contact@locagabon.ga",
+        whatsapp: "+241 77 00 00 00",
+        platform: "PropTech 100% Gabonaise"
+      };
+
+      const inSiege = document.getElementById("adminInputSiege");
+      const inEmail = document.getElementById("adminInputEmail");
+      const inWhatsapp = document.getElementById("adminInputWhatsapp");
+      const inPlatform = document.getElementById("adminInputPlatform");
+
+      if (inSiege) inSiege.value = savedContacts.siege;
+      if (inEmail) inEmail.value = savedContacts.email;
+      if (inWhatsapp) inWhatsapp.value = savedContacts.whatsapp;
+      if (inPlatform) inPlatform.value = savedContacts.platform;
+
+      document.getElementById("formAdminUpdateContacts")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const updatedData = {
+          siege: inSiege.value.trim(),
+          email: inEmail.value.trim(),
+          whatsapp: inWhatsapp.value.trim(),
+          platform: inPlatform.value.trim()
+        };
+
+        localStorage.setItem("locagabon_official_contacts", JSON.stringify(updatedData));
+        alert("✅ CONTACTS ET MENTIONS ÉDITEUR MIS À JOUR AVEC SUCCÈS !\n\nLes nouvelles coordonnées s'affichent maintenant en direct sur le site public.");
+      });
+
+      // Graphique 1 : Évolution Inscriptions & Volume
+      const ctxGrowth = document.getElementById('growthChart')?.getContext('2d');
+      if (ctxGrowth) {
+        new Chart(ctxGrowth, {
+          type: 'line',
+          data: {
+            labels: ['Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août 2026'],
+            datasets: [
+              {
+                label: 'Volume (Millions FCFA)',
+                data: [45, 78, 110, 142, 165, 181],
+                borderColor: '#f59e0b',
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                fill: true,
+                tension: 0.4
+              },
+              {
+                label: 'Inscriptions Utilisateurs',
+                data: [310, 520, 740, 920, 1100, 1250],
+                borderColor: '#10b981',
+                tension: 0.4
+              }
+            ]
+          },
+          options: { responsive: true, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+        });
+      }
+
+      // Graphique 2 : Répartition Canaux de Paiement
+      const ctxPay = document.getElementById('paymentChannelsChart')?.getContext('2d');
+      if (ctxPay) {
+        new Chart(ctxPay, {
+          type: 'doughnut',
+          data: {
+            labels: ['Airtel Money (*150#)', 'Moov Money (*555#)', 'Virements BGFI/UGB', 'Cartes Visa/MC'],
+            datasets: [{
+              data: [58, 27, 10, 5],
+              backgroundColor: ['#ef4444', '#3b82f6', '#10b981', '#f59e0b']
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+        });
+      }
+
+      // Graphique 3 : Distribution Parc Immobilier par Zone
+      const ctxProp = document.getElementById('propertyDistChart')?.getContext('2d');
+      if (ctxProp) {
+        new Chart(ctxProp, {
+          type: 'bar',
+          data: {
+            labels: ['Akanda', 'Libreville', 'Owendo', 'Batterie IV', 'Port-Gentil'],
+            datasets: [{
+              label: 'Biens Actifs (Locations & Ventes)',
+              data: [120, 95, 45, 52, 30],
+              backgroundColor: '#3b82f6'
+            }]
+          },
+          options: { responsive: true, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+        });
+      }
+
+      // Action Export PDF
+      document.getElementById("btnAdminExportData")?.addEventListener("click", () => {
+        alert("Génération du Rapport Financier & Opérationnel LocaGabon AI en PDF (Conforme CNPDCP)...");
+      });
+    });
+  </script>
+</body>
+</html>
