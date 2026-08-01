@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE & SÉCURITÉ DE MODIFICATION PROFIL
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE, CARTES DÉPLIANTES & ACCORDÉONS
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -178,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderAdminDashboard();
   initDashboardCharts();
   setupNavigation();
+  setupFoldableSections();
   setupSearchTabs();
   setupAISearch();
   setupClassicFilters();
@@ -193,10 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
   updateProfileDisplay();
 });
 
-// --- NAVIGATION ---
+// --- NAVIGATION & CARTES DÉPLIANTES ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
-  const sections = document.querySelectorAll(".app-section");
 
   navBtns.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -204,13 +204,22 @@ function setupNavigation() {
       if (!targetId) return;
 
       navBtns.forEach(b => b.classList.remove("active"));
-      sections.forEach(s => s.classList.remove("active"));
-
       btn.classList.add("active");
-      const targetSection = document.getElementById(targetId);
-      if (targetSection) {
-        targetSection.classList.add("active");
-        window.scrollTo({ top: targetSection.offsetTop - 80, behavior: "smooth" });
+
+      if (targetId === "section-annonces" || targetId === "section-tarifs" || targetId === "section-locataire") {
+        document.querySelectorAll(".app-section").forEach(s => {
+          if (!s.classList.contains("foldable-card")) s.classList.remove("active");
+        });
+        document.getElementById(targetId)?.classList.add("active");
+        window.scrollTo({ top: document.getElementById(targetId).offsetTop - 80, behavior: "smooth" });
+      } else {
+        // Si clic sur Qui sommes-nous, FAQ, Mentions ou IA -> Ouvrir et déplier la carte correspondante !
+        let targetBodyId = "about-content";
+        if (targetId === "section-faq") targetBodyId = "faq-content";
+        if (targetId === "section-mentions-legales") targetBodyId = "legal-content";
+        if (targetId === "section-ia-juridique") targetBodyId = "ia-content";
+
+        openFoldableSection(targetBodyId);
       }
     });
   });
@@ -218,6 +227,38 @@ function setupNavigation() {
   document.getElementById("logoBtn")?.addEventListener("click", () => {
     document.querySelector('.nav-btn[data-target="section-annonces"]')?.click();
   });
+}
+
+// --- GESTION DES SECTIONS DÉPLIANTES ACCORDÉONS ---
+function setupFoldableSections() {
+  const headers = document.querySelectorAll(".foldable-header");
+
+  headers.forEach(header => {
+    header.addEventListener("click", () => {
+      const targetBodyId = header.getAttribute("data-toggle");
+      const card = header.closest(".foldable-card");
+      const body = document.getElementById(targetBodyId);
+
+      if (card.classList.contains("active")) {
+        card.classList.remove("active");
+        body.classList.add("hidden");
+      } else {
+        card.classList.add("active");
+        body.classList.remove("hidden");
+      }
+    });
+  });
+}
+
+function openFoldableSection(bodyId) {
+  const body = document.getElementById(bodyId);
+  if (!body) return;
+
+  const card = body.closest(".foldable-card");
+  card.classList.add("active");
+  body.classList.remove("hidden");
+
+  window.scrollTo({ top: card.offsetTop - 80, behavior: "smooth" });
 }
 
 // --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VÉRIFICATION DE SÉCURITÉ ---
@@ -690,7 +731,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÉGALE (PLAFOND GABON)</h4>
       <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictly conforme au plafond légal gabonais.</p>
+      <p><strong>Dépôt de Garantie (Caution Légale) :</strong> Fixée à <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond légal gabonais.</p>
     </div>
 
     <div class="lease-section">
