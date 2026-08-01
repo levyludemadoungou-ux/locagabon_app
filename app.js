@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE & SÉCURITÉ DE MODIFICATION PROFIL
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE, CARTES DÉPLIANTES TARIFS & ESPACE
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -178,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderAdminDashboard();
   initDashboardCharts();
   setupNavigation();
+  setupFoldableSections();
   setupSearchTabs();
   setupAISearch();
   setupClassicFilters();
@@ -193,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateProfileDisplay();
 });
 
-// --- NAVIGATION ---
+// --- NAVIGATION & DÉPLIAGE ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".app-section");
@@ -204,13 +205,21 @@ function setupNavigation() {
       if (!targetId) return;
 
       navBtns.forEach(b => b.classList.remove("active"));
-      sections.forEach(s => s.classList.remove("active"));
-
       btn.classList.add("active");
-      const targetSection = document.getElementById(targetId);
-      if (targetSection) {
-        targetSection.classList.add("active");
-        window.scrollTo({ top: targetSection.offsetTop - 80, behavior: "smooth" });
+
+      if (targetId === "section-tarifs") {
+        openFoldableSection("tarifs-fold-content");
+      } else if (targetId === "section-locataire") {
+        openFoldableSection("espace-fold-content");
+      } else {
+        sections.forEach(s => {
+          if (!s.classList.contains("foldable-card")) s.classList.remove("active");
+        });
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.classList.add("active");
+          window.scrollTo({ top: targetSection.offsetTop - 80, behavior: "smooth" });
+        }
       }
     });
   });
@@ -218,6 +227,38 @@ function setupNavigation() {
   document.getElementById("logoBtn")?.addEventListener("click", () => {
     document.querySelector('.nav-btn[data-target="section-annonces"]')?.click();
   });
+}
+
+// --- GESTION DES CARTES DÉPLIANTES ---
+function setupFoldableSections() {
+  const headers = document.querySelectorAll(".foldable-header");
+
+  headers.forEach(header => {
+    header.addEventListener("click", () => {
+      const targetBodyId = header.getAttribute("data-toggle");
+      const card = header.closest(".foldable-card");
+      const body = document.getElementById(targetBodyId);
+
+      if (card.classList.contains("active")) {
+        card.classList.remove("active");
+        body.classList.add("hidden");
+      } else {
+        card.classList.add("active");
+        body.classList.remove("hidden");
+      }
+    });
+  });
+}
+
+function openFoldableSection(bodyId) {
+  const body = document.getElementById(bodyId);
+  if (!body) return;
+
+  const card = body.closest(".foldable-card");
+  card.classList.add("active");
+  body.classList.remove("hidden");
+
+  window.scrollTo({ top: card.offsetTop - 80, behavior: "smooth" });
 }
 
 // --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VÉRIFICATION DE SÉCURITÉ ---
@@ -290,7 +331,7 @@ function updateProfileDisplay() {
   const inputPhone = document.getElementById("editProfilePhone");
 
   if (titleEl) titleEl.textContent = `Bienvenue sur l'Espace Membre de ${user.name}`;
-  if (roleEl) roleEl.textContent = `Profil : ${user.role ? user.role.toUpperCase() : 'MEMBRE'}`;
+  if (roleEl) roleEl.textContent = `Profil : ${user.role ? user.role.toUpperCase() : 'LOCATAIRE'}`;
   if (nameEl) nameEl.textContent = user.name || "Marc KASSA";
   if (emailEl) emailEl.textContent = user.email || "marc.kassa@email.ga";
   if (phoneEl) phoneEl.textContent = user.phone ? `+241 ${user.phone}` : "+241 077 45 89 12";
