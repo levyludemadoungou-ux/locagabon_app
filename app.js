@@ -1,5 +1,5 @@
-/* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC PHOTOS VRAIES EN BASE64
+﻿/* ==========================================================================
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC PHOTOS VRAIES BASE64
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -229,7 +229,7 @@ function updateFooterContactsUI() {
   if (platformEl && saved.platform) platformEl.textContent = saved.platform;
 }
 
-// --- NAVIGATION & DÉPLIAGE ---
+// --- NAVIGATION & DEPLIAGE ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".app-section");
@@ -241,7 +241,7 @@ function setupNavigation() {
 
       if (targetId === "section-locataire") {
         if (!state.currentUser) {
-          alert("🔒 ACCÈS RESTREINT À L'ESPACE MEMBRE\n\nVeuillez vous connecter ou créer un compte pour consulter et gérer vos informations personnelles.");
+          alert("ðŸ”’ ACCÃˆS RESTREINT Ã€ L'ESPACE MEMBRE\n\nVeuillez vous connecter ou crÃ©er un compte pour consulter et gÃ©rer vos informations personnelles.");
           openModal("authModal");
           return;
         }
@@ -274,7 +274,7 @@ function setupNavigation() {
   });
 }
 
-// --- GESTION DES CARTES DÉPLIANTES ---
+// --- GESTION DES CARTES DEPLIANTES ---
 function setupFoldableSections() {
   const headers = document.querySelectorAll(".foldable-header");
 
@@ -285,7 +285,7 @@ function setupFoldableSections() {
       const body = document.getElementById(targetBodyId);
 
       if (targetBodyId === "espace-fold-content" && !state.currentUser) {
-        alert("🔒 ACCÈS RESTREINT À L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour déplier votre Espace Membre.");
+        alert("ðŸ”’ ACCÃˆS RESTREINT Ã€ L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour dÃ©plier votre Espace Membre.");
         openModal("authModal");
         return;
       }
@@ -312,13 +312,19 @@ function openFoldableSection(bodyId) {
   window.scrollTo({ top: card.offsetTop - 80, behavior: "smooth" });
 }
 
-// --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VÃ‰RIFICATION DE SÃ‰CURITÃ‰ ---
+// --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VERIFICATION DE SECURITE ---
 function setupProfileEditAndSecurity() {
   const formEdit = document.getElementById("formEditProfile");
   const formSecurity = document.getElementById("formValidateSecurityCode");
 
   formEdit?.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (!state.currentUser) {
+      alert("Veuillez vous connecter pour modifier vos informations.");
+      openModal("authModal");
+      return;
+    }
+
     const newName = document.getElementById("editProfileName").value.trim();
     const newEmail = document.getElementById("editProfileEmail").value.trim();
     const newPhone = document.getElementById("editProfilePhone").value.trim();
@@ -337,12 +343,12 @@ function setupProfileEditAndSecurity() {
     const codeEntered = document.getElementById("inputSecurityCode").value.trim();
 
     if (codeEntered !== "892104" && codeEntered.length < 4) {
-      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour le test.");
+      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour le test de validation.");
       return;
     }
 
     const changes = state.pendingProfileChanges;
-    if (changes) {
+    if (changes && state.currentUser) {
       state.currentUser = {
         ...state.currentUser,
         name: changes.name,
@@ -350,18 +356,27 @@ function setupProfileEditAndSecurity() {
         phone: changes.phone
       };
 
+      const idx = REGISTERED_USERS.findIndex(u => u.email === state.currentUser.email || u.phone === state.currentUser.phone);
+      if (idx !== -1) {
+        REGISTERED_USERS[idx] = { ...REGISTERED_USERS[idx], ...state.currentUser };
+      } else {
+        REGISTERED_USERS.push(state.currentUser);
+      }
+
+      localStorage.setItem("locagabon_all_users", JSON.stringify(REGISTERED_USERS));
       localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
+      
       updateUserHeaderUI();
       updateProfileDisplay();
       closeModal("securityCodeModal");
 
       alert(
-        `✅ MISE À JOUR DE SÉCURITÉ RÉUSSIE !\n\n` +
-        `Vos coordonnées personnelles ont été modifiées et sécurisées :\n` +
-        `• Nom : ${changes.name}\n` +
-        `• Email : ${changes.email}\n` +
-        `• Téléphone : +241 ${changes.phone}\n\n` +
-        `Un e-mail et un SMS de confirmation vous ont été transmis selon la Loi CNPDCP Gabon.`
+        `âœ… MISE Ã€ JOUR SÃ‰CURISÃ‰E RÃ‰USSIE !\n\n` +
+        `Vos coordonnÃ©es ont Ã©tÃ© enregistrÃ©es :\n` +
+        `â€¢ Nom : ${changes.name}\n` +
+        `â€¢ Email : ${changes.email}\n` +
+        `â€¢ TÃ©lÃ©phone : +241 ${changes.phone}\n\n` +
+        `ConformitÃ© CNPDCP Gabon validÃ©e.`
       );
     }
   });
@@ -435,7 +450,7 @@ function setupAuthModal() {
     }
   });
 
-  // --- CRÉATION DE COMPTE RÉEL ---
+  // --- CREATION DE COMPTE REEL ---
   formRegister?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("regNameInput").value.trim();
@@ -444,10 +459,9 @@ function setupAuthModal() {
     const email = document.getElementById("regEmailInput").value.trim();
     const nif = document.getElementById("regNifInput")?.value.trim() || "";
 
-    // Vérifier si le compte existe déjà
     const existing = REGISTERED_USERS.find(u => u.email === email || u.phone === phone);
     if (existing) {
-      alert(`⚠️ Ce compte (email: ${email} ou tél: ${phone}) existe déjà dans la base de données. Vous êtes automatiquement connecté.`);
+      alert(`âš ï¸ Ce compte (email: ${email} ou tÃ©l: ${phone}) existe dÃ©jÃ  dans la base de donnÃ©es. Vous Ãªtes automatiquement connectÃ©.`);
       state.currentUser = existing;
     } else {
       const newUser = {
@@ -469,18 +483,15 @@ function setupAuthModal() {
     updateProfileDisplay();
     closeModal("authModal");
 
-    alert(`🎉 CRÉATION DE COMPTE RÉEL RÉUSSIE !\n\nBienvenue ${name} !\nVotre compte (${role.toUpperCase()}) a été enregistré de façon permanente.`);
-    
-    // Déplier automatiquement l'Espace Membre
+    alert(`ðŸŽ‰ CRÃ‰ATION DE COMPTE RÃ‰EL RÃ‰USSIE !\n\nBienvenue ${name} !\nVotre compte (${role.toUpperCase()}) a Ã©tÃ© enregistrÃ© de faÃ§on permanente.`);
     openFoldableSection("espace-fold-content");
   });
 
-  // --- CONNEXION RÉELLE A UN COMPTE ---
+  // --- CONNEXION REELLE ---
   formLogin?.addEventListener("submit", (e) => {
     e.preventDefault();
     const identifier = document.getElementById("loginIdentifier").value.trim();
 
-    // Chercher l'utilisateur dans le registre
     let user = REGISTERED_USERS.find(u => 
       u.email.toLowerCase() === identifier.toLowerCase() || 
       u.phone === identifier || 
@@ -488,7 +499,6 @@ function setupAuthModal() {
     );
 
     if (!user) {
-      // Si nouvel utilisateur se connecte, créer son compte réel immédiatement
       user = {
         name: identifier.includes("@") ? identifier.split("@")[0] : identifier,
         email: identifier.includes("@") ? identifier : `${identifier.replace(/\s+/g, '')}@user.ga`,
@@ -506,7 +516,7 @@ function setupAuthModal() {
     updateProfileDisplay();
     closeModal("authModal");
 
-    alert(`Bienvenue ${state.currentUser.name} ! Vous êtes maintenant connecté à votre Espace Membre.`);
+    alert(`Bienvenue ${state.currentUser.name} ! Vous Ãªtes maintenant connectÃ© Ã  votre Espace Membre.`);
     openFoldableSection("espace-fold-content");
   });
 
@@ -530,7 +540,7 @@ function setupAuthModal() {
     updateUserHeaderUI();
     updateProfileDisplay();
     closeModal("authModal");
-    alert("Connecté avec succès via votre compte Google Gmail !");
+    alert("ConnectÃ© avec succÃ¨s via votre compte Google Gmail !");
     openFoldableSection("espace-fold-content");
   });
 }
@@ -547,7 +557,7 @@ function updateUserHeaderUI() {
       <div class="user-logged-badge">
         <div class="user-avatar-small">${state.currentUser.name.charAt(0).toUpperCase()}</div>
         <span class="user-logged-name">${state.currentUser.name}</span>
-        <button class="btn-logout-small" id="btnLogout" title="Déconnexion"><i class="ri-logout-box-r-line"></i></button>
+        <button class="btn-logout-small" id="btnLogout" title="DÃ©connexion"><i class="ri-logout-box-r-line"></i></button>
       </div>
       <button class="btn-primary-sm" id="quickAddPropertyBtn">
         <i class="ri-add-circle-line"></i> <span>Publier un bien</span>
@@ -559,7 +569,7 @@ function updateUserHeaderUI() {
       localStorage.removeItem("locagabon_user");
       updateUserHeaderUI();
       updateProfileDisplay();
-      alert("Vous avez été déconnecté.");
+      alert("Vous avez Ã©tÃ© dÃ©connectÃ©.");
       document.querySelector('.nav-btn[data-target="section-annonces"]')?.click();
     });
   } else {
@@ -837,7 +847,7 @@ function generateAILeaseContract(prop, phone, method) {
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÃ‰GALE (PLAFOND GABON)</h4>
       <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>DÃ©pÃ´t de Garantie (Caution LÃ©gale) :</strong> FixÃ©e Ã  <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond lÃ©gal gabonais.</p>
+      <p><strong>DÃ©pÃ´t de Garantie (Caution LÃ©gale) :</strong> FixÃ©e Ã  <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictly conforme au plafond lÃ©gal gabonais.</p>
     </div>
 
     <div class="lease-section">
@@ -995,19 +1005,146 @@ function setupSearchTabs() {
   });
 }
 
+function filterProperties(query, operation, sellerType, city, type) {
+  let filtered = [...INITIAL_PROPERTIES];
+
+  if (query) {
+    const q = query.toLowerCase();
+    filtered = filtered.filter(p => 
+      p.title.toLowerCase().includes(q) || 
+      p.city.toLowerCase().includes(q) || 
+      p.description.toLowerCase().includes(q) ||
+      p.bailleur.toLowerCase().includes(q)
+    );
+  }
+
+  if (operation && operation !== "all") {
+    filtered = filtered.filter(p => p.operation === operation);
+  }
+
+  if (sellerType && sellerType !== "all") {
+    filtered = filtered.filter(p => p.sellerType === sellerType);
+  }
+
+  if (city && city !== "all") {
+    filtered = filtered.filter(p => p.city.includes(city.split(' ')[0]));
+  }
+
+  if (type && type !== "all") {
+    filtered = filtered.filter(p => p.type === type);
+  }
+
+  state.properties = filtered;
+  renderProperties(filtered);
+}
+
 function setupAISearch() {
   const btn = document.getElementById("btnRunAISearch");
-  if (btn) btn.addEventListener("click", () => renderProperties(INITIAL_PROPERTIES));
+  const input = document.getElementById("aiSearchInput");
+  const chips = document.querySelectorAll(".sug-chip");
+
+  btn?.addEventListener("click", () => {
+    const q = input?.value.trim() || "";
+    filterProperties(q, "all", "all", "all", "all");
+  });
+
+  input?.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      filterProperties(input.value.trim(), "all", "all", "all", "all");
+    }
+  });
+
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      const q = chip.getAttribute("data-query") || chip.textContent;
+      if (input) input.value = q;
+      filterProperties(q, "all", "all", "all", "all");
+    });
+  });
 }
 
 function setupClassicFilters() {
   const btn = document.getElementById("btnApplyClassicFilter");
-  if (btn) btn.addEventListener("click", () => renderProperties(INITIAL_PROPERTIES));
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    const op = document.getElementById("filterOperation")?.value || "all";
+    const seller = document.getElementById("filterSellerType")?.value || "all";
+    const city = document.getElementById("filterCity")?.value || "all";
+    const type = document.getElementById("filterType")?.value || "all";
+
+    filterProperties("", op, seller, city, type);
+  });
 }
 
 function setupIAChat() {
   const btnSend = document.getElementById("btnSendChatMessage");
-  if (btnSend) btnSend.addEventListener("click", () => alert("Assistant IA Ã  votre service."));
+  const input = document.getElementById("chatInput");
+  const chatMsgs = document.getElementById("chatMessages");
+  const presets = document.querySelectorAll(".btn-preset-ia");
+
+  function sendUserMsg(txt) {
+    if (!txt || !chatMsgs) return;
+    
+    // Add user message
+    const userDiv = document.createElement("div");
+    userDiv.className = "message msg-user";
+    userDiv.innerHTML = `
+      <div class="msg-avatar"><i class="ri-user-3-fill"></i></div>
+      <div class="msg-content"><p>${txt}</p></div>
+    `;
+    chatMsgs.appendChild(userDiv);
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+    // Response from AI
+    setTimeout(() => {
+      let reply = "D'aprÃ¨s la RÃ©glementation Gabonaise sur les Baux d'Habitation, la caution est lÃ©galement plafonnÃ©e Ã  2 Ã  3 mois de loyer. Les transactions doivent donner lieu Ã  la dÃ©livrance d'une quittance certifiÃ©e.";
+      
+      const t = txt.toLowerCase();
+      if (t.includes("caution")) {
+        reply = "ðŸ›ï¸ **Plafond LÃ©gale de Caution au Gabon** :\nSelon la loi gabonaise, le dÃ©pÃ´t de garantie (caution) est strictement plafonnÃ© Ã  **2 Ã  3 mois de loyer maximum**. Tout surplus exigÃ© sans justificatif de travaux est contestable devant la commission de conciliation.";
+      } else if (t.includes("rÃ©paration") || t.includes("reparation")) {
+        reply = "ðŸ”§ **RÃ©partitions des RÃ©parations** :\nâ€¢ **Bailleur** : Grosses rÃ©parations (Ã©tanchÃ©itÃ©, toiture, structure, surpresseur principal SEEG).\nâ€¢ **Locataire** : Entretien courant (ampoules, fuites de robinets, joints).";
+      } else if (t.includes("prÃ©avis") || t.includes("preavis")) {
+        reply = "â±ï¸ **PrÃ©avis LÃ©gal au Gabon** :\nLe locataire peut rÃ©silier son bail Ã  tout moment moyennant un **prÃ©avis de 1 Ã  3 mois** notifiÃ© par courrier avec accusÃ© ou via la notification numÃ©rique certifiÃ©e LocaGabon.";
+      }
+
+      const aiDiv = document.createElement("div");
+      aiDiv.className = "message msg-ai";
+      aiDiv.innerHTML = `
+        <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
+        <div class="msg-content"><p>${reply}</p></div>
+      `;
+      chatMsgs.appendChild(aiDiv);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    }, 600);
+  }
+
+  btnSend?.addEventListener("click", () => {
+    const val = input?.value.trim();
+    if (val) {
+      sendUserMsg(val);
+      input.value = "";
+    }
+  });
+
+  input?.addEventListener("keyup", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (val) {
+        sendUserMsg(val);
+        input.value = "";
+      }
+    }
+  });
+
+  presets.forEach(p => {
+    p.addEventListener("click", () => {
+      const prompt = p.getAttribute("data-prompt");
+      if (prompt) sendUserMsg(prompt);
+    });
+  });
 }
 
 function openPaymentModal(property) {
@@ -1053,7 +1190,7 @@ function renderAdminDashboard() {
 
 function setupAdminGabonBankPayout() {
   const btnPayout = document.getElementById("btnTriggerGabonBankTransfer");
-  if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement exÃ©cutÃ© !"));
+  if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement exÃ©cutÃ© avec succÃ¨s vers la BGFI Bank Gabon !"));
 }
 
 function setupModals() {
