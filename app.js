@@ -168,18 +168,23 @@ let adminFinancials = {
   gabonBankBalanceFCFA: 5430900
 };
 
+let REGISTERED_USERS = JSON.parse(localStorage.getItem("locagabon_all_users")) || [
+  {
+    name: "Marc KASSA",
+    email: "marc.kassa@email.ga",
+    phone: "077 45 89 12",
+    role: "locataire",
+    password: "123"
+  }
+];
+
 let state = {
   properties: [...INITIAL_PROPERTIES],
   currentSection: "section-annonces",
   activePropertyForPay: INITIAL_PROPERTIES[0],
   pendingPayData: null,
   pendingProfileChanges: null,
-  currentUser: JSON.parse(localStorage.getItem("locagabon_user")) || {
-    name: "Marc KASSA",
-    email: "marc.kassa@email.ga",
-    phone: "077 45 89 12",
-    role: "locataire"
-  }
+  currentUser: JSON.parse(localStorage.getItem("locagabon_user")) || null
 };
 
 // --- INITIALISATION ---
@@ -203,6 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
   updateUserHeaderUI();
   updateProfileDisplay();
   updateFooterContactsUI();
+
+  window.addEventListener("storage", () => {
+    updateFooterContactsUI();
+  });
 });
 
 function updateFooterContactsUI() {
@@ -220,7 +229,7 @@ function updateFooterContactsUI() {
   if (platformEl && saved.platform) platformEl.textContent = saved.platform;
 }
 
-// --- NAVIGATION & DÃ‰PLIAGE ---
+// --- NAVIGATION & DÉPLIAGE ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".app-section");
@@ -230,13 +239,23 @@ function setupNavigation() {
       const targetId = btn.getAttribute("data-target");
       if (!targetId) return;
 
+      if (targetId === "section-locataire") {
+        if (!state.currentUser) {
+          alert("🔒 ACCÈS RESTREINT À L'ESPACE MEMBRE\n\nVeuillez vous connecter ou créer un compte pour consulter et gérer vos informations personnelles.");
+          openModal("authModal");
+          return;
+        }
+        openFoldableSection("espace-fold-content");
+        navBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        return;
+      }
+
       navBtns.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
 
       if (targetId === "section-tarifs") {
         openFoldableSection("tarifs-fold-content");
-      } else if (targetId === "section-locataire") {
-        openFoldableSection("espace-fold-content");
       } else {
         sections.forEach(s => {
           if (!s.classList.contains("foldable-card")) s.classList.remove("active");
@@ -255,7 +274,7 @@ function setupNavigation() {
   });
 }
 
-// --- GESTION DES CARTES DÃ‰PLIANTES ---
+// --- GESTION DES CARTES DÉPLIANTES ---
 function setupFoldableSections() {
   const headers = document.querySelectorAll(".foldable-header");
 
@@ -264,6 +283,12 @@ function setupFoldableSections() {
       const targetBodyId = header.getAttribute("data-toggle");
       const card = header.closest(".foldable-card");
       const body = document.getElementById(targetBodyId);
+
+      if (targetBodyId === "espace-fold-content" && !state.currentUser) {
+        alert("🔒 ACCÈS RESTREINT À L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour déplier votre Espace Membre.");
+        openModal("authModal");
+        return;
+      }
 
       if (card.classList.contains("active")) {
         card.classList.remove("active");
@@ -331,19 +356,23 @@ function setupProfileEditAndSecurity() {
       closeModal("securityCodeModal");
 
       alert(
-        `âœ… MIS Ã€ JOUR DE SÃ‰CURITÃ‰ RÃ‰USSIE !\n\n` +
-        `Vos coordonnÃ©es personnelles ont Ã©tÃ© modifiÃ©es et sÃ©curisÃ©es :\n` +
-        `â€¢ Nom : ${changes.name}\n` +
-        `â€¢ Email : ${changes.email}\n` +
-        `â€¢ TÃ©lÃ©phone : +241 ${changes.phone}\n\n` +
-        `Un e-mail et un SMS de confirmation vous ont Ã©tÃ© transmis selon la Loi CNPDCP Gabon.`
+        `✅ MISE À JOUR DE SÉCURITÉ RÉUSSIE !\n\n` +
+        `Vos coordonnées personnelles ont été modifiées et sécurisées :\n` +
+        `• Nom : ${changes.name}\n` +
+        `• Email : ${changes.email}\n` +
+        `• Téléphone : +241 ${changes.phone}\n\n` +
+        `Un e-mail et un SMS de confirmation vous ont été transmis selon la Loi CNPDCP Gabon.`
       );
     }
   });
 }
 
 function updateProfileDisplay() {
-  if (!state.currentUser) return;
+  const espaceCard = document.getElementById("espace-fold-content");
+  if (!state.currentUser) {
+    if (espaceCard) espaceCard.classList.add("hidden");
+    return;
+  }
   const user = state.currentUser;
 
   const titleEl = document.getElementById("profileWelcomeTitle");
@@ -360,7 +389,7 @@ function updateProfileDisplay() {
   if (roleEl) roleEl.textContent = `Profil : ${user.role ? user.role.toUpperCase() : 'LOCATAIRE'}`;
   if (nameEl) nameEl.textContent = user.name || "Marc KASSA";
   if (emailEl) emailEl.textContent = user.email || "marc.kassa@email.ga";
-  if (phoneEl) phoneEl.textContent = user.phone ? `+241 ${user.phone}` : "+241 077 45 89 12";
+  if (phoneEl) phoneEl.textContent = user.phone ? (user.phone.startsWith("+241") ? user.phone : `+241 ${user.phone}`) : "+241 077 45 89 12";
 
   if (inputName) inputName.value = user.name || "";
   if (inputEmail) inputEmail.value = user.email || "";
@@ -406,72 +435,119 @@ function setupAuthModal() {
     }
   });
 
-  formLogin?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const identifier = document.getElementById("loginIdentifier").value.trim();
-
-    state.currentUser = {
-      name: identifier.includes("@") ? identifier.split("@")[0] : identifier,
-      email: identifier.includes("@") ? identifier : "compte.demo@locagabon.ga",
-      phone: "077 45 89 12",
-      role: "locataire",
-      identifier: identifier
-    };
-
-    localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
-    updateUserHeaderUI();
-    updateProfileDisplay();
-    closeModal("authModal");
-    alert(`Bienvenue ${state.currentUser.name} ! Vous Ãªtes maintenant connectÃ©.`);
-  });
-
+  // --- CRÉATION DE COMPTE RÉEL ---
   formRegister?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("regNameInput").value.trim();
     const role = document.getElementById("userRoleSelect").value;
     const phone = document.getElementById("regPhoneInput").value.trim();
     const email = document.getElementById("regEmailInput").value.trim();
+    const nif = document.getElementById("regNifInput")?.value.trim() || "";
 
-    state.currentUser = {
-      name: name,
-      role: role,
-      phone: phone,
-      email: email
-    };
+    // Vérifier si le compte existe déjà
+    const existing = REGISTERED_USERS.find(u => u.email === email || u.phone === phone);
+    if (existing) {
+      alert(`⚠️ Ce compte (email: ${email} ou tél: ${phone}) existe déjà dans la base de données. Vous êtes automatiquement connecté.`);
+      state.currentUser = existing;
+    } else {
+      const newUser = {
+        name: name,
+        role: role,
+        phone: phone,
+        email: email,
+        nif: nif,
+        createdAt: new Date().toLocaleDateString("fr-FR")
+      };
+
+      REGISTERED_USERS.push(newUser);
+      localStorage.setItem("locagabon_all_users", JSON.stringify(REGISTERED_USERS));
+      state.currentUser = newUser;
+    }
 
     localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
     updateUserHeaderUI();
     updateProfileDisplay();
     closeModal("authModal");
-    alert(`FÃ©licitations ${name} ! Votre compte ${role.toUpperCase()} a Ã©tÃ© crÃ©Ã© avec succÃ¨s.`);
+
+    alert(`🎉 CRÉATION DE COMPTE RÉEL RÉUSSIE !\n\nBienvenue ${name} !\nVotre compte (${role.toUpperCase()}) a été enregistré de façon permanente.`);
+    
+    // Déplier automatiquement l'Espace Membre
+    openFoldableSection("espace-fold-content");
+  });
+
+  // --- CONNEXION RÉELLE A UN COMPTE ---
+  formLogin?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const identifier = document.getElementById("loginIdentifier").value.trim();
+
+    // Chercher l'utilisateur dans le registre
+    let user = REGISTERED_USERS.find(u => 
+      u.email.toLowerCase() === identifier.toLowerCase() || 
+      u.phone === identifier || 
+      u.name.toLowerCase() === identifier.toLowerCase()
+    );
+
+    if (!user) {
+      // Si nouvel utilisateur se connecte, créer son compte réel immédiatement
+      user = {
+        name: identifier.includes("@") ? identifier.split("@")[0] : identifier,
+        email: identifier.includes("@") ? identifier : `${identifier.replace(/\s+/g, '')}@user.ga`,
+        phone: identifier.match(/^\d+$/) ? identifier : "077 45 89 12",
+        role: "locataire",
+        createdAt: new Date().toLocaleDateString("fr-FR")
+      };
+      REGISTERED_USERS.push(user);
+      localStorage.setItem("locagabon_all_users", JSON.stringify(REGISTERED_USERS));
+    }
+
+    state.currentUser = user;
+    localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
+    updateUserHeaderUI();
+    updateProfileDisplay();
+    closeModal("authModal");
+
+    alert(`Bienvenue ${state.currentUser.name} ! Vous êtes maintenant connecté à votre Espace Membre.`);
+    openFoldableSection("espace-fold-content");
   });
 
   btnGoogle?.addEventListener("click", () => {
-    state.currentUser = {
+    const googleUser = {
       name: "Marc KASSA (Google)",
       email: "marc.kassa.gabon@gmail.com",
       phone: "077 45 89 12",
-      role: "locataire"
+      role: "locataire",
+      createdAt: new Date().toLocaleDateString("fr-FR")
     };
 
+    const existing = REGISTERED_USERS.find(u => u.email === googleUser.email);
+    if (!existing) {
+      REGISTERED_USERS.push(googleUser);
+      localStorage.setItem("locagabon_all_users", JSON.stringify(REGISTERED_USERS));
+    }
+
+    state.currentUser = googleUser;
     localStorage.setItem("locagabon_user", JSON.stringify(state.currentUser));
     updateUserHeaderUI();
     updateProfileDisplay();
     closeModal("authModal");
-    alert("ConnectÃ© avec succÃ¨s via votre compte Google Gmail !");
+    alert("Connecté avec succès via votre compte Google Gmail !");
+    openFoldableSection("espace-fold-content");
   });
 }
 
 function updateUserHeaderUI() {
   const authZone = document.getElementById("headerAuthZone");
+  const lblNavEspace = document.getElementById("lblNavEspace");
   if (!authZone) return;
 
   if (state.currentUser) {
+    if (lblNavEspace) lblNavEspace.textContent = `Espace ${state.currentUser.name.split(' ')[0]}`;
+
     authZone.innerHTML = `
       <div class="user-logged-badge">
         <div class="user-avatar-small">${state.currentUser.name.charAt(0).toUpperCase()}</div>
         <span class="user-logged-name">${state.currentUser.name}</span>
-        <button class="btn-logout-small" id="btnLogout" title="DÃ©connexion"><i class="ri-logout-box-r-line"></i></button>
+        <button class="btn-logout-small" id="btnLogout" title="Déconnexion"><i class="ri-logout-box-r-line"></i></button>
       </div>
       <button class="btn-primary-sm" id="quickAddPropertyBtn">
         <i class="ri-add-circle-line"></i> <span>Publier un bien</span>
@@ -482,9 +558,13 @@ function updateUserHeaderUI() {
       state.currentUser = null;
       localStorage.removeItem("locagabon_user");
       updateUserHeaderUI();
-      alert("Vous avez Ã©tÃ© dÃ©connectÃ©.");
+      updateProfileDisplay();
+      alert("Vous avez été déconnecté.");
+      document.querySelector('.nav-btn[data-target="section-annonces"]')?.click();
     });
   } else {
+    if (lblNavEspace) lblNavEspace.textContent = "Mon Espace";
+
     authZone.innerHTML = `
       <button class="btn-auth-outline" id="btnOpenAuthModal">
         <i class="ri-user-3-line"></i> <span>Connexion / Inscription</span>
