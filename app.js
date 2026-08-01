@@ -202,7 +202,23 @@ document.addEventListener("DOMContentLoaded", () => {
   setupProfileEditAndSecurity();
   updateUserHeaderUI();
   updateProfileDisplay();
+  updateFooterContactsUI();
 });
+
+function updateFooterContactsUI() {
+  const saved = JSON.parse(localStorage.getItem("locagabon_official_contacts"));
+  if (!saved) return;
+
+  const siegeEl = document.getElementById("footerSiegeSocial");
+  const emailEl = document.getElementById("footerEmail");
+  const whatsappEl = document.getElementById("footerWhatsapp");
+  const platformEl = document.getElementById("footerPlatform");
+
+  if (siegeEl && saved.siege) siegeEl.textContent = saved.siege;
+  if (emailEl && saved.email) emailEl.textContent = saved.email;
+  if (whatsappEl && saved.whatsapp) whatsappEl.textContent = saved.whatsapp;
+  if (platformEl && saved.platform) platformEl.textContent = saved.platform;
+}
 
 // --- NAVIGATION & DÃ‰PLIAGE ---
 function setupNavigation() {

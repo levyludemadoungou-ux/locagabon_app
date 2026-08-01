@@ -192,9 +192,45 @@
           <i class="ri-file-excel-line"></i> Exporter Rapport PDF/Excel
         </button>
         <a href="index.html" class="btn-pricing-outline" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
-          <i class="ri-external-link-line"></i> Retour au Site Public
+          <i class="ri-external-link-line"></i> Voir le Site Public
         </a>
       </div>
+    </div>
+
+    <!-- NOUVEAU MODULE DE GESTION EN DIRECT DE LA RUBRIQUE CONTACTS & SIÈGE SOCIAL -->
+    <div class="admin-chart-box mb-4" style="border-color: var(--accent-emerald);">
+      <div class="chart-header">
+        <h3><i class="ri-edit-2-line" style="color: var(--accent-emerald);"></i> Modifier la rubrique "Éditeur & Contacts Officiels" (Bas de Page Site Public)</h3>
+        <span class="sub-block-badge emerald">Mise à jour en direct 100% Dynamique</span>
+      </div>
+
+      <form id="formAdminUpdateContacts">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-map-pin-2-line"></i> Siège Social</label>
+            <input type="text" id="adminInputSiege" value="Libreville, République Gabonaise" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-mail-line"></i> Email Officiel</label>
+            <input type="email" id="adminInputEmail" value="contact@locagabon.ga" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-whatsapp-line"></i> WhatsApp Support</label>
+            <input type="text" id="adminInputWhatsapp" value="+241 77 00 00 00" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);"><i class="ri-global-line"></i> Plateforme / Slogan</label>
+            <input type="text" id="adminInputPlatform" value="PropTech 100% Gabonaise" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-pricing-accent mt-3" style="padding: 0.75rem 1.5rem; font-size: 0.9rem;">
+          <i class="ri-save-3-line"></i> Enregistrer & Mettre à jour immédiatement sur le site public
+        </button>
+      </form>
     </div>
 
     <!-- BLOC 1 : BULLES KPIS ÉTENDUES - LIGNE 1 (4 COLONNES) -->
@@ -412,8 +448,39 @@
 
   <script src="app.js"></script>
   <script>
-    // INITIALISATION DES GRAPHIQUES ÉTENDUS POUR ADMIN DASHBOARD
+    // GESTION DYNAMIQUE DE LA MODIFICATION DES CONTACTS DEPUIS L'ADMINISTRATION
     document.addEventListener("DOMContentLoaded", () => {
+      const savedContacts = JSON.parse(localStorage.getItem("locagabon_official_contacts")) || {
+        siege: "Libreville, République Gabonaise",
+        email: "contact@locagabon.ga",
+        whatsapp: "+241 77 00 00 00",
+        platform: "PropTech 100% Gabonaise"
+      };
+
+      const inSiege = document.getElementById("adminInputSiege");
+      const inEmail = document.getElementById("adminInputEmail");
+      const inWhatsapp = document.getElementById("adminInputWhatsapp");
+      const inPlatform = document.getElementById("adminInputPlatform");
+
+      if (inSiege) inSiege.value = savedContacts.siege;
+      if (inEmail) inEmail.value = savedContacts.email;
+      if (inWhatsapp) inWhatsapp.value = savedContacts.whatsapp;
+      if (inPlatform) inPlatform.value = savedContacts.platform;
+
+      document.getElementById("formAdminUpdateContacts")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const updatedData = {
+          siege: inSiege.value.trim(),
+          email: inEmail.value.trim(),
+          whatsapp: inWhatsapp.value.trim(),
+          platform: inPlatform.value.trim()
+        };
+
+        localStorage.setItem("locagabon_official_contacts", JSON.stringify(updatedData));
+        alert("✅ CONTACTS ET MENTIONS ÉDITEUR MIS À JOUR AVEC SUCCÈS !\n\nLes nouvelles coordonnées s'affichent maintenant en direct sur le site public.");
+      });
+
       // Graphique 1 : Évolution Inscriptions & Volume
       const ctxGrowth = document.getElementById('growthChart')?.getContext('2d');
       if (ctxGrowth) {
