@@ -1,5 +1,5 @@
-﻿/* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC GEOLOCALISATION GPS PAR IA
+/* ==========================================================================
+   LOCAGABON AI - LOGIQUE APPLICATIVE BULLETPROOF UTF-8 (TOUS LES ACCENTS IMMUNISES)
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -15,8 +15,8 @@ const GABON_PHOTOS = {
 const INITIAL_PROPERTIES = [
   {
     id: "prop-1",
-    title: "Villa Duplex Spacieuse 4 PiÃ¨ces - Akanda AngondjÃ© ChÃ¢teau",
-    city: "Akanda (AngondjÃ©)",
+    title: "Villa Duplex Spacieuse 4 Pi\u00e8ces - Akanda Angondj\u00e9 Ch\u00e2teau",
+    city: "Akanda (Angondj\u00e9)",
     type: "Villa",
     operation: "Location",
     sellerType: "Agence Pro",
@@ -33,14 +33,14 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.villaOcre,
       GABON_PHOTOS.cloture
     ],
-    gps: { lat: 0.5283, lng: 9.4215, address: "Concession AngondjÃ© ChÃ¢teau, Akanda", zone: "Akanda AngondjÃ©" },
-    description: "Superbe villa duplex R+1 situÃ©e dans une concession calme Ã  AngondjÃ© ChÃ¢teau. 3 grandes chambres climatisÃ©es Ã  l'Ã©tage avec balcons, vaste sÃ©jour staffÃ© au rez-de-chaussÃ©e, jardin engazonnÃ©, surpresseur d'eau SEEG et compteur EDAN individuel.",
+    gps: { lat: 0.5283, lng: 9.4215, address: "Concession Angondj\u00e9 Ch\u00e2teau, Akanda", zone: "Akanda Angondj\u00e9" },
+    description: "Superbe villa duplex R+1 situ\u00e9e dans une concession calme \u00e0 Angondj\u00e9 Ch\u00e2teau. 3 grandes chambres climatis\u00e9es \u00e0 l'\u00e9tage avec balcons, vaste s\u00e9jour staff\u00e9 au rez-de-chauss\u00e9e, jardin engazonn\u00e9, surpresseur d'eau SEEG et compteur EDAN individuel.",
     verified: true,
-    bailleur: "Immo Gabon Pro SA (NIF: 2026-B-89192)"
+    bailleur: "Immo Gabon Pro SA (NIF : 2026-B-89192)"
   },
   {
     id: "prop-2",
-    title: "RÃ©sidence SÃ©curisÃ©e avec Portail & Abri Voitures - Quartier Louis",
+    title: "R\u00e9sidence S\u00e9curis\u00e9e avec Portail & Abri Voitures - Quartier Louis",
     city: "Libreville (Centre)",
     type: "Appartement",
     operation: "Location",
@@ -58,13 +58,13 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.duplex
     ],
     gps: { lat: 0.4042, lng: 9.4398, address: "Avenue du Bord de Mer, Quartier Louis, Libreville", zone: "Quartier Louis" },
-    description: "Belle rÃ©sidence moderne entiÃ¨rement clÃ´turÃ©e avec portail coulissant et abri de voiture couvert au Quartier Louis Ã  Libreville. Proche bord de mer et commerces. Eau SEEG assurÃ©e avec rÃ©serve de 2000L.",
+    description: "Belle r\u00e9sidence moderne enti\u00e8rement cl\u00f4tur\u00e9e avec portail coulissant et abri de voiture couvert au Quartier Louis \u00e0 Libreville. Proche bord de mer et commerces. Eau SEEG assur\u00e9e avec r\u00e9serve de 2000L.",
     verified: true,
     bailleur: "Mme NTOUTOUME Carine (Particulier Direct)"
   },
   {
     id: "prop-3",
-    title: "Grande Villa Ocre Standing avec Cour PavÃ©e - Batterie IV",
+    title: "Grande Villa Ocre Standing avec Cour Pav\u00e9e - Batterie IV",
     city: "Batterie IV",
     type: "Villa",
     operation: "Vente",
@@ -81,15 +81,15 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.villaOcre,
       GABON_PHOTOS.cloture
     ],
-    gps: { lat: 0.4211, lng: 9.4352, address: "Rue des RÃ©sidences, Batterie IV, Libreville", zone: "Batterie IV" },
-    description: "Luxueuse villa couleur ocre Ã  Batterie IV avec grande cour entiÃ¨rement pavÃ©e. 4 chambres indÃ©pendantes, vaste terrasse couverte avec colonnes, dÃ©pendance gardien et garage. Titre Foncier dÃ©finitif vÃ©rifiÃ© au Cadastre.",
+    gps: { lat: 0.4211, lng: 9.4352, address: "Rue des R\u00e9sidences, Batterie IV, Libreville", zone: "Batterie IV" },
+    description: "Luxueuse villa couleur ocre \u00e0 Batterie IV avec grande cour enti\u00e8rement pav\u00e9e. 4 chambres ind\u00e9pendantes, vaste terrasse couverte avec colonnes, d\u00e9pendance gardien et garage. Titre Foncier d\u00e9finitif v\u00e9rifi\u00e9 au Cadastre.",
     verified: true,
     bailleur: "Agence Cabinet Foncier Gabon SA"
   },
   {
     id: "prop-4",
-    title: "Maison Individuelle Moderne 3 Chambres - CitÃ© SNI Avorbam",
-    city: "Akanda (AngondjÃ©)",
+    title: "Maison Individuelle Moderne 3 Chambres - Cit\u00e9 SNI Avorbam",
+    city: "Akanda (Angondj\u00e9)",
     type: "Villa",
     operation: "Vente",
     sellerType: "Particulier",
@@ -105,14 +105,14 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.maisonSNI,
       GABON_PHOTOS.citeOctra
     ],
-    gps: { lat: 0.5140, lng: 9.4120, address: "CitÃ© SNI Avorbam, Akanda", zone: "Avorbam" },
-    description: "Charmante maison basse individuelle de type SNI construite sur parcelle clÃ´turÃ©e Ã  Avorbam. 3 chambres, salon, cuisine Ã©quipÃ©e, terrasse et cour bÃ©tonnÃ©e. Titre Foncier disponible immÃ©diatement.",
+    gps: { lat: 0.5140, lng: 9.4120, address: "Cit\u00e9 SNI Avorbam, Akanda", zone: "Avorbam" },
+    description: "Charmante maison basse individuelle de type SNI construite sur parcelle cl\u00f4tur\u00e9e \u00e0 Avorbam. 3 chambres, salon, cuisine \u00e9quip\u00e9e, terrasse et cour b\u00e9tonn\u00e9e. Titre Foncier disponible imm\u00e9diatement.",
     verified: true,
     bailleur: "M. ONDO Jean-Marc (Particulier)"
   },
   {
     id: "prop-5",
-    title: "Pavillon RÃ©sidentiel ClÃ´turÃ© - CitÃ© Octra Owendo",
+    title: "Pavillon R\u00e9sidentiel Cl\u00f4tur\u00e9 - Cit\u00e9 Octra Owendo",
     city: "Owendo",
     type: "Appartement",
     operation: "Location",
@@ -129,14 +129,14 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.citeOctra,
       GABON_PHOTOS.maisonSNI
     ],
-    gps: { lat: 0.2985, lng: 9.5080, address: "CitÃ© Octra, Owendo", zone: "Owendo Octra" },
-    description: "Logement dans une citÃ© rÃ©sidentielle calme Ã  Owendo. Peinture neuve, 2 chambres, terrasse d'entrÃ©e couverte, espace vert et accÃ¨s goudronnÃ©. Eau SEEG et Ã©lectricitÃ© EDAN individuel.",
+    gps: { lat: 0.2985, lng: 9.5080, address: "Cit\u00e9 Octra, Owendo", zone: "Owendo Octra" },
+    description: "Logement dans une cit\u00e9 r\u00e9sidentielle calme \u00e0 Owendo. Peinture neuve, 2 chambres, terrasse d'entr\u00e9e couverte, espace vert et acc\u00e8s goudronn\u00e9. Eau SEEG et \u00e9lectricit\u00e9 EDAN individuel.",
     verified: true,
     bailleur: "M. ONDO Paul (Particulier)"
   },
   {
     id: "prop-6",
-    title: "Villa MeublÃ©e 3 PiÃ¨ces avec Gardiennage - Port-Gentil NtchorÃ©rÃ©",
+    title: "Villa Meubl\u00e9e 3 Pi\u00e8ces avec Gardiennage - Port-Gentil Ntchor\u00e9r\u00e9",
     city: "Port-Gentil",
     type: "Villa",
     operation: "Location",
@@ -153,10 +153,10 @@ const INITIAL_PROPERTIES = [
       GABON_PHOTOS.villaOcre,
       GABON_PHOTOS.duplex
     ],
-    gps: { lat: -0.7193, lng: 8.7815, address: "Quartier NtchorÃ©rÃ©, Port-Gentil", zone: "Port-Gentil NtchorÃ©rÃ©" },
-    description: "Villa climatisÃ©e et meublÃ©e avec haut niveau de sÃ©curitÃ© Ã  Port-Gentil NtchorÃ©rÃ©. SÃ©jour avec baie vitrÃ©e, cuisine moderne, groupe Ã©lectrogÃ¨ne et cuve Ã  eau 3000L.",
+    gps: { lat: -0.7193, lng: 8.7815, address: "Quartier Ntchor\u00e9r\u00e9, Port-Gentil", zone: "Port-Gentil Ntchor\u00e9r\u00e9" },
+    description: "Villa climatis\u00e9e et meubl\u00e9e avec haut niveau de s\u00e9curit\u00e9 \u00e0 Port-Gentil Ntchor\u00e9r\u00e9. S\u00e9jour avec baie vitr\u00e9e, cuisine moderne, groupe \u00e9lectrog\u00e8ne et cuve \u00e0 eau 3000L.",
     verified: true,
-    bailleur: "Agence OgoouÃ© Immobilier Pro"
+    bailleur: "Agence Ogoou\u00e9 Immobilier Pro"
   }
 ];
 
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateFooterContactsUI() {
   const saved = JSON.parse(localStorage.getItem("locagabon_official_contacts")) || {
-    siege: "Charbonnages, Libreville, RÃ©publique Gabonaise",
+    siege: "Charbonnages, Libreville, R\u00e9publique Gabonaise",
     email: "levyludemadoungou@outlook.com",
     whatsapp: "+33 7 66 96 45 32",
     platform: "PropTech 100% Gabonaise"
@@ -239,7 +239,7 @@ function updateFooterContactsUI() {
   if (platformEl) platformEl.textContent = saved.platform;
 }
 
-// --- NAVIGATION & DEPLIAGE ---
+// --- NAVIGATION & D\u00c9PLIAGE ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".app-section");
@@ -251,7 +251,7 @@ function setupNavigation() {
 
       if (targetId === "section-locataire") {
         if (!state.currentUser) {
-          alert("ðŸ”’ ACCÃˆS RESTREINT Ã€ L'ESPACE MEMBRE\n\nVeuillez vous connecter ou crÃ©er un compte pour consulter et gÃ©rer vos informations personnelles.");
+          alert("\ud83d\udd12 ACC\u00c8S RESTREINT \u00c0 L'ESPACE MEMBRE\n\nVeuillez vous connecter ou cr\u00e9er un compte pour consulter et g\u00e9rer vos informations personnelles.");
           openModal("authModal");
           return;
         }
@@ -284,7 +284,7 @@ function setupNavigation() {
   });
 }
 
-// --- GESTION DES CARTES DEPLIANTES ---
+// --- GESTION DES CARTES D\u00c9PLIANTES ---
 function setupFoldableSections() {
   const headers = document.querySelectorAll(".foldable-header");
 
@@ -295,7 +295,7 @@ function setupFoldableSections() {
       const body = document.getElementById(targetBodyId);
 
       if (targetBodyId === "espace-fold-content" && !state.currentUser) {
-        alert("ðŸ”’ ACCÃˆS RESTREINT Ã€ L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour dÃ©plier votre Espace Membre.");
+        alert("\ud83d\udd12 ACC\u00c8S RESTREINT \u00c0 L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour d\u00e9plier votre Espace Membre.");
         openModal("authModal");
         return;
       }
@@ -322,7 +322,7 @@ function openFoldableSection(bodyId) {
   window.scrollTo({ top: card.offsetTop - 80, behavior: "smooth" });
 }
 
-// --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VERIFICATION DE SECURITE ---
+// --- CONSULTATION ET MODIFICATION DU PROFIL & S\u00c9CURIT\u00c9 ---
 function setupProfileEditAndSecurity() {
   const formEdit = document.getElementById("formEditProfile");
   const formSecurity = document.getElementById("formValidateSecurityCode");
@@ -353,7 +353,7 @@ function setupProfileEditAndSecurity() {
     const codeEntered = document.getElementById("inputSecurityCode").value.trim();
 
     if (codeEntered !== "892104" && codeEntered.length < 4) {
-      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour la vÃ©rification test.");
+      alert("Code de s\u00e9curit\u00e9 invalide. Saisissez 892104 pour le test de validation.");
       return;
     }
 
@@ -381,12 +381,12 @@ function setupProfileEditAndSecurity() {
       closeModal("securityCodeModal");
 
       alert(
-        `âœ… MISE Ã€ JOUR SÃ‰CURISÃ‰E RÃ‰USSIE !\n\n` +
-        `Vos coordonnÃ©es ont Ã©tÃ© enregistrÃ©es :\n` +
-        `â€¢ Nom : ${changes.name}\n` +
-        `â€¢ Email : ${changes.email}\n` +
-        `â€¢ TÃ©lÃ©phone : +241 ${changes.phone}\n\n` +
-        `ConformitÃ© CNPDCP Gabon validÃ©e.`
+        `\u2705 MISE \u00c0 JOUR S\u00c9CURIS\u00c9E R\u00c9USSIE !\n\n` +
+        `Vos coordonn\u00e9es ont \u00e9t\u00e9 enregistr\u00e9es avec succ\u00e8s :\n` +
+        `\u2022 Nom : ${changes.name}\n` +
+        `\u2022 Adresse Email : ${changes.email}\n` +
+        `\u2022 T\u00e9l\u00e9phone : +241 ${changes.phone}\n\n` +
+        `Attestation de conformit\u00e9 CNPDCP Gabon certifi\u00e9e.`
       );
     }
   });
@@ -460,7 +460,7 @@ function setupAuthModal() {
     }
   });
 
-  // --- CREATION DE COMPTE REEL ---
+  // --- CR\u00c9ATION DE COMPTE R\u00c9EL ---
   formRegister?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("regNameInput").value.trim();
@@ -471,7 +471,7 @@ function setupAuthModal() {
 
     const existing = REGISTERED_USERS.find(u => u.email === email || u.phone === phone);
     if (existing) {
-      alert(`âš ï¸ Ce compte (email: ${email} ou tÃ©l: ${phone}) existe dÃ©jÃ  dans la base de donnÃ©es. Vous Ãªtes automatiquement connectÃ©.`);
+      alert(`\u26a0\ufe0f Ce compte (email : ${email} ou t\u00e9l\u00e9phone : ${phone}) existe d\u00e9j\u00e0 dans la base de donn\u00e9es. Vous \u00eates automatiquement connect\u00e9.`);
       state.currentUser = existing;
     } else {
       const newUser = {
@@ -493,11 +493,11 @@ function setupAuthModal() {
     updateProfileDisplay();
     closeModal("authModal");
 
-    alert(`ðŸŽ‰ CRÃ‰ATION DE COMPTE RÃ‰EL RÃ‰USSIE !\n\nBienvenue ${name} !\nVotre compte (${role.toUpperCase()}) a Ã©tÃ© enregistrÃ© de faÃ§on permanente.`);
+    alert(`\ud83c\udf89 CR\u00c9ATION DE COMPTE R\u00c9EL R\u00c9USSIE !\n\nBienvenue ${name} !\nVotre compte (${role.toUpperCase()}) a \u00e9t\u00e9 enregistr\u00e9 de fa\u00e7on permanente.`);
     openFoldableSection("espace-fold-content");
   });
 
-  // --- CONNEXION REELLE ---
+  // --- CONNEXION R\u00c9ELLE ---
   formLogin?.addEventListener("submit", (e) => {
     e.preventDefault();
     const identifier = document.getElementById("loginIdentifier").value.trim();
@@ -526,7 +526,7 @@ function setupAuthModal() {
     updateProfileDisplay();
     closeModal("authModal");
 
-    alert(`Bienvenue ${state.currentUser.name} ! Vous Ãªtes maintenant connectÃ© Ã  votre Espace Membre.`);
+    alert(`Bienvenue ${state.currentUser.name} ! Vous \u00eates maintenant connect\u00e9 \u00e0 votre Espace Membre.`);
     openFoldableSection("espace-fold-content");
   });
 
@@ -550,7 +550,7 @@ function setupAuthModal() {
     updateUserHeaderUI();
     updateProfileDisplay();
     closeModal("authModal");
-    alert("ConnectÃ© avec succÃ¨s via votre compte Google Gmail !");
+    alert("Connect\u00e9 avec succ\u00e8s via votre compte Google Gmail !");
     openFoldableSection("espace-fold-content");
   });
 }
@@ -567,7 +567,7 @@ function updateUserHeaderUI() {
       <div class="user-logged-badge">
         <div class="user-avatar-small">${state.currentUser.name.charAt(0).toUpperCase()}</div>
         <span class="user-logged-name">${state.currentUser.name}</span>
-        <button class="btn-logout-small" id="btnLogout" title="DÃ©connexion"><i class="ri-logout-box-r-line"></i></button>
+        <button class="btn-logout-small" id="btnLogout" title="D\u00e9connexion"><i class="ri-logout-box-r-line"></i></button>
       </div>
       <button class="btn-primary-sm" id="quickAddPropertyBtn">
         <i class="ri-add-circle-line"></i> <span>Publier un bien</span>
@@ -579,7 +579,7 @@ function updateUserHeaderUI() {
       localStorage.removeItem("locagabon_user");
       updateUserHeaderUI();
       updateProfileDisplay();
-      alert("Vous avez Ã©tÃ© dÃ©connectÃ©.");
+      alert("Vous avez \u00e9t\u00e9 d\u00e9connect\u00e9.");
       document.querySelector('.nav-btn[data-target="section-annonces"]')?.click();
     });
   } else {
@@ -597,18 +597,18 @@ function updateUserHeaderUI() {
   }
 }
 
-// --- RENDU DES ANNONCES AVEC REPERAGE GPS PAR IA ---
+// --- RENDU DES ANNONCES AVEC G\u00c9OLOCALISATION GPS ---
 function renderProperties(props) {
   const grid = document.getElementById("propertyGrid");
   const countEl = document.getElementById("resultsCount");
   if (!grid) return;
-  countEl.textContent = `${props.length} annonce(s) trouvÃ©e(s)`;
+  countEl.textContent = `${props.length} annonce(s) trouv\u00e9e(s)`;
 
   if (props.length === 0) {
     grid.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 3rem; background: var(--bg-surface); border-radius: var(--radius-lg);">
         <i class="ri-search-eye-line" style="font-size: 3rem; color: var(--accent-gold);"></i>
-        <h3 style="margin-top: 1rem;">Aucun bien ne correspond Ã  votre recherche</h3>
+        <h3 style="margin-top: 1rem;">Aucun bien ne correspond \u00e0 votre recherche</h3>
       </div>
     `;
     return;
@@ -642,7 +642,7 @@ function renderProperties(props) {
 
           <div style="margin-bottom: 0.8rem;">
             <button class="btn-gps-trigger" data-id="${p.id}" style="background: rgba(16,185,129,0.12); color: var(--accent-emerald); border: 1px solid rgba(16,185,129,0.3); padding: 0.3rem 0.6rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;">
-              <i class="ri-radar-line"></i> ðŸ“ GPS IA : ${gpsInfo.lat.toFixed(4)}, ${gpsInfo.lng.toFixed(4)}
+              <i class="ri-radar-line"></i> \ud83d\udccd GPS IA : ${gpsInfo.lat.toFixed(4)}, ${gpsInfo.lng.toFixed(4)}
             </button>
           </div>
 
@@ -655,7 +655,7 @@ function renderProperties(props) {
               <i class="ri-eye-line"></i> Consulter l'annonce
             </button>
             <button class="btn-card-primary btn-pay-prop" data-id="${p.id}">
-              <i class="ri-file-text-line"></i> RÃ©server
+              <i class="ri-file-text-line"></i> R\u00e9server
             </button>
           </div>
         </div>
@@ -706,7 +706,6 @@ function openGpsMapModal(p) {
   if (latEl) latEl.textContent = `${gps.lat} N`;
   if (lngEl) lngEl.textContent = `${gps.lng} E`;
 
-  // Dynamic OpenStreetMap Bounding Box
   const delta = 0.008;
   const bbox = `${gps.lng - delta},${gps.lat - delta},${gps.lng + delta},${gps.lat + delta}`;
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${gps.lat},${gps.lng}`;
@@ -730,19 +729,19 @@ function openPropertyDetailModal(p) {
     <div class="detail-header">
       <div class="detail-meta-row">
         ${isAgency ? 
-          `<span class="badge-seller-pro" style="position:static;"><i class="ri-building-2-fill"></i> Agence ImmobiliÃ¨re Pro</span>` : 
+          `<span class="badge-seller-pro" style="position:static;"><i class="ri-building-2-fill"></i> Agence Immobili\u00e8re Pro</span>` : 
           `<span class="badge-seller-private" style="position:static;"><i class="ri-user-user-line"></i> Particulier Direct</span>`
         }
         <span class="badge-op-type ${isSale ? 'badge-op-sale' : 'badge-op-rent'}" style="position:static;">${p.operation}</span>
-        ${p.titreFoncier ? `<span class="tag-item highlight" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); font-weight: 700; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-size: 0.78rem;"><i class="ri-file-shield-2-line"></i> Titre Foncier CertifiÃ©</span>` : ''}
+        ${p.titreFoncier ? `<span class="tag-item highlight" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); font-weight: 700; padding: 0.2rem 0.6rem; border-radius: var(--radius-full); font-size: 0.78rem;"><i class="ri-file-shield-2-line"></i> Titre Foncier Certifi\u00e9</span>` : ''}
       </div>
 
       <h2 style="margin-top:0.6rem;">${p.title}</h2>
       <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: space-between;">
-        <span><i class="ri-map-pin-2-fill" style="color: var(--accent-emerald);"></i> <strong>${p.city}</strong> | RÃ©fÃ©rence : #${p.id.toUpperCase()}</span>
+        <span><i class="ri-map-pin-2-fill" style="color: var(--accent-emerald);"></i> <strong>${p.city}</strong> | R\u00e9f\u00e9rence : #${p.id.toUpperCase()}</span>
         
         <button class="btn-gps-trigger-detail" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); border: 1px solid var(--accent-emerald); padding: 0.35rem 0.75rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;">
-          <i class="ri-radar-fill"></i> Carte & CoordonnÃ©es GPS IA
+          <i class="ri-radar-fill"></i> Carte & Coordonn\u00e9es GPS IA
         </button>
       </div>
 
@@ -770,7 +769,7 @@ function openPropertyDetailModal(p) {
       <div class="feature-box">
         <i class="ri-flashlight-line"></i>
         <div>
-          <span>Ã‰lectricitÃ©</span>
+          <span>\u00c9lectricit\u00e9</span>
           <strong>${p.edan ? 'EDAN Individuel' : 'Inclus'}</strong>
         </div>
       </div>
@@ -778,51 +777,51 @@ function openPropertyDetailModal(p) {
         <i class="ri-drop-line"></i>
         <div>
           <span>Eau potable</span>
-          <strong>${p.seeg ? 'SEEG avec Surpresseur' : 'Forage privÃ©'}</strong>
+          <strong>${p.seeg ? 'SEEG avec Surpresseur' : 'Forage priv\u00e9'}</strong>
         </div>
       </div>
       <div class="feature-box">
         <i class="ri-user-protect-line"></i>
         <div>
-          <span>SÃ©curitÃ©</span>
-          <strong>${p.gardien ? 'Gardien H24 & ClÃ´ture' : 'Portail SÃ©curisÃ©'}</strong>
+          <span>S\u00e9curit\u00e9</span>
+          <strong>${p.gardien ? 'Gardien H24 & Cl\u00f4ture' : 'Portail S\u00e9curis\u00e9'}</strong>
         </div>
       </div>
       <div class="feature-box">
         <i class="ri-shield-keyhole-line"></i>
         <div>
-          <span>Garantie LÃ©gale</span>
+          <span>Garantie L\u00e9gale</span>
           <strong>${isSale ? 'Titre Foncier' : `Caution : ${p.cautionMois} mois`}</strong>
         </div>
       </div>
     </div>
 
     <div class="detail-description-card">
-      <h4><i class="ri-article-line"></i> Description dÃ©taillÃ©e du bien</h4>
+      <h4><i class="ri-article-line"></i> Description d\u00e9taill\u00e9e du bien</h4>
       <p style="font-size: 0.92rem; color: var(--text-primary); line-height: 1.7;">
         ${p.description}
       </p>
     </div>
 
     <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1rem;">
-      <h4 style="font-size: 0.9rem; color: var(--accent-emerald); margin-bottom: 0.4rem;"><i class="ri-map-pin-user-line"></i> RepÃ©rage Cartographique & GÃ©olocalisation GPS</h4>
+      <h4 style="font-size: 0.9rem; color: var(--accent-emerald); margin-bottom: 0.4rem;"><i class="ri-map-pin-user-line"></i> Rep\u00e9rage Cartographique & G\u00e9olocalisation GPS</h4>
       <p style="font-size: 0.82rem; color: var(--text-secondary);">
-        Adresse estimÃ©e : <strong>${gps.address}</strong><br>
-        CoordonnÃ©es GPS : <strong>${gps.lat} N, ${gps.lng} E</strong>
+        Adresse estim\u00e9e : <strong>${gps.address}</strong><br>
+        Coordonn\u00e9es GPS : <strong>${gps.lat} N, ${gps.lng} E</strong>
       </p>
     </div>
 
     <div class="detail-landlord-card">
       <div>
-        <span style="font-size: 0.78rem; color: var(--text-secondary);">Annonce proposÃ©e par :</span>
+        <span style="font-size: 0.78rem; color: var(--text-secondary);">Annonce propos\u00e9e par :</span>
         <h4 style="font-size: 1rem; color: var(--text-primary);">${p.bailleur}</h4>
       </div>
-      <span class="badge-status-ok"><i class="ri-shield-check-fill"></i> Annonceur VÃ©rifiÃ© CNPDCP</span>
+      <span class="badge-status-ok"><i class="ri-shield-check-fill"></i> Annonceur V\u00e9rifi\u00e9 CNPDCP</span>
     </div>
 
     <div class="confirm-actions-grid">
       <button class="btn-pay-submit" id="btnBookFromDetail" style="padding: 1rem; font-size: 1.05rem;">
-        <i class="ri-file-text-line"></i> ${isSale ? 'RÃ©server & GÃ©nÃ©rer le Compromis de Vente' : 'RÃ©server & GÃ©nÃ©rer mon Contrat de Bail IA'}
+        <i class="ri-file-text-line"></i> ${isSale ? 'R\u00e9server & G\u00e9n\u00e9rer le Compromis de Vente' : 'R\u00e9server & G\u00e9n\u00e9rer mon Contrat de Bail IA'}
       </button>
       <button class="btn-secondary" onclick="closeModal('propertyDetailModal')">
         <i class="ri-close-line"></i> Fermer la fiche
@@ -862,77 +861,81 @@ function setupFAQAccordion() {
   });
 }
 
-function generateAILeaseContract(prop, phone, method) {
+function generateAILeaseContract(prop, phone, method, beneficiary, payerIdentity, transitaireVal) {
   const isSale = prop.operation === "Vente";
   const cautionAmount = prop.cautionMois ? (prop.price * prop.cautionMois) : (prop.price * 2);
   const currentDate = new Date().toLocaleDateString('fr-FR');
-  const tenantName = state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc";
+  const tenantName = payerIdentity || (state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc");
+  const transitaire = transitaireVal || "LocaGabon SA (S\u00e9questre Num\u00e9rique Certifi\u00e9)";
 
   if (isSale) {
     return `
       <div style="text-align: center; margin-bottom: 1rem;">
-        <span class="lease-badge-ia"><i class="ri-robot-2-line"></i> CONTRAT GÃ‰NÃ‰RÃ‰ PAR L'IA LOCAGABON</span>
-        <h2>COMPROMIS DE VENTE IMMOBILIÃˆRE</h2>
-        <small>Conforme au Droit Foncier de la RÃ©publique Gabonaise</small>
+        <span class="lease-badge-ia"><i class="ri-robot-2-line"></i> CONTRAT G\u00c9N\u00c9R\u00c9 PAR L'IA LOCAGABON</span>
+        <h2>COMPROMIS DE VENTE IMMOBILI\u00c8RE</h2>
+        <small>Conforme au Droit Foncier de la R\u00e9publique Gabonaise</small>
       </div>
 
       <div class="lease-section">
-        <h4>1. PARTIES CONTRACTANTES</h4>
-        <p><strong>Vendeur :</strong> ${prop.bailleur}</p>
-        <p><strong>Acheteur :</strong> ${tenantName} (TÃ©lÃ©phone : ${phone})</p>
+        <h4>1. LES 3 PARTIES CONTRACTANTES</h4>
+        <p><strong>1. Le Payeur (Acheteur Identifi\u00e9) :</strong> ${tenantName} (Identifiant / D\u00e9bit : ${phone})</p>
+        <p><strong>2. Le Transitaire (S\u00e9questre Certifi\u00e9) :</strong> ${transitaire}</p>
+        <p><strong>3. Le B\u00e9n\u00e9ficiaire (Vendeur / Agence) :</strong> ${beneficiary || prop.bailleur}</p>
       </div>
 
       <div class="lease-section">
-        <h4>2. DÃ‰SIGNATION DU BIEN & TITRE FONCIER</h4>
-        <p><strong>Objet :</strong> Vente dÃ©finitive de : <em>${prop.title}</em> situÃ© Ã  <strong>${prop.city}</strong>.</p>
-        <p><strong>CoordonnÃ©es GPS :</strong> ${prop.gps ? `${prop.gps.lat} N, ${prop.gps.lng} E` : 'RÃ©publique Gabonaise'}</p>
-        <p><strong>Garantie FonciÃ¨re :</strong> Bien certifiÃ© avec Titre Foncier authentifiÃ© auprÃ¨s de la Conservation FonciÃ¨re du Gabon.</p>
+        <h4>2. D\u00c9SIGNATION DU BIEN & TITRE FONCIER</h4>
+        <p><strong>Objet :</strong> Vente d\u00e9finitive de : <em>${prop.title}</em> situ\u00e9 \u00e0 <strong>${prop.city}</strong>.</p>
+        <p><strong>Coordonn\u00e9es GPS :</strong> ${prop.gps ? `${prop.gps.lat} N, ${prop.gps.lng} E` : 'R\u00e9publique Gabonaise'}</p>
+        <p><strong>Garantie Fonci\u00e8re :</strong> Bien certifi\u00e9 avec Titre Foncier authentifi\u00e9 aupr\u00e8s de la Conservation Fonci\u00e8re du Gabon.</p>
       </div>
 
       <div class="lease-section">
-        <h4>3. PRIX DE VENTE & MODALITÃ‰S DE RÃˆGLEMENT</h4>
+        <h4>3. PRIX DE VENTE & MODALIT\u00c9S DE R\u00c8GLEMENT</h4>
         <p><strong>Prix convenu :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong></p>
-        <p><strong>Paiement :</strong> RÃ©glÃ© par ${method}. ReÃ§u certifiÃ© avec sÃ©questre sur Compte Marchand Gabon.</p>
+        <p><strong>Paiement :</strong> R\u00e9gl\u00e9 par ${method}. Re\u00e7u certifi\u00e9 avec s\u00e9questre sur Compte Marchand Gabon.</p>
       </div>
     `;
   }
 
   return `
     <div style="text-align: center; margin-bottom: 1rem;">
-      <span class="lease-badge-ia"><i class="ri-robot-2-line"></i> CONTRAT DE BAIL GÃ‰NÃ‰RÃ‰ PAR L'IA LOCAGABON</span>
-      <h2>CONTRAT DE BAIL Ã€ USAGE D'HABITATION</h2>
-      <small>Conforme Ã  la RÃ©glementation du Bail d'Habitation en RÃ©publique Gabonaise</small>
+      <span class="lease-badge-ia"><i class="ri-robot-2-line"></i> CONTRAT DE BAIL G\u00c9N\u00c9R\u00c9 PAR L'IA LOCAGABON</span>
+      <h2>CONTRAT DE BAIL \u00c0 USAGE D'HABITATION</h2>
+      <small>Conforme \u00e0 la R\u00e9glementation du Bail d'Habitation en R\u00e9publique Gabonaise</small>
     </div>
 
     <div class="lease-section">
-      <h4>ARTICLE 1 : DÃ‰SIGNATION DES PARTIES</h4>
-      <p><strong>Bailleur / Agence :</strong> ${prop.bailleur}</p>
-      <p><strong>Locataire :</strong> ${tenantName} (TÃ©lÃ©phone enregistrÃ© : ${phone})</p>
+      <h4>ARTICLE 1 : LES 3 PARTIES DU CONTRAT DE BAIL</h4>
+      <p><strong>1. Le Payeur (Locataire Identifi\u00e9) :</strong> ${tenantName} (D\u00e9bit / T\u00e9l. : ${phone})</p>
+      <p><strong>2. Le Transitaire (S\u00e9questre Certifi\u00e9) :</strong> ${transitaire}</p>
+      <p><strong>3. Le B\u00e9n\u00e9ficiaire (Bailleur / Agence) :</strong> ${beneficiary || prop.bailleur}</p>
     </div>
 
     <div class="lease-section">
-      <h4>ARTICLE 2 : OBJET DU CONTRAT & Ã‰QUIPEMENTS</h4>
-      <p>Location Ã  usage d'habitation exclusive du bien : <strong>${prop.title}</strong> situÃ© Ã  <strong>${prop.city}</strong> (GPS: ${prop.gps ? `${prop.gps.lat}N, ${prop.gps.lng}E` : 'Gabon'}).</p>
-      <p><strong>Raccordements :</strong> Compteur Ã‰lectrique EDAN individuel et abonnement Eau SEEG conforme.</p>
+      <h4>ARTICLE 2 : OBJET DU CONTRAT & \u00c9QUIPEMENTS</h4>
+      <p>Location \u00e0 usage d'habitation exclusive du bien : <strong>${prop.title}</strong> situ\u00e9 \u00e0 <strong>${prop.city}</strong> (GPS: ${prop.gps ? `${prop.gps.lat}N, ${prop.gps.lng}E` : 'Gabon'}).</p>
+      <p><strong>Raccordements :</strong> Compteur \u00c9lectrique EDAN individuel et abonnement Eau SEEG conforme.</p>
     </div>
 
     <div class="lease-section">
-      <h4>ARTICLE 3 : LOYER & CAUTION LÃ‰GALE (PLAFOND GABON)</h4>
-      <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
-      <p><strong>DÃ©pÃ´t de Garantie (Caution LÃ©gale) :</strong> FixÃ©e Ã  <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond lÃ©gal gabonais.</p>
+      <h4>ARTICLE 3 : LOYER & CAUTION L\u00c9GALE (PLAFOND GABON)</h4>
+      <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>${method}</em>.</p>
+      <p><strong>D\u00e9p\u00f4t de Garantie (Caution L\u00e9gale) :</strong> Fix\u00e9e \u00e0 <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond l\u00e9gal gabonais.</p>
     </div>
 
     <div class="lease-section">
-      <h4>ARTICLE 4 : DUREE DU BAIL & PRÃ‰AVIS</h4>
-      <p>Bail conclu pour une durÃ©e de 1 an renouvelable. Le locataire dispose d'un prÃ©avis lÃ©gal de 1 Ã  3 mois pour donner congÃ© par lettre ou notification numÃ©rique certifiÃ©e.</p>
+      <h4>ARTICLE 4 : DUREE DU BAIL & PR\u00c9AVIS</h4>
+      <p>Bail conclu pour une dur\u00e9e de 1 an renouvelable. Le locataire dispose d'un pr\u00e9avis l\u00e9gal de 1 \u00e0 3 mois pour donner cong\u00e9 par lettre ou notification num\u00e9rique certifi\u00e9e.</p>
     </div>
 
     <div class="lease-section" style="background: #f1f5f9; padding: 0.6rem; border-radius: 6px; font-size: 0.8rem;">
-      <p><strong>Horodatage & ScellÃ© IA :</strong> Document gÃ©nÃ©rÃ© le ${currentDate} par LocaGabon AI. Valable sans signature manuscrite dÃ¨s validation de la transaction Mobile Money.</p>
+      <p><strong>Horodatage & Scell\u00e9 IA :</strong> Document g\u00e9n\u00e9r\u00e9 le ${currentDate} par LocaGabon AI. Valable sans signature manuscrite d\u00e8s validation de la transaction.</p>
     </div>
   `;
 }
 
+// --- SYST\u00c8ME DE PAIEMENT DYNAMIQUE AVEC EXIGENCE STRICTE DES 3 PARTIES SUR TOUS LES MODES ---
 function setupThreeStepPaymentSystem() {
   const btnGoToLease = document.getElementById("btnGoToAILeaseContract");
   const btnApproveLease = document.getElementById("btnApproveLeaseAndGoToPay");
@@ -940,34 +943,89 @@ function setupThreeStepPaymentSystem() {
   const btnBackToStep1 = document.getElementById("btnBackToStep1");
   const btnBackToLease = document.getElementById("btnBackToLeaseStep");
 
+  const payRadios = document.querySelectorAll('input[name="payMethod"]');
+  const fieldGroupMobile = document.getElementById("fieldGroupMobileMoney");
+  const fieldGroupCard = document.getElementById("fieldGroupCard");
+  const fieldGroupTransfer = document.getElementById("fieldGroupTransfer");
+
+  payRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      const val = radio.value;
+
+      document.querySelectorAll(".pay-method-card").forEach(c => c.classList.remove("active"));
+      radio.closest(".pay-method-card")?.classList.add("active");
+
+      fieldGroupMobile?.classList.add("hidden");
+      fieldGroupCard?.classList.add("hidden");
+      fieldGroupTransfer?.classList.add("hidden");
+
+      if (val === "airtel" || val === "moov") {
+        fieldGroupMobile?.classList.remove("hidden");
+      } else if (val === "card") {
+        fieldGroupCard?.classList.remove("hidden");
+      } else if (val === "transfer") {
+        fieldGroupTransfer?.classList.remove("hidden");
+      }
+    });
+  });
+
   if (!btnGoToLease) return;
 
   btnGoToLease.addEventListener("click", () => {
-    const phone = document.getElementById("payPhoneNumber").value.trim();
-    const selectedMethod = document.querySelector('input[name="payMethod"]:checked').value;
+    const payerIdentityInput = document.getElementById("payPayerIdentity")?.value.trim();
+    const transitaireInput = document.getElementById("payTransitaireAccount")?.value.trim() || "LocaGabon SA (S\u00e9questre Certifi\u00e9)";
+    const benInput = document.getElementById("payBeneficiaryAccount")?.value.trim() || state.activePropertyForPay.bailleur;
 
-    if ((selectedMethod === "airtel" || selectedMethod === "moov") && !phone) {
-      alert("Veuillez saisir votre numÃ©ro de tÃ©lÃ©phone Mobile Money Gabon.");
+    if (!payerIdentityInput) {
+      alert("Veuillez saisir l'Identit\u00e9 du Payeur (Nom complet / CNI) pour valider le paiement et g\u00e9n\u00e9rer votre bail.");
       return;
     }
 
+    const selectedMethod = document.querySelector('input[name="payMethod"]:checked')?.value || "airtel";
+    let payerPhoneOrAccount = "";
     let methodName = "Airtel Money Gabon (*150#)";
-    if (selectedMethod === "moov") methodName = "Moov Money (*555#)";
-    if (selectedMethod === "card") methodName = "Carte Bancaire Visa/Mastercard";
-    if (selectedMethod === "transfer") methodName = "Virement Bancaire BGFI/UGB";
+
+    if (selectedMethod === "airtel" || selectedMethod === "moov") {
+      const phoneInput = document.getElementById("payPhoneNumber").value.trim();
+      if (!phoneInput) {
+        alert("Veuillez saisir le num\u00e9ro de t\u00e9l\u00e9phone Mobile Money du Payeur.");
+        return;
+      }
+      payerPhoneOrAccount = phoneInput.startsWith("+241") ? phoneInput : `+241 ${phoneInput}`;
+      methodName = selectedMethod === "airtel" ? "Airtel Money Gabon (*150#)" : "Moov Money Gabon (*555#)";
+    } else if (selectedMethod === "card") {
+      const holder = document.getElementById("cardHolderName")?.value.trim();
+      const cardNum = document.getElementById("cardNumber")?.value.trim();
+      const expiry = document.getElementById("cardExpiry")?.value.trim();
+      const cvc = document.getElementById("cardCvc")?.value.trim();
+
+      if (!holder || !cardNum || !expiry || !cvc) {
+        alert("Veuillez remplir l'ensemble des informations de la Carte Bancaire.");
+        return;
+      }
+      payerPhoneOrAccount = `Carte Visa/MC (${cardNum.substring(0, 4)} \u2022\u2022\u2022\u2022 ${cardNum.substring(cardNum.length - 4)})`;
+      methodName = "Carte Bancaire Visa / Mastercard";
+    } else if (selectedMethod === "transfer") {
+      const ref = document.getElementById("transferReference")?.value.trim() || "VIR-LOCAGABON-2026";
+      payerPhoneOrAccount = `Ordre de virement BGFI Bank (R\u00e9f : ${ref})`;
+      methodName = "Virement Bancaire BGFI / UGB";
+    }
 
     const currentProp = state.activePropertyForPay;
 
     state.pendingPayData = {
       title: currentProp.title || currentProp.name || "Location / Service LocaGabon",
       amount: currentProp.price || currentProp.amount || 250000,
-      phone: phone ? `+241 ${phone}` : "Compte Bancaire",
+      payerIdentity: payerIdentityInput,
+      phone: payerPhoneOrAccount,
+      transitaire: transitaireInput,
+      beneficiary: benInput,
       method: methodName,
-      bailleur: currentProp.bailleur || "Bailleur / Agence Pro",
+      bailleur: benInput,
       propObj: currentProp
     };
 
-    const contractHTML = generateAILeaseContract(currentProp, state.pendingPayData.phone, methodName);
+    const contractHTML = generateAILeaseContract(currentProp, payerPhoneOrAccount, methodName, benInput, payerIdentityInput, transitaireInput);
     document.getElementById("leaseContractContent").innerHTML = contractHTML;
 
     closeModal("paymentModal");
@@ -991,6 +1049,12 @@ function setupThreeStepPaymentSystem() {
     document.getElementById("confirmAmountVal").textContent = `${data.amount.toLocaleString('fr-FR')} FCFA`;
     document.getElementById("confirmMethodVal").textContent = data.method;
     document.getElementById("confirmPhoneVal").textContent = data.phone;
+    
+    const idEl = document.getElementById("confirmPayerIdentityVal");
+    if (idEl) idEl.textContent = data.payerIdentity;
+
+    const benEl = document.getElementById("confirmBeneficiaryVal");
+    if (benEl) benEl.textContent = data.beneficiary;
 
     closeModal("leaseContractModal");
     openModal("paymentConfirmModal");
@@ -1003,7 +1067,7 @@ function setupThreeStepPaymentSystem() {
 
   btnFinalConfirm?.addEventListener("click", () => {
     btnFinalConfirm.disabled = true;
-    btnFinalConfirm.innerHTML = `<i class="ri-loader-4-line spin"></i> Envoi de la demande USSD sur votre mobile...`;
+    btnFinalConfirm.innerHTML = `<i class="ri-loader-4-line spin"></i> Envoi de la demande d'autorisation sur votre compte...`;
 
     setTimeout(() => {
       btnFinalConfirm.disabled = false;
@@ -1011,11 +1075,10 @@ function setupThreeStepPaymentSystem() {
 
       const receiptId = `GAB-2026-${Math.floor(1000 + Math.random() * 9000)}`;
       const data = state.pendingPayData;
-      const tenantName = state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc";
 
       TENANT_RECEIPTS.unshift({
         id: receiptId,
-        mois: "AoÃ»t 2026",
+        mois: "Ao\u00fbt 2026",
         montant: `${data.amount.toLocaleString('fr-FR')} FCFA`,
         methode: data.method,
         date: new Date().toLocaleDateString('fr-FR')
@@ -1029,14 +1092,14 @@ function setupThreeStepPaymentSystem() {
         bien: data.title,
         brut: data.amount,
         comm: Math.round(data.amount * COMMISSION_RATE),
-        canal: data.method.split(" ")[0] + " Money",
+        canal: data.method.split(" ")[0],
         date: new Date().toLocaleDateString('fr-FR')
       });
 
       renderAdminDashboard();
 
       closeModal("paymentConfirmModal");
-      openReceiptModal(receiptId, tenantName, data.bailleur, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
+      openReceiptModal(receiptId, data.payerIdentity, data.beneficiary, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
     }, 1200);
   });
 }
@@ -1047,7 +1110,7 @@ function setupPricingAndContact() {
     btn.addEventListener("click", () => {
       const planName = btn.getAttribute("data-plan");
       if (planName.includes("Gratuit")) {
-        alert(`${planName} activÃ© avec succÃ¨s.`);
+        alert(`${planName} activ\u00e9 avec succ\u00e8s.`);
       } else {
         let price = 2500;
         if (planName.includes("5 000")) price = 5000;
@@ -1158,8 +1221,7 @@ function setupIAChat() {
 
   function sendUserMsg(txt) {
     if (!txt || !chatMsgs) return;
-    
-    // Add user message
+
     const userDiv = document.createElement("div");
     userDiv.className = "message msg-user";
     userDiv.innerHTML = `
@@ -1169,17 +1231,16 @@ function setupIAChat() {
     chatMsgs.appendChild(userDiv);
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-    // Response from AI
     setTimeout(() => {
-      let reply = "D'aprÃ¨s la RÃ©glementation Gabonaise sur les Baux d'Habitation, la caution est lÃ©galement plafonnÃ©e Ã  2 Ã  3 mois de loyer. Les transactions doivent donner lieu Ã  la dÃ©livrance d'une quittance certifiÃ©e.";
+      let reply = "D'apr\u00e8s la R\u00e9glementation Gabonaise sur les Baux d'Habitation, la caution est l\u00e9galement plafonn\u00e9e \u00e0 2 \u00e0 3 mois de loyer. Les transactions doivent donner lieu \u00e0 la d\u00e9livrance d'une quittance certifi\u00e9e.";
       
       const t = txt.toLowerCase();
       if (t.includes("caution")) {
-        reply = "ðŸ›ï¸ **Plafond LÃ©gale de Caution au Gabon** :\nSelon la loi gabonaise, le dÃ©pÃ´t de garantie (caution) est strictement plafonnÃ© Ã  **2 Ã  3 mois de loyer maximum**. Tout surplus exigÃ© sans justificatif de travaux est contestable devant la commission de conciliation.";
-      } else if (t.includes("rÃ©paration") || t.includes("reparation")) {
-        reply = "ðŸ”§ **RÃ©partitions des RÃ©parations** :\nâ€¢ **Bailleur** : Grosses rÃ©parations (Ã©tanchÃ©itÃ©, toiture, structure, surpresseur principal SEEG).\nâ€¢ **Locataire** : Entretien courant (ampoules, fuites de robinets, joints).";
-      } else if (t.includes("prÃ©avis") || t.includes("preavis")) {
-        reply = "â±ï¸ **PrÃ©avis LÃ©gal au Gabon** :\nLe locataire peut rÃ©silier son bail Ã  tout moment moyennant un **prÃ©avis de 1 Ã  3 mois** notifiÃ© par courrier avec accusÃ© ou via la notification numÃ©rique certifiÃ©e LocaGabon.";
+        reply = "\ud83c\udfdb\ufe0f **Plafond L\u00e9gal de Caution au Gabon** :\nSelon la loi gabonaise, le d\u00e9p\u00f4t de garantie (caution) est strictement plafonn\u00e9 \u00e0 **2 \u00e0 3 mois de loyer maximum**. Tout surplus exig\u00e9 sans justificatif de travaux est contestable devant la commission de conciliation.";
+      } else if (t.includes("r\u00e9paration") || t.includes("reparation")) {
+        reply = "\ud83d\udd27 **R\u00e9partition des R\u00e9parations** :\n\u2022 **Bailleur** : Grosses r\u00e9parations (\u00e9tanch\u00e9it\u00e9, toiture, structure, surpresseur principal SEEG).\n\u2022 **Locataire** : Entretien courant (ampoules, fuites de robinets, joints).";
+      } else if (t.includes("pr\u00e9avis") || t.includes("preavis")) {
+        reply = "\u23f1\ufe0f **Pr\u00e9avis L\u00e9gal au Gabon** :\nLe locataire peut r\u00e9silier son bail \u00e0 tout moment moyennant un **pr\u00e9avis de 1 \u00e0 3 mois** notifi\u00e9 par courrier avec accus\u00e9 ou via la notification num\u00e9rique certifi\u00e9e LocaGabon.";
       }
 
       const aiDiv = document.createElement("div");
@@ -1223,7 +1284,13 @@ function setupIAChat() {
 function openPaymentModal(property) {
   state.activePropertyForPay = property;
   const payVal = document.getElementById("payAmountVal");
+  const benInput = document.getElementById("payBeneficiaryAccount");
+  const identityInput = document.getElementById("payPayerIdentity");
+
   if (payVal) payVal.textContent = `${(property.price || property.amount || 250000).toLocaleString('fr-FR')} FCFA`;
+  if (benInput) benInput.value = property.bailleur || "Immo Gabon Pro SA (Bailleur Certifi\u00e9)";
+  if (identityInput) identityInput.value = state.currentUser ? state.currentUser.name : "Marc KASSA";
+
   openModal("paymentModal");
 }
 
@@ -1233,7 +1300,7 @@ function openReceiptModal(id, tenant, landlord, address, amount, method) {
   document.getElementById("recLandlordName").textContent = landlord;
   document.getElementById("recAddress").textContent = address;
   document.getElementById("recAmount").textContent = amount;
-  document.getElementById("recMethod").textContent = `PayÃ© via ${method}`;
+  document.getElementById("recMethod").textContent = `Pay\u00e9 via ${method}`;
   openModal("receiptModal");
 }
 
@@ -1244,7 +1311,7 @@ function initDashboardCharts() {
     new Chart(ctxGrowth, {
       type: 'line',
       data: {
-        labels: ['Juin', 'Juillet', 'AoÃ»t 2026'],
+        labels: ['Juin', 'Juillet', 'Ao\u00fbt 2026'],
         datasets: [{ label: 'Inscriptions', data: [920, 1100, 1250], borderColor: '#10b981' }]
       }
     });
@@ -1263,7 +1330,7 @@ function renderAdminDashboard() {
 
 function setupAdminGabonBankPayout() {
   const btnPayout = document.getElementById("btnTriggerGabonBankTransfer");
-  if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement exÃ©cutÃ© avec succÃ¨s vers la BGFI Bank Gabon !"));
+  if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement ex\u00e9cut\u00e9 avec succ\u00e8s vers le compte commercial BGFI Bank Gabon !"));
 }
 
 function setupModals() {
