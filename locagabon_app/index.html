@@ -491,6 +491,49 @@
             </form>
           </div>
 
+                    <!-- CARTE 2 : GESTION DES Ã‰TATS DES LIEUX (ENTRÃ‰E & SORTIE) -->
+          <div class="history-card mb-4" style="border: 1px solid var(--border-color-glow);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div>
+                <h3><i class="ri-clipboard-line" style="color: var(--accent-emerald);"></i> Fiche & Attestation d'Ã‰tat des Lieux (EntrÃ©e & Sortie)</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  Ã‰tablissez ou consultez les procÃ¨s-verbaux d'Ã©tat des lieux certifiÃ©s avec relevÃ© des compteurs (EDAN & SEEG).
+                </p>
+              </div>
+              <div style="display: flex; gap: 0.6rem;">
+                <button class="btn-pricing-accent" id="btnOpenEtatEntree" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;">
+                  <i class="ri-add-circle-line"></i> Ã‰tat des Lieux d'EntrÃ©e
+                </button>
+                <button class="btn-pricing-outline" id="btnOpenEtatSortie" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;">
+                  <i class="ri-logout-box-r-line"></i> Ã‰tat des Lieux de Sortie
+                </button>
+              </div>
+            </div>
+
+            <div id="etatDesLieuxHistoryList" style="display: flex; flex-direction: column; gap: 0.6rem;">
+              <!-- InjectÃ© dynamiquement par app.js -->
+            </div>
+          </div>
+
+          <!-- CARTE 3 : SIGNALEMENT DE PROBLÃˆME & FICHES DE RÃ‰SOLUTION (DÃ‰PANNAGE) -->
+          <div class="history-card mb-4" style="border: 1px solid var(--border-color-glow);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div>
+                <h3><i class="ri-tools-fill" style="color: var(--accent-gold);"></i> Signalement de ProblÃ¨me & Fiches de RÃ©solution (DÃ©pannage)</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  Signalez une panne (Plomberie SEEG, Compteur EDAN, Climatisation) et suivez l'intervention du bailleur en direct.
+                </p>
+              </div>
+              <button class="btn-pricing-gold" id="btnOpenReportProblem" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                <i class="ri-alarm-warning-line"></i> Signaler un ProblÃ¨me
+              </button>
+            </div>
+
+            <div id="userTicketsList" style="display: flex; flex-direction: column; gap: 0.8rem;">
+              <!-- InjectÃ© dynamiquement par app.js -->
+            </div>
+          </div>
+
           <!-- HISTORIQUE DES QUITTANCES -->
           <div class="history-card">
             <h3><i class="ri-history-line"></i> Mes Quittances & Contrats de Bail Signés</h3>
@@ -985,5 +1028,156 @@
   </footer>
 
   <script src="app.js"></script>
+  <!-- MODAL FICHES Ã‰TAT DES LIEUX (ENTRÃ‰E & SORTIE) -->
+  <div class="modal-overlay hidden" id="etatDesLieuxModal">
+    <div class="modal-box" style="max-width: 760px; max-height: 92vh; overflow-y: auto;">
+      <button class="modal-close" onclick="closeModal('etatDesLieuxModal')"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);"><i class="ri-clipboard-line"></i></div>
+        <div>
+          <h3 id="edlModalTitle">Fiche d'Ã‰tat des Lieux NumÃ©rique CertifiÃ©</h3>
+          <p>Conforme Ã  la RÃ©glementation du Bail d'Habitation en RÃ©publique Gabonaise</p>
+        </div>
+      </div>
+
+      <form id="formSaveEtatDesLieux">
+        <input type="hidden" id="edlTypeVal" value="EntrÃ©e">
+
+        <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.2rem;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label><i class="ri-building-line"></i> SÃ©lectionner le Bien / Logement</label>
+              <select id="edlPropertySelect" required>
+                <option value="Villa Duplex Spacieuse - Akanda AngondjÃ©">Villa Duplex Spacieuse - Akanda AngondjÃ©</option>
+                <option value="RÃ©sidence SÃ©curisÃ©e - Quartier Louis">RÃ©sidence SÃ©curisÃ©e - Quartier Louis</option>
+                <option value="CitÃ© SNI Avorbam - Akanda">CitÃ© SNI Avorbam - Akanda</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label><i class="ri-user-3-line"></i> Nom de l'Occupant / Locataire</label>
+              <input type="text" id="edlTenantName" value="Marc KASSA" required>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 0.6rem;"><i class="ri-dashboard-3-line"></i> RelevÃ© des Compteurs & Index</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+          <div class="form-group">
+            <label><i class="ri-flashlight-line"></i> Compteur Ã‰lectrique EDAN (Index kWh)</label>
+            <input type="number" id="edlIndexEdan" placeholder="Ex. : 48920" value="48920" required>
+          </div>
+
+          <div class="form-group">
+            <label><i class="ri-drop-line"></i> Compteur d'Eau SEEG (Index mÂ³)</label>
+            <input type="number" id="edlIndexSeeg" placeholder="Ex. : 1240" value="1240" required>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 0.6rem;"><i class="ri-key-2-line"></i> Inventaire des ClÃ©s & AccÃ¨s</h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.2rem;">
+          <div class="form-group">
+            <label>ClÃ©s Porte Principale</label>
+            <input type="number" id="edlKeysMain" value="3" required>
+          </div>
+          <div class="form-group">
+            <label>ClÃ©s Chambres/Portes</label>
+            <input type="number" id="edlKeysRooms" value="4" required>
+          </div>
+          <div class="form-group">
+            <label>Bip / TÃ©lÃ©commande Portail</label>
+            <input type="number" id="edlKeysGate" value="1" required>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 0.6rem;"><i class="ri-checkbox-multiple-line"></i> Ã‰valuation de l'Ã‰tat des Ã‰quipements</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.2rem;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Peinture & Murs :</label>
+            <select id="edlStateWalls"><option value="Neuf / Bon Ã©tat">Neuf / Bon Ã©tat</option><option value="Moyen / Traces">Moyen / Traces</option><option value="Ã€ repeindre">Ã€ repeindre</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Plomberie & Sanitaires :</label>
+            <select id="edlStatePlumbing"><option value="Bon Ã©tat / Aucune fuite">Bon Ã©tat / Aucune fuite</option><option value="Petit suintement">Petit suintement</option><option value="Ã€ rÃ©parer">Ã€ rÃ©parer</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Climatisation & Split :</label>
+            <select id="edlStateAC"><option value="Fonctionnel / Froid parfait">Fonctionnel / Froid parfait</option><option value="Filtre Ã  nettoyer">Filtre Ã  nettoyer</option><option value="En panne">En panne</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Surpresseur d'Eau SEEG :</label>
+            <select id="edlStatePump"><option value="En service">En service</option><option value="Sans surpresseur">Sans surpresseur</option><option value="En panne">En panne</option></select>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label><i class="ri-chat-1-line"></i> Remarques particuliÃ¨res & Observations</label>
+          <textarea id="edlRemarks" rows="2" placeholder="Saisissez des observations complÃ©mentaires..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-pay-submit">
+          <i class="ri-save-3-line"></i> Valider & GÃ©nÃ©rer la Fiche CertifiÃ©e
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL SIGNALEMENT DE PROBLÃˆME / PANNE (INCIDENT) -->
+  <div class="modal-overlay hidden" id="reportProblemModal">
+    <div class="modal-box" style="border-color: var(--accent-gold);">
+      <button class="modal-close" onclick="closeModal('reportProblemModal')"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);"><i class="ri-alarm-warning-fill"></i></div>
+        <div>
+          <h3>Fiche de Signalement d'Incident ou Panne</h3>
+          <p>Transmis automatiquement au Bailleur & Ã  l'Assistance DÃ©pannage LocaGabon</p>
+        </div>
+      </div>
+
+      <form id="formSaveReportProblem">
+        <div class="form-group mb-3">
+          <label><i class="ri-building-line"></i> Bien concernÃ©</label>
+          <select id="ticketPropertySelect" required>
+            <option value="Villa Duplex Spacieuse - Akanda AngondjÃ©">Villa Duplex Spacieuse - Akanda AngondjÃ©</option>
+            <option value="RÃ©sidence SÃ©curisÃ©e - Quartier Louis">RÃ©sidence SÃ©curisÃ©e - Quartier Louis</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+          <div class="form-group">
+            <label><i class="ri-tools-line"></i> CatÃ©gorie de la Panne</label>
+            <select id="ticketCategorySelect" required>
+              <option value="Plomberie / Fuite d'Eau SEEG">Plomberie / Fuite d'Eau SEEG</option>
+              <option value="Ã‰lectricitÃ© / Compteur EDAN">Ã‰lectricitÃ© / Compteur EDAN</option>
+              <option value="Climatisation / Split">Climatisation / Split</option>
+              <option value="Infiltration / Toiture">Infiltration / Toiture</option>
+              <option value="Serrure / Portail">Serrure / Portail</option>
+              <option value="Autre">Autre problÃ¨me</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label><i class="ri-time-line"></i> Niveau d'Urgence</label>
+            <select id="ticketUrgencySelect" required>
+              <option value="Normale (Intervention sous 48h)">Normale (Intervention sous 48h)</option>
+              <option value="Urgente (Intervention sous 24h)">Urgente (Intervention sous 24h)</option>
+              <option value="Urgence Absolue (Intervention immÃ©diate)">Urgence Absolue (Intervention immÃ©diate)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label><i class="ri-file-text-line"></i> Description dÃ©taillÃ©e du dysfonctionnement</label>
+          <textarea id="ticketDescription" rows="3" placeholder="DÃ©crivez prÃ©cisÃ©ment le problÃ¨me rencontrÃ© (ex. : fuite d'eau sur le surpresseur, le voyant EDAN clignote en rouge...)" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-pay-submit" style="background: linear-gradient(135deg, #f59e0b, #ea580c);">
+          <i class="ri-send-plane-fill"></i> Transmettre le Signalement au Bailleur
+        </button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
