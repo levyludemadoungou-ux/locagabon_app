@@ -1,5 +1,5 @@
 ﻿/* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE AVEC GEOLOCALISATION GPS PAR IA
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE (LES 3 PARTIES: PAYEUR, TRANSITAIRE LOCAGABON, BENEFICIAIRE POUR TOUTES LES TRANSACTIONS)
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -36,7 +36,7 @@ const INITIAL_PROPERTIES = [
     gps: { lat: 0.5283, lng: 9.4215, address: "Concession AngondjÃ© ChÃ¢teau, Akanda", zone: "Akanda AngondjÃ©" },
     description: "Superbe villa duplex R+1 situÃ©e dans une concession calme Ã  AngondjÃ© ChÃ¢teau. 3 grandes chambres climatisÃ©es Ã  l'Ã©tage avec balcons, vaste sÃ©jour staffÃ© au rez-de-chaussÃ©e, jardin engazonnÃ©, surpresseur d'eau SEEG et compteur EDAN individuel.",
     verified: true,
-    bailleur: "Immo Gabon Pro SA (NIF: 2026-B-89192)"
+    bailleur: "Immo Gabon Pro SA (NIF : 2026-B-89192)"
   },
   {
     id: "prop-2",
@@ -239,7 +239,7 @@ function updateFooterContactsUI() {
   if (platformEl) platformEl.textContent = saved.platform;
 }
 
-// --- NAVIGATION & DEPLIAGE ---
+// --- NAVIGATION & DÃ‰PLIAGE ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".app-section");
@@ -284,7 +284,7 @@ function setupNavigation() {
   });
 }
 
-// --- GESTION DES CARTES DEPLIANTES ---
+// --- GESTION DES CARTES DÃ‰PLIANTES ---
 function setupFoldableSections() {
   const headers = document.querySelectorAll(".foldable-header");
 
@@ -322,7 +322,7 @@ function openFoldableSection(bodyId) {
   window.scrollTo({ top: card.offsetTop - 80, behavior: "smooth" });
 }
 
-// --- RUBRIQUE DE CONSULTATION ET MODIFICATION DU PROFIL + VERIFICATION DE SECURITE ---
+// --- CONSULTATION ET MODIFICATION DU PROFIL & SÃ‰CURITÃ‰ ---
 function setupProfileEditAndSecurity() {
   const formEdit = document.getElementById("formEditProfile");
   const formSecurity = document.getElementById("formValidateSecurityCode");
@@ -353,7 +353,7 @@ function setupProfileEditAndSecurity() {
     const codeEntered = document.getElementById("inputSecurityCode").value.trim();
 
     if (codeEntered !== "892104" && codeEntered.length < 4) {
-      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour la vÃ©rification test.");
+      alert("Code de sÃ©curitÃ© invalide. Saisissez 892104 pour le test de validation.");
       return;
     }
 
@@ -382,11 +382,11 @@ function setupProfileEditAndSecurity() {
 
       alert(
         `âœ… MISE Ã€ JOUR SÃ‰CURISÃ‰E RÃ‰USSIE !\n\n` +
-        `Vos coordonnÃ©es ont Ã©tÃ© enregistrÃ©es :\n` +
+        `Vos coordonnÃ©es ont Ã©tÃ© enregistrÃ©es avec succÃ¨s :\n` +
         `â€¢ Nom : ${changes.name}\n` +
-        `â€¢ Email : ${changes.email}\n` +
+        `â€¢ Adresse Email : ${changes.email}\n` +
         `â€¢ TÃ©lÃ©phone : +241 ${changes.phone}\n\n` +
-        `ConformitÃ© CNPDCP Gabon validÃ©e.`
+        `Attestation de conformitÃ© CNPDCP Gabon certifiÃ©e.`
       );
     }
   });
@@ -460,7 +460,7 @@ function setupAuthModal() {
     }
   });
 
-  // --- CREATION DE COMPTE REEL ---
+  // --- CRÃ‰ATION DE COMPTE RÃ‰EL ---
   formRegister?.addEventListener("submit", (e) => {
     e.preventDefault();
     const name = document.getElementById("regNameInput").value.trim();
@@ -471,7 +471,7 @@ function setupAuthModal() {
 
     const existing = REGISTERED_USERS.find(u => u.email === email || u.phone === phone);
     if (existing) {
-      alert(`âš ï¸ Ce compte (email: ${email} ou tÃ©l: ${phone}) existe dÃ©jÃ  dans la base de donnÃ©es. Vous Ãªtes automatiquement connectÃ©.`);
+      alert(`âš ï¸ Ce compte (email : ${email} ou tÃ©lÃ©phone : ${phone}) existe dÃ©jÃ  dans la base de donnÃ©es. Vous Ãªtes automatiquement connectÃ©.`);
       state.currentUser = existing;
     } else {
       const newUser = {
@@ -497,7 +497,7 @@ function setupAuthModal() {
     openFoldableSection("espace-fold-content");
   });
 
-  // --- CONNEXION REELLE ---
+  // --- CONNEXION RÃ‰ELLE ---
   formLogin?.addEventListener("submit", (e) => {
     e.preventDefault();
     const identifier = document.getElementById("loginIdentifier").value.trim();
@@ -597,7 +597,7 @@ function updateUserHeaderUI() {
   }
 }
 
-// --- RENDU DES ANNONCES AVEC REPERAGE GPS PAR IA ---
+// --- RENDU DES ANNONCES AVEC GÃ‰OLOCALISATION GPS ---
 function renderProperties(props) {
   const grid = document.getElementById("propertyGrid");
   const countEl = document.getElementById("resultsCount");
@@ -706,7 +706,6 @@ function openGpsMapModal(p) {
   if (latEl) latEl.textContent = `${gps.lat} N`;
   if (lngEl) lngEl.textContent = `${gps.lng} E`;
 
-  // Dynamic OpenStreetMap Bounding Box
   const delta = 0.008;
   const bbox = `${gps.lng - delta},${gps.lat - delta},${gps.lng + delta},${gps.lat + delta}`;
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${gps.lat},${gps.lng}`;
@@ -862,11 +861,12 @@ function setupFAQAccordion() {
   });
 }
 
-function generateAILeaseContract(prop, phone, method) {
+function generateAILeaseContract(prop, phone, method, beneficiary, payerIdentity, transitaireVal) {
   const isSale = prop.operation === "Vente";
   const cautionAmount = prop.cautionMois ? (prop.price * prop.cautionMois) : (prop.price * 2);
   const currentDate = new Date().toLocaleDateString('fr-FR');
-  const tenantName = state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc";
+  const tenantName = payerIdentity || (state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc");
+  const transitaire = transitaireVal || "LocaGabon SA (SÃ©questre NumÃ©rique CertifiÃ©)";
 
   if (isSale) {
     return `
@@ -877,9 +877,10 @@ function generateAILeaseContract(prop, phone, method) {
       </div>
 
       <div class="lease-section">
-        <h4>1. PARTIES CONTRACTANTES</h4>
-        <p><strong>Vendeur :</strong> ${prop.bailleur}</p>
-        <p><strong>Acheteur :</strong> ${tenantName} (TÃ©lÃ©phone : ${phone})</p>
+        <h4>1. LES 3 PARTIES CONTRACTANTES</h4>
+        <p><strong>1. Le Payeur (Acheteur IdentifiÃ©) :</strong> ${tenantName} (Identifiant / DÃ©bit : ${phone})</p>
+        <p><strong>2. Le Transitaire (SÃ©questre CertifiÃ©) :</strong> ${transitaire}</p>
+        <p><strong>3. Le BÃ©nÃ©ficiaire (Vendeur / Agence) :</strong> ${beneficiary || prop.bailleur}</p>
       </div>
 
       <div class="lease-section">
@@ -905,9 +906,10 @@ function generateAILeaseContract(prop, phone, method) {
     </div>
 
     <div class="lease-section">
-      <h4>ARTICLE 1 : DÃ‰SIGNATION DES PARTIES</h4>
-      <p><strong>Bailleur / Agence :</strong> ${prop.bailleur}</p>
-      <p><strong>Locataire :</strong> ${tenantName} (TÃ©lÃ©phone enregistrÃ© : ${phone})</p>
+      <h4>ARTICLE 1 : LES 3 PARTIES DU CONTRAT DE BAIL</h4>
+      <p><strong>1. Le Payeur (Locataire IdentifiÃ©) :</strong> ${tenantName} (DÃ©bit / TÃ©l. : ${phone})</p>
+      <p><strong>2. Le Transitaire (SÃ©questre CertifiÃ©) :</strong> ${transitaire}</p>
+      <p><strong>3. Le BÃ©nÃ©ficiaire (Bailleur / Agence) :</strong> ${beneficiary || prop.bailleur}</p>
     </div>
 
     <div class="lease-section">
@@ -918,7 +920,7 @@ function generateAILeaseContract(prop, phone, method) {
 
     <div class="lease-section">
       <h4>ARTICLE 3 : LOYER & CAUTION LÃ‰GALE (PLAFOND GABON)</h4>
-      <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>Airtel Money (*150#) ou Moov Money (*555#)</em>.</p>
+      <p><strong>Loyer Mensuel :</strong> <strong style="color: #059669;">${prop.price.toLocaleString('fr-FR')} FCFA</strong> payable avant le 5 de chaque mois par <em>${method}</em>.</p>
       <p><strong>DÃ©pÃ´t de Garantie (Caution LÃ©gale) :</strong> FixÃ©e Ã  <strong>${prop.cautionMois || 2} mois de loyer</strong> (soit ${cautionAmount.toLocaleString('fr-FR')} FCFA), strictement conforme au plafond lÃ©gal gabonais.</p>
     </div>
 
@@ -928,11 +930,12 @@ function generateAILeaseContract(prop, phone, method) {
     </div>
 
     <div class="lease-section" style="background: #f1f5f9; padding: 0.6rem; border-radius: 6px; font-size: 0.8rem;">
-      <p><strong>Horodatage & ScellÃ© IA :</strong> Document gÃ©nÃ©rÃ© le ${currentDate} par LocaGabon AI. Valable sans signature manuscrite dÃ¨s validation de la transaction Mobile Money.</p>
+      <p><strong>Horodatage & ScellÃ© IA :</strong> Document gÃ©nÃ©rÃ© le ${currentDate} par LocaGabon AI. Valable sans signature manuscrite dÃ¨s validation de la transaction.</p>
     </div>
   `;
 }
 
+// --- SYSTÃˆME DE PAIEMENT DYNAMIQUE AVEC EXIGENCE STRICTE DES 3 PARTIES SUR TOUS LES MODES ---
 function setupThreeStepPaymentSystem() {
   const btnGoToLease = document.getElementById("btnGoToAILeaseContract");
   const btnApproveLease = document.getElementById("btnApproveLeaseAndGoToPay");
@@ -940,34 +943,89 @@ function setupThreeStepPaymentSystem() {
   const btnBackToStep1 = document.getElementById("btnBackToStep1");
   const btnBackToLease = document.getElementById("btnBackToLeaseStep");
 
+  const payRadios = document.querySelectorAll('input[name="payMethod"]');
+  const fieldGroupMobile = document.getElementById("fieldGroupMobileMoney");
+  const fieldGroupCard = document.getElementById("fieldGroupCard");
+  const fieldGroupTransfer = document.getElementById("fieldGroupTransfer");
+
+  payRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      const val = radio.value;
+
+      document.querySelectorAll(".pay-method-card").forEach(c => c.classList.remove("active"));
+      radio.closest(".pay-method-card")?.classList.add("active");
+
+      fieldGroupMobile?.classList.add("hidden");
+      fieldGroupCard?.classList.add("hidden");
+      fieldGroupTransfer?.classList.add("hidden");
+
+      if (val === "airtel" || val === "moov") {
+        fieldGroupMobile?.classList.remove("hidden");
+      } else if (val === "card") {
+        fieldGroupCard?.classList.remove("hidden");
+      } else if (val === "transfer") {
+        fieldGroupTransfer?.classList.remove("hidden");
+      }
+    });
+  });
+
   if (!btnGoToLease) return;
 
   btnGoToLease.addEventListener("click", () => {
-    const phone = document.getElementById("payPhoneNumber").value.trim();
-    const selectedMethod = document.querySelector('input[name="payMethod"]:checked').value;
+    const payerIdentityInput = document.getElementById("payPayerIdentity")?.value.trim();
+    const transitaireInput = document.getElementById("payTransitaireAccount")?.value.trim() || "LocaGabon SA (SÃ©questre CertifiÃ©)";
+    const benInput = document.getElementById("payBeneficiaryAccount")?.value.trim() || state.activePropertyForPay.bailleur;
 
-    if ((selectedMethod === "airtel" || selectedMethod === "moov") && !phone) {
-      alert("Veuillez saisir votre numÃ©ro de tÃ©lÃ©phone Mobile Money Gabon.");
+    if (!payerIdentityInput) {
+      alert("Veuillez saisir l'IdentitÃ© du Payeur (Nom complet / CNI) pour valider le paiement et gÃ©nÃ©rer votre bail.");
       return;
     }
 
+    const selectedMethod = document.querySelector('input[name="payMethod"]:checked')?.value || "airtel";
+    let payerPhoneOrAccount = "";
     let methodName = "Airtel Money Gabon (*150#)";
-    if (selectedMethod === "moov") methodName = "Moov Money (*555#)";
-    if (selectedMethod === "card") methodName = "Carte Bancaire Visa/Mastercard";
-    if (selectedMethod === "transfer") methodName = "Virement Bancaire BGFI/UGB";
+
+    if (selectedMethod === "airtel" || selectedMethod === "moov") {
+      const phoneInput = document.getElementById("payPhoneNumber").value.trim();
+      if (!phoneInput) {
+        alert("Veuillez saisir le numÃ©ro de tÃ©lÃ©phone Mobile Money du Payeur.");
+        return;
+      }
+      payerPhoneOrAccount = phoneInput.startsWith("+241") ? phoneInput : `+241 ${phoneInput}`;
+      methodName = selectedMethod === "airtel" ? "Airtel Money Gabon (*150#)" : "Moov Money Gabon (*555#)";
+    } else if (selectedMethod === "card") {
+      const holder = document.getElementById("cardHolderName")?.value.trim();
+      const cardNum = document.getElementById("cardNumber")?.value.trim();
+      const expiry = document.getElementById("cardExpiry")?.value.trim();
+      const cvc = document.getElementById("cardCvc")?.value.trim();
+
+      if (!holder || !cardNum || !expiry || !cvc) {
+        alert("Veuillez remplir l'ensemble des informations de la Carte Bancaire.");
+        return;
+      }
+      payerPhoneOrAccount = `Carte Visa/MC (${cardNum.substring(0, 4)} â€¢â€¢â€¢â€¢ ${cardNum.substring(cardNum.length - 4)})`;
+      methodName = "Carte Bancaire Visa / Mastercard";
+    } else if (selectedMethod === "transfer") {
+      const ref = document.getElementById("transferReference")?.value.trim() || "VIR-LOCAGABON-2026";
+      payerPhoneOrAccount = `Ordre de virement BGFI Bank (RÃ©f : ${ref})`;
+      methodName = "Virement Bancaire BGFI / UGB";
+    }
 
     const currentProp = state.activePropertyForPay;
 
     state.pendingPayData = {
       title: currentProp.title || currentProp.name || "Location / Service LocaGabon",
       amount: currentProp.price || currentProp.amount || 250000,
-      phone: phone ? `+241 ${phone}` : "Compte Bancaire",
+      payerIdentity: payerIdentityInput,
+      phone: payerPhoneOrAccount,
+      transitaire: transitaireInput,
+      beneficiary: benInput,
       method: methodName,
-      bailleur: currentProp.bailleur || "Bailleur / Agence Pro",
+      bailleur: benInput,
       propObj: currentProp
     };
 
-    const contractHTML = generateAILeaseContract(currentProp, state.pendingPayData.phone, methodName);
+    const contractHTML = generateAILeaseContract(currentProp, payerPhoneOrAccount, methodName, benInput, payerIdentityInput, transitaireInput);
     document.getElementById("leaseContractContent").innerHTML = contractHTML;
 
     closeModal("paymentModal");
@@ -991,6 +1049,12 @@ function setupThreeStepPaymentSystem() {
     document.getElementById("confirmAmountVal").textContent = `${data.amount.toLocaleString('fr-FR')} FCFA`;
     document.getElementById("confirmMethodVal").textContent = data.method;
     document.getElementById("confirmPhoneVal").textContent = data.phone;
+    
+    const idEl = document.getElementById("confirmPayerIdentityVal");
+    if (idEl) idEl.textContent = data.payerIdentity;
+
+    const benEl = document.getElementById("confirmBeneficiaryVal");
+    if (benEl) benEl.textContent = data.beneficiary;
 
     closeModal("leaseContractModal");
     openModal("paymentConfirmModal");
@@ -1003,7 +1067,7 @@ function setupThreeStepPaymentSystem() {
 
   btnFinalConfirm?.addEventListener("click", () => {
     btnFinalConfirm.disabled = true;
-    btnFinalConfirm.innerHTML = `<i class="ri-loader-4-line spin"></i> Envoi de la demande USSD sur votre mobile...`;
+    btnFinalConfirm.innerHTML = `<i class="ri-loader-4-line spin"></i> Envoi de la demande d'autorisation sur votre compte...`;
 
     setTimeout(() => {
       btnFinalConfirm.disabled = false;
@@ -1011,7 +1075,6 @@ function setupThreeStepPaymentSystem() {
 
       const receiptId = `GAB-2026-${Math.floor(1000 + Math.random() * 9000)}`;
       const data = state.pendingPayData;
-      const tenantName = state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc";
 
       TENANT_RECEIPTS.unshift({
         id: receiptId,
@@ -1029,14 +1092,14 @@ function setupThreeStepPaymentSystem() {
         bien: data.title,
         brut: data.amount,
         comm: Math.round(data.amount * COMMISSION_RATE),
-        canal: data.method.split(" ")[0] + " Money",
+        canal: data.method.split(" ")[0],
         date: new Date().toLocaleDateString('fr-FR')
       });
 
       renderAdminDashboard();
 
       closeModal("paymentConfirmModal");
-      openReceiptModal(receiptId, tenantName, data.bailleur, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
+      openReceiptModal(receiptId, data.payerIdentity, data.beneficiary, data.title, `${data.amount.toLocaleString('fr-FR')} FCFA`, data.method);
     }, 1200);
   });
 }
@@ -1158,8 +1221,7 @@ function setupIAChat() {
 
   function sendUserMsg(txt) {
     if (!txt || !chatMsgs) return;
-    
-    // Add user message
+
     const userDiv = document.createElement("div");
     userDiv.className = "message msg-user";
     userDiv.innerHTML = `
@@ -1169,15 +1231,14 @@ function setupIAChat() {
     chatMsgs.appendChild(userDiv);
     chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
-    // Response from AI
     setTimeout(() => {
       let reply = "D'aprÃ¨s la RÃ©glementation Gabonaise sur les Baux d'Habitation, la caution est lÃ©galement plafonnÃ©e Ã  2 Ã  3 mois de loyer. Les transactions doivent donner lieu Ã  la dÃ©livrance d'une quittance certifiÃ©e.";
       
       const t = txt.toLowerCase();
       if (t.includes("caution")) {
-        reply = "ðŸ›ï¸ **Plafond LÃ©gale de Caution au Gabon** :\nSelon la loi gabonaise, le dÃ©pÃ´t de garantie (caution) est strictement plafonnÃ© Ã  **2 Ã  3 mois de loyer maximum**. Tout surplus exigÃ© sans justificatif de travaux est contestable devant la commission de conciliation.";
+        reply = "ðŸ›ï¸ **Plafond LÃ©gal de Caution au Gabon** :\nSelon la loi gabonaise, le dÃ©pÃ´t de garantie (caution) est strictement plafonnÃ© Ã  **2 Ã  3 mois de loyer maximum**. Tout surplus exigÃ© sans justificatif de travaux est contestable devant la commission de conciliation.";
       } else if (t.includes("rÃ©paration") || t.includes("reparation")) {
-        reply = "ðŸ”§ **RÃ©partitions des RÃ©parations** :\nâ€¢ **Bailleur** : Grosses rÃ©parations (Ã©tanchÃ©itÃ©, toiture, structure, surpresseur principal SEEG).\nâ€¢ **Locataire** : Entretien courant (ampoules, fuites de robinets, joints).";
+        reply = "ðŸ”§ **RÃ©partition des RÃ©parations** :\nâ€¢ **Bailleur** : Grosses rÃ©parations (Ã©tanchÃ©itÃ©, toiture, structure, surpresseur principal SEEG).\nâ€¢ **Locataire** : Entretien courant (ampoules, fuites de robinets, joints).";
       } else if (t.includes("prÃ©avis") || t.includes("preavis")) {
         reply = "â±ï¸ **PrÃ©avis LÃ©gal au Gabon** :\nLe locataire peut rÃ©silier son bail Ã  tout moment moyennant un **prÃ©avis de 1 Ã  3 mois** notifiÃ© par courrier avec accusÃ© ou via la notification numÃ©rique certifiÃ©e LocaGabon.";
       }
@@ -1223,7 +1284,13 @@ function setupIAChat() {
 function openPaymentModal(property) {
   state.activePropertyForPay = property;
   const payVal = document.getElementById("payAmountVal");
+  const benInput = document.getElementById("payBeneficiaryAccount");
+  const identityInput = document.getElementById("payPayerIdentity");
+
   if (payVal) payVal.textContent = `${(property.price || property.amount || 250000).toLocaleString('fr-FR')} FCFA`;
+  if (benInput) benInput.value = property.bailleur || "Immo Gabon Pro SA (Bailleur CertifiÃ©)";
+  if (identityInput) identityInput.value = state.currentUser ? state.currentUser.name : "Marc KASSA";
+
   openModal("paymentModal");
 }
 
@@ -1263,7 +1330,7 @@ function renderAdminDashboard() {
 
 function setupAdminGabonBankPayout() {
   const btnPayout = document.getElementById("btnTriggerGabonBankTransfer");
-  if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement exÃ©cutÃ© avec succÃ¨s vers la BGFI Bank Gabon !"));
+  if (btnPayout) btnPayout.addEventListener("click", () => alert("Virement exÃ©cutÃ© avec succÃ¨s vers le compte commercial BGFI Bank Gabon !"));
 }
 
 function setupModals() {
