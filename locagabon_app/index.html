@@ -1179,5 +1179,58 @@
       </form>
     </div>
   </div>
+  <!-- WIDGET IA FLOTTANT ROBOT TRANSPARENT (TCHATBOT IA 24/7) -->
+  <div class="ai-floating-widget-container">
+    
+    <!-- FENÃŠTRE DE DIALOGUE AVEC L'AGENT IA -->
+    <div class="ai-chat-floating-window hidden" id="floatingAiChatWindow">
+      <div class="ai-chat-floating-header">
+        <div style="display: flex; align-items: center; gap: 0.7rem;">
+          <div style="width: 38px; height: 38px; background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 1px solid var(--accent-emerald);">
+            <i class="ri-robot-2-line"></i>
+          </div>
+          <div>
+            <h4 style="font-size: 0.95rem; color: var(--text-primary); margin: 0;">Assistant IA LocaGabon</h4>
+            <span class="status-online" style="font-size: 0.72rem;"><i class="ri-checkbox-blank-circle-fill"></i> SpÃ©cialiste Immo & Droit Gabon</span>
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.4rem;">
+          <button class="modal-close" style="position: static; font-size: 1.1rem; color: var(--text-secondary);" id="btnCloseFloatingAiChat"><i class="ri-close-line"></i></button>
+        </div>
+      </div>
+
+      <div class="ai-chat-messages-area" id="floatingAiChatMessages">
+        <div class="message msg-ai">
+          <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
+          <div class="msg-content">
+            <p><strong>Bonjour ! Je suis l'Agent IA LocaGabon.</strong> ðŸ¤–ðŸ‡¬ðŸ‡¦</p>
+            <p>Je rÃ©ponds Ã  toutes vos questions sur l'immobilier au Gabon, la loi sur les baux, la caution, les compteurs EDAN/SEEG, les paiements Mobile Money et l'utilisation du site.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUGGESTIONS RAPIDES DE QUESTIONS -->
+      <div style="padding: 0.5rem 0.8rem; background: rgba(15, 23, 42, 0.9); border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.4rem; overflow-x: auto;">
+        <button class="sug-chip btn-quick-ai-question" data-question="Combien de mois de caution au Gabon ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ›ï¸ Plafond Caution ?</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Comment fonctionne le repÃ©rage GPS IA ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ“ RepÃ©rage GPS IA ?</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Comment payer par Airtel Money ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ“± Paiement Airtel/Moov</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Comment signaler une panne d'eau ou d'Ã©lectricitÃ© ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ”§ Signaler une Panne</button>
+      </div>
+
+      <!-- ZONE DE SAISIE DU TCHAT -->
+      <div class="chat-input-area" style="padding: 0.8rem; background: rgba(30, 41, 59, 0.9);">
+        <textarea id="floatingAiChatInput" placeholder="Posez n'importe quelle question..." rows="1" style="border-radius: 20px; resize: none; padding: 0.6rem 0.9rem; font-size: 0.85rem;"></textarea>
+        <button id="btnSendFloatingAiMsg" class="btn-send-chat" style="border-radius: 50%; width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="ri-send-plane-2-fill"></i></button>
+      </div>
+    </div>
+
+    <!-- BOUTON ICONE ROBOT TRANSPARENT FLOTTANT -->
+    <div class="ai-widget-tooltip">Agent IA 24/7</div>
+    <button class="ai-floating-robot-btn" id="btnToggleFloatingAiWidget" title="Ouvrir l'Assistant IA LocaGabon">
+      <span class="ai-widget-pulse"></span>
+      <i class="ri-robot-2-fill"></i>
+    </button>
+
+  </div>
 </body>
 </html>

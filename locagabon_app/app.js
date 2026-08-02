@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE V2 (GESTION UTILISATEURS, MOUVEMENTS EN DIRECT, Ã‰TATS DES LIEUX & DÃ‰PANNAGES)
+   LOCAGABON AI - LOGIQUE APPLICATIVE COMPLETE V3 (AVEC CHATBOT IA FLOTTANT 100% INTELLIGENT)
    ========================================================================== */
 
 const COMMISSION_RATE = 0.03; // 3% LocaGabon
@@ -28,11 +28,7 @@ const INITIAL_PROPERTIES = [
     clim: true,
     titreFoncier: true,
     image: GABON_PHOTOS.duplex,
-    gallery: [
-      GABON_PHOTOS.duplex,
-      GABON_PHOTOS.villaOcre,
-      GABON_PHOTOS.cloture
-    ],
+    gallery: [ GABON_PHOTOS.duplex, GABON_PHOTOS.villaOcre, GABON_PHOTOS.cloture ],
     gps: { lat: 0.5283, lng: 9.4215, address: "Concession Angondj&eacute; Ch&acirc;teau, Akanda", zone: "Akanda Angondj&eacute;" },
     description: "Superbe villa duplex R+1 situ&eacute;e dans une concession calme &agrave; Angondj&eacute; Ch&acirc;teau. 3 grandes chambres climatis&eacute;es &agrave; l'&eacute;tage avec balcons, vaste s&eacute;jour staff&eacute; au rez-de-chauss&eacute;e, jardin engazonn&eacute;, surpresseur d'eau SEEG et compteur EDAN individuel.",
     verified: true,
@@ -53,10 +49,7 @@ const INITIAL_PROPERTIES = [
     clim: true,
     titreFoncier: false,
     image: GABON_PHOTOS.cloture,
-    gallery: [
-      GABON_PHOTOS.cloture,
-      GABON_PHOTOS.duplex
-    ],
+    gallery: [ GABON_PHOTOS.cloture, GABON_PHOTOS.duplex ],
     gps: { lat: 0.4042, lng: 9.4398, address: "Avenue du Bord de Mer, Quartier Louis, Libreville", zone: "Quartier Louis" },
     description: "Belle r&eacute;sidence moderne enti&egrave;rement cl&ocirc;tur&eacute;e avec portail coulissant et abri de voiture couvert au Quartier Louis &agrave; Libreville. Proche bord de mer et commerces. Eau SEEG assur&eacute;e avec r&eacute;serve de 2000L.",
     verified: true,
@@ -77,10 +70,7 @@ const INITIAL_PROPERTIES = [
     clim: true,
     titreFoncier: true,
     image: GABON_PHOTOS.villaOcre,
-    gallery: [
-      GABON_PHOTOS.villaOcre,
-      GABON_PHOTOS.cloture
-    ],
+    gallery: [ GABON_PHOTOS.villaOcre, GABON_PHOTOS.cloture ],
     gps: { lat: 0.4211, lng: 9.4352, address: "Rue des R&eacute;sidences, Batterie IV, Libreville", zone: "Batterie IV" },
     description: "Luxueuse villa couleur ocre &agrave; Batterie IV avec grande cour enti&egrave;rement pav&eacute;e. 4 chambres ind&eacute;pendantes, vaste terrasse couverte avec colonnes, d&eacute;pendance gardien et garage. Titre Foncier d&eacute;finitif v&eacute;rifi&eacute; au Cadastre.",
     verified: true,
@@ -101,10 +91,7 @@ const INITIAL_PROPERTIES = [
     clim: true,
     titreFoncier: true,
     image: GABON_PHOTOS.maisonSNI,
-    gallery: [
-      GABON_PHOTOS.maisonSNI,
-      GABON_PHOTOS.citeOctra
-    ],
+    gallery: [ GABON_PHOTOS.maisonSNI, GABON_PHOTOS.citeOctra ],
     gps: { lat: 0.5140, lng: 9.4120, address: "Cit&eacute; SNI Avorbam, Akanda", zone: "Avorbam" },
     description: "Charmante maison basse individuelle de type SNI construite sur parcelle cl&ocirc;tur&eacute;e &agrave; Avorbam. 3 chambres, salon, cuisine &eacute;quip&eacute;e, terrasse et cour b&eacute;tonn&eacute;e. Titre Foncier disponible imm&eacute;diatement.",
     verified: true,
@@ -125,10 +112,7 @@ const INITIAL_PROPERTIES = [
     clim: true,
     titreFoncier: false,
     image: GABON_PHOTOS.citeOctra,
-    gallery: [
-      GABON_PHOTOS.citeOctra,
-      GABON_PHOTOS.maisonSNI
-    ],
+    gallery: [ GABON_PHOTOS.citeOctra, GABON_PHOTOS.maisonSNI ],
     gps: { lat: 0.2985, lng: 9.5080, address: "Cit&eacute; Octra, Owendo", zone: "Owendo Octra" },
     description: "Logement dans une cit&eacute; r&eacute;sidentielle calme &agrave; Owendo. Peinture neuve, 2 chambres, terrasse d'entr&eacute;e couverte, espace vert et acc&egrave;s goudronn&eacute;. Eau SEEG et &eacute;lectricit&amp;eacute; EDAN individuel.",
     verified: true,
@@ -149,10 +133,7 @@ const INITIAL_PROPERTIES = [
     clim: true,
     titreFoncier: false,
     image: GABON_PHOTOS.villaOcre,
-    gallery: [
-      GABON_PHOTOS.villaOcre,
-      GABON_PHOTOS.duplex
-    ],
+    gallery: [ GABON_PHOTOS.villaOcre, GABON_PHOTOS.duplex ],
     gps: { lat: -0.7193, lng: 8.7815, address: "Quartier Ntchor&eacute;r&eacute;, Port-Gentil", zone: "Port-Gentil Ntchor&eacute;r&eacute;" },
     description: "Villa climatis&eacute;e et meubl&eacute;e avec haut niveau de s&eacute;curit&eacute; &agrave; Port-Gentil Ntchor&eacute;r&eacute;. S&eacute;jour avec baie vitr&eacute;e, cuisine moderne, groupe &eacute;lectrog&egrave;ne et cuve &agrave; eau 3000L.",
     verified: true,
@@ -162,8 +143,7 @@ const INITIAL_PROPERTIES = [
 
 let REGISTERED_USERS = JSON.parse(localStorage.getItem("locagabon_all_users")) || [
   { name: "Marc KASSA", email: "marc.kassa@email.ga", phone: "077 45 89 12", role: "locataire", password: "123", status: "connectÃ©" },
-  { name: "Immo Gabon Pro SA", email: "contact@immogabon.ga", phone: "066 12 34 56", role: "agence", nif: "RCCM-2026-B-89192", status: "connectÃ©" },
-  { name: "Mme NTOUTOUME Carine", email: "carine.nt@email.ga", phone: "074 99 88 77", role: "particulier", status: "hors-ligne" }
+  { name: "Immo Gabon Pro SA", email: "contact@immogabon.ga", phone: "066 12 34 56", role: "agence", nif: "RCCM-2026-B-89192", status: "connectÃ©" }
 ];
 
 let CONNECTED_USERS = JSON.parse(localStorage.getItem("locagabon_connected_users")) || [
@@ -172,54 +152,17 @@ let CONNECTED_USERS = JSON.parse(localStorage.getItem("locagabon_connected_users
 ];
 
 let USER_MOVEMENTS_LOG = JSON.parse(localStorage.getItem("locagabon_user_movements")) || [
-  { time: "02/08/2026 14:20", user: "Marc KASSA", role: "Locataire", action: "Connexion Espace Membre", details: "Connexion rÃ©ussie via Google Gmail (Appareil Mobile)" },
-  { time: "02/08/2026 13:45", user: "Immo Gabon Pro SA", role: "Agence Pro", action: "Publication d'Annonce", details: "Mise en ligne du Duplex Akanda AngondjÃ© (Ref #PROP-1)" },
-  { time: "02/08/2026 11:30", user: "Marc KASSA", role: "Locataire", action: "Paiement Mobile Money", details: "RÃ¨glement loyer 250 000 FCFA via Airtel Money (*150#)" },
-  { time: "02/08/2026 09:15", user: "M. ONDO Jean-Marc", role: "Bailleur", action: "Signature de Bail IA", details: "GÃ©nÃ©ration & validation du contrat de bail CitÃ© SNI" }
+  { time: "02/08/2026 14:20", user: "Marc KASSA", role: "Locataire", action: "Connexion Espace Membre", details: "Connexion rÃ©ussie via Google Gmail" },
+  { time: "02/08/2026 13:45", user: "Immo Gabon Pro SA", role: "Agence Pro", action: "Publication d'Annonce", details: "Mise en ligne du Duplex Akanda (Ref #PROP-1)" }
 ];
 
 let ETAT_DES_LIEUX_REPORTS = JSON.parse(localStorage.getItem("locagabon_edl_reports")) || [
-  {
-    id: "EDL-2026-081",
-    type: "EntrÃ©e",
-    property: "Villa Duplex Spacieuse - Akanda AngondjÃ©",
-    tenant: "Marc KASSA",
-    date: "01/08/2026",
-    edan: "48920 kWh",
-    seeg: "1240 mÂ³",
-    keys: "3 principales, 4 chambres, 1 bip portail",
-    status: "Bon Ã©tat gÃ©nÃ©ral (Peinture neuve, Surpresseur fonctionnel)"
-  }
+  { id: "EDL-2026-081", type: "EntrÃ©e", property: "Villa Duplex Spacieuse - Akanda AngondjÃ©", tenant: "Marc KASSA", date: "01/08/2026", edan: "48920 kWh", seeg: "1240 mÂ³", keys: "3 principales, 4 chambres, 1 bip", status: "CertifiÃ© (Bon Ã©tat general)" }
 ];
 
 let MAINTENANCE_TICKETS = JSON.parse(localStorage.getItem("locagabon_maintenance_tickets")) || [
-  {
-    id: "TKT-2026-401",
-    property: "Villa Duplex Spacieuse - Akanda AngondjÃ©",
-    tenant: "Marc KASSA",
-    category: "Plomberie / Fuite d'Eau SEEG",
-    urgency: "Urgente (Sous 24h)",
-    date: "02/08/2026",
-    description: "LÃ©gÃ¨re fuite dÃ©tectÃ©e au niveau du raccord du surpresseur principal d'eau.",
-    status: "ðŸ”§ Artisan affectÃ© (Intervention en cours)",
-    technician: "Plomberie Rapide Gabon (TÃ©l : 077 88 99 00)",
-    resolutionNotes: "Artisan dÃ©pÃªchÃ© par Immo Gabon Pro SA. PiÃ¨ce de raccordement en cours de remplacement."
-  }
+  { id: "TKT-2026-401", property: "Villa Duplex Spacieuse - Akanda AngondjÃ©", tenant: "Marc KASSA", category: "Plomberie / Fuite d'Eau SEEG", urgency: "Urgente (Sous 24h)", date: "02/08/2026", description: "LÃ©gÃ¨re fuite sur le raccord du surpresseur SEEG.", status: "ðŸ”§ Artisan affectÃ© (Intervention en cours)", technician: "Plomberie Rapide Gabon", resolutionNotes: "Raccordement en cours de remplacement." }
 ];
-
-let TENANT_RECEIPTS = [
-  { id: "GAB-2026-771", mois: "Juillet 2026", montant: "250 000 FCFA", methode: "Airtel Money (*150#)", date: "03/07/2026" }
-];
-
-let ADMIN_TRANSACTIONS = [
-  { id: "TX-99120", bien: "Appartement 3P - Akanda", brut: 250000, comm: 7500, canal: "Airtel Money Gabon", date: "01/08/2026" }
-];
-
-let adminFinancials = {
-  totalVolumeFCFA: 181030000,
-  commissionFCFA: 5430900,
-  gabonBankBalanceFCFA: 5430900
-};
 
 let state = {
   properties: [...INITIAL_PROPERTIES],
@@ -230,7 +173,7 @@ let state = {
   currentUser: JSON.parse(localStorage.getItem("locagabon_user")) || null
 };
 
-// --- INITIALISATION ---
+// --- INITIALISATION GLOBAL ---
 document.addEventListener("DOMContentLoaded", () => {
   renderProperties(state.properties);
   renderAdminDashboard();
@@ -241,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupAISearch();
   setupClassicFilters();
   setupIAChat();
+  setupFloatingRobotAiChatbot();
   setupModals();
   setupAuthModal();
   setupThreeStepPaymentSystem();
@@ -257,6 +201,139 @@ document.addEventListener("DOMContentLoaded", () => {
     updateFooterContactsUI();
   });
 });
+
+// --- CHATBOT IA FLOTTANT 100% INTELLIGENT ---
+function setupFloatingRobotAiChatbot() {
+  const btnToggle = document.getElementById("btnToggleFloatingAiWidget");
+  const windowEl = document.getElementById("floatingAiChatWindow");
+  const btnClose = document.getElementById("btnCloseFloatingAiChat");
+  const inputEl = document.getElementById("floatingAiChatInput");
+  const btnSend = document.getElementById("btnSendFloatingAiMsg");
+  const msgsArea = document.getElementById("floatingAiChatMessages");
+  const quickBtns = document.querySelectorAll(".btn-quick-ai-question");
+
+  if (!btnToggle || !windowEl) return;
+
+  btnToggle.addEventListener("click", () => {
+    windowEl.classList.toggle("hidden");
+    if (!windowEl.classList.contains("hidden")) {
+      inputEl.focus();
+    }
+  });
+
+  btnClose?.addEventListener("click", () => {
+    windowEl.classList.add("hidden");
+  });
+
+  quickBtns.forEach(b => {
+    b.addEventListener("click", () => {
+      const q = b.getAttribute("data-question");
+      if (q) handleUserFloatingMessage(q);
+    });
+  });
+
+  const sendMsg = () => {
+    const text = inputEl.value.trim();
+    if (text) {
+      inputEl.value = "";
+      handleUserFloatingMessage(text);
+    }
+  };
+
+  btnSend?.addEventListener("click", sendMsg);
+  inputEl?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMsg();
+    }
+  });
+
+  function handleUserFloatingMessage(userText) {
+    // Append User Message
+    const userMsgDiv = document.createElement("div");
+    userMsgDiv.className = "message msg-user";
+    userMsgDiv.innerHTML = `<div class="msg-content"><p>${escapeHtml(userText)}</p></div>`;
+    msgsArea.appendChild(userMsgDiv);
+    msgsArea.scrollTop = msgsArea.scrollHeight;
+
+    // Show Typing Dots
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "ai-typing-dots mt-2 mb-2";
+    typingDiv.id = "tempAiTyping";
+    typingDiv.innerHTML = `<span></span><span></span><span></span> <small style="margin-left:6px;">L'IA rÃ©dige sa rÃ©ponse...</small>`;
+    msgsArea.appendChild(typingDiv);
+    msgsArea.scrollTop = msgsArea.scrollHeight;
+
+    setTimeout(() => {
+      document.getElementById("tempAiTyping")?.remove();
+
+      const responseText = getSmartAIResponse(userText);
+
+      const aiMsgDiv = document.createElement("div");
+      aiMsgDiv.className = "message msg-ai";
+      aiMsgDiv.innerHTML = `
+        <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
+        <div class="msg-content"><p>${formatMarkdownText(responseText)}</p></div>
+      `;
+      msgsArea.appendChild(aiMsgDiv);
+      msgsArea.scrollTop = msgsArea.scrollHeight;
+    }, 750);
+  }
+}
+
+function getSmartAIResponse(query) {
+  const text = query.toLowerCase().trim();
+
+  // 1. Legal / Caution / Regulations Gabon
+  if (text.includes("caution") || text.includes("mois") || text.includes("loi") || text.includes("droit") || text.includes("rÃ©glementation") || text.includes("reglementation") || text.includes("legal") || text.includes("lÃ©gal")) {
+    return `ðŸ›ï¸ **RÃ©glementation du Bail d'Habitation au Gabon :**\n- **Caution LÃ©gale** : La loi gabonaise limite la caution Ã  **2 mois de loyer max** (plus le mois en cours/d'avance). Tout abus peut Ãªtre signalÃ© Ã  la Commission de Conciliation.\n- **PrÃ©avis de CongÃ©** : 3 mois pour le locataire et le bailleur (1 mois pour motifs professionnels ou urgents).\n- **Titres Fonciers** : Tous les biens estampillÃ©s *"Titre Foncier"* sur LocaGabon sont certifiÃ©s conformes auprÃ¨s de la Conservation FonciÃ¨re et du Cadastre.`;
+  }
+
+  // 2. Payments / Mobile Money / 3 Parties
+  if (text.includes("payer") || text.includes("paiement") || text.includes("airtel") || text.includes("moov") || text.includes("carte") || text.includes("virement") || text.includes("argent") || text.includes("prix") || text.includes("tarif") || text.includes("150") || text.includes("555")) {
+    return `ðŸ’³ **SystÃ¨me de Paiement SÃ©curisÃ© & SÃ©questre LocaGabon :**\nToutes les transactions intÃ¨grent **systÃ©matiquement 3 parties** :\n1. **Le Payeur** : Votre nom et identitÃ© CNI/Passeport.\n2. **Le Transitaire SÃ©questre** : *LocaGabon SA* conserve les fonds en sÃ©questre jusqu'Ã  la remise effective des clÃ©s.\n3. **Le BÃ©nÃ©ficiaire** : Le Bailleur ou l'Agence ImmobiliÃ¨re Pro.\n\n**Canaux acceptÃ©s** :\n- ðŸ“² **Airtel Money Gabon** (*150#) & **Moov Money** (*555#).\n- ðŸ’³ **Cartes Bancaires Visa / Mastercard**.\n- ðŸ¦ **Virements Directs BGFI Bank / UGB Gabon**.`;
+  }
+
+  // 3. GPS & RepÃ©rage
+  if (text.includes("gps") || text.includes("carte") || text.includes("localisation") || text.includes("repÃ©rer") || text.includes("reperer") || text.includes("adresse") || text.includes("trouver") || text.includes("itinÃ©raire")) {
+    return `ðŸ“ **GÃ©olocalisation & Carte GPS par IA :**\nChaque annonce publiÃ©e dispose de ses **coordonnÃ©es GPS exactes (Latitude / Longitude)**.\n- Cliquez sur le bouton **"ðŸ“ GPS IA"** sur n'importe quelle carte de logement.\n- Une carte interactive OpenStreetMap s'affiche avec la possibilitÃ© d'ouvrir **Google Maps** pour un guidage vocal virage par virage jusqu'Ã  la porte du bien !`;
+  }
+
+  // 4. Ã‰tats des Lieux / Compteurs EDAN & SEEG
+  if (text.includes("Ã©tat des lieux") || text.includes("etat des lieux") || text.includes("compteur") || text.includes("edan") || text.includes("seeg") || text.includes("index") || text.includes("clÃ©s") || text.includes("clef") || text.includes("procÃ¨s") || text.includes("proces")) {
+    return `ðŸ“‹ **Ã‰tats des Lieux NumÃ©riques (EntrÃ©e & Sortie) :**\n- Rendez-vous dans votre **Espace Membre** (\`#section-locataire\`.\n- Cliquez sur **"Ã‰tat des Lieux d'EntrÃ©e"** ou **"Ã‰tat des Lieux de Sortie"**.\n- Vous pourrez enregistrer le relevÃ© de votre **compteur Ã©lectrique EDAN (kWh)**, de votre **compteur d'eau SEEG (mÂ³)**, le nombre de clÃ©s et le procÃ¨s-verbal d'Ã©tat des Ã©quipements.\n- Une **attestation numÃ©rique certifiÃ©e** est immÃ©diatement gÃ©nÃ©rÃ©e !`;
+  }
+
+  // 5. Pannes & Signalements / DÃ©pannage
+  if (text.includes("panne") || text.includes("problÃ¨me") || text.includes("probleme") || text.includes("fuite") || text.includes("dÃ©pannage") || text.includes("depannage") || text.includes("cassÃ©") || text.includes("eau") || text.includes("split") || text.includes("clim") || text.includes("artisan") || text.includes("signalement")) {
+    return `ðŸš¨ **Signalement d'Incidents & Service DÃ©pannage :**\nEn cas de panne (fuite d'eau SEEG, dysfonctionnement du surpresseur, voyant EDAN rouge, split clim) :\n1. Allez dans votre **Espace Membre**.\n2. Cliquez sur **"Signaler un ProblÃ¨me"**.\n3. Indiquez la catÃ©gorie et le niveau d'urgence (*Normale 48h, Urgente 24h, Urgence Absolue*).\n4. Le bailleur et l'assistance LocaGabon sont directement notifiÃ©s pour l'envoi d'un artisan agrÃ©Ã© !`;
+  }
+
+  // 6. Admin / PIN Security
+  if (text.includes("admin") || text.includes("dashboard") || text.includes("pin") || text.includes("sÃ©curitÃ©") || text.includes("securite") || text.includes("tableau de bord") || text.includes("241077")) {
+    return `ðŸ›ï¸ **Espace Administration & Pilotage :**\n- Le Tableau de Bord Administrateur est accessible via la page \`/admin\` ou le bouton dorÃ© du menu principal.\n- Le Code PIN de SÃ©curitÃ© Super-Admin est : **241077**.\n- Il vous permet de suivre les **utilisateurs inscrits et connectÃ©s**, le **journal des mouvements en temps rÃ©el** et d'exÃ©cuter des virements BGFI/UGB.`;
+  }
+
+  // 7. Zones & Quartiers du Gabon
+  if (text.includes("akanda") || text.includes("angondjÃ©") || text.includes("angondje") || text.includes("libreville") || text.includes("louis") || text.includes("batterie") || text.includes("owendo") || text.includes("port-gentil") || text.includes("avorbam")) {
+    return `ðŸŒ† **Quartiers & Biens Disponibles au Gabon :**\n- **Akanda (AngondjÃ© ChÃ¢teaux, Avorbam, CitÃ©e SNI)** : Villas duplex et maisons rÃ©sidentielles au calme.\n- **Libreville Centre (Quartier Louis, Batterie IV, Glass)** : RÃ©sidences haut standing, appartements modernes proches bord de mer.\n- **Owendo (CitÃ© Octra)** : Pavillons familiaux avec accÃ¨s goudronnÃ©.\n- **Port-Gentil (NtchorÃ©rÃ©)** : Villas meublÃ©es sÃ©curisÃ©es avec cuve et groupe Ã©lectrogÃ¨ne.`;
+  }
+
+  // 8. General Greetings / Default Fallback
+  if (text.includes("bonjour") || text.includes("salut") || text.includes("hello") || text.includes("coucou") || text.includes("qui es tu")) {
+    return `ðŸ‘‹ **Bonjour ! Je suis l'Assistant IA Officiel de LocaGabon.**\nJe peux vous assister pour :\n1. ðŸ  **Trouver et rÃ©server un logement** (Akanda, Libreville, Owendo, Port-Gentil).\n2. ðŸ“„ **GÃ©nÃ©rer un contrat de bail IA certifiÃ©** conforme Ã  la loi gabonaise.\n3. ðŸ’³ **Payer via Airtel/Moov Money** avec sÃ©questre anti-litige.\n4. ðŸ“‹ **Ã‰tablir un Ã©tat des lieux ou signaler une panne**.\n\nQue souhaitez-vous savoir aujourd'hui ?`;
+  }
+
+  return `ðŸ¤– **Assistant IA LocaGabon :**\nMerci pour votre question ! Je suis programmÃ© pour rÃ©pondre Ã  toutes vos demandes concernant l'immobilier au Gabon.\n- Pour **consulter les offres**, naviguez dans la section **Annonces**.\n- Pour **toute assistance urgente**, contactez notre support WhatsApp au : **+33 7 66 96 45 32** ou email **levyludemadoungou@outlook.com** (*SiÃ¨ge Social : Charbonnages, Libreville*).\n\nPuis-je vous renseigner sur les compteurs EDAN/SEEG, la caution lÃ©gale ou le repÃ©rage GPS ?`;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function formatMarkdownText(str) {
+  return str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+}
 
 function logUserMovement(userName, userRole, actionType, details) {
   const now = new Date();
@@ -294,7 +371,7 @@ function updateFooterContactsUI() {
   if (platformEl) platformEl.textContent = saved.platform;
 }
 
-// --- NAVIGATION & D&Eacute;PLIAGE ---
+// --- NAVIGATION & DÃ‰PLIAGE ---
 function setupNavigation() {
   const navBtns = document.querySelectorAll(".nav-btn");
   const sections = document.querySelectorAll(".app-section");
@@ -306,7 +383,7 @@ function setupNavigation() {
 
       if (targetId === "section-locataire") {
         if (!state.currentUser) {
-          alert("ðŸ”’ ACC&Egrave;S RESTREINT &Agrave; L'ESPACE MEMBRE\n\nVeuillez vous connecter ou cr&eacute;er un compte pour consulter et g&eacute;rer vos informations personnelles.");
+          alert("ðŸ”’ ACCÃˆS RESTREINT Ã€ L'ESPACE MEMBRE\n\nVeuillez vous connecter ou crÃ©er un compte pour consulter et gÃ©rer vos informations personnelles.");
           openModal("authModal");
           return;
         }
@@ -349,7 +426,7 @@ function setupFoldableSections() {
       const body = document.getElementById(targetBodyId);
 
       if (targetBodyId === "espace-fold-content" && !state.currentUser) {
-        alert("ðŸ”’ ACC&Egrave;S RESTREINT &Agrave; L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour d&eacute;plier votre Espace Membre.");
+        alert("ðŸ”’ ACCÃˆS RESTREINT Ã€ L'ESPACE MEMBRE\n\nVeuillez vous connecter ou vous inscrire pour dÃ©plier votre Espace Membre.");
         openModal("authModal");
         return;
       }
@@ -399,7 +476,6 @@ function setupFichesEtatDesLieuxAndTickets() {
     const keysMain = document.getElementById("edlKeysMain").value;
     const keysRooms = document.getElementById("edlKeysRooms").value;
     const keysGate = document.getElementById("edlKeysGate").value;
-    const remarks = document.getElementById("edlRemarks").value.trim();
 
     const reportObj = {
       id: `EDL-2026-${Math.floor(100 + Math.random() * 900)}`,
@@ -476,7 +552,7 @@ function renderUserEdlList() {
   container.innerHTML = ETAT_DES_LIEUX_REPORTS.map(r => `
     <div style="background: var(--bg-primary); padding: 0.8rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
       <div>
-        <strong style="color: var(--accent-emerald); font-size: 0.9rem;">ProcÃ¨s-Verbal #${r.id} - State: ${r.type}</strong>
+        <strong style="color: var(--accent-emerald); font-size: 0.9rem;">ProcÃ¨s-Verbal #${r.id} - ${r.type}</strong>
         <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">
           ${r.property} | Date: ${r.date} | EDAN: ${r.edan} | SEEG: ${r.seeg}
         </p>
@@ -835,8 +911,6 @@ function openPropertyDetailModal(p) {
 
   const isSale = p.operation === "Vente";
   const isAgency = p.sellerType === "Agence Pro";
-  const gallery = p.gallery || [p.image];
-  const gps = p.gps || { lat: 0.4042, lng: 9.4398, address: p.city };
 
   modalContent.innerHTML = `
     <div class="detail-header">
@@ -864,9 +938,7 @@ function openPropertyDetailModal(p) {
 }
 
 function generateAILeaseContract(prop, phone, method, beneficiary, payerIdentity, transitaireVal) {
-  const isSale = prop.operation === "Vente";
   const cautionAmount = prop.cautionMois ? (prop.price * prop.cautionMois) : (prop.price * 2);
-  const currentDate = new Date().toLocaleDateString('fr-FR');
   const tenantName = payerIdentity || (state.currentUser ? state.currentUser.name : "Mme/M. KASSA Marc");
   const transitaire = transitaireVal || "LocaGabon SA (S&eacute;questre Num&eacute;rique Certifi&eacute;)";
 
@@ -974,10 +1046,8 @@ function openReceiptModal(id, tenant, landlord, address, amount, method) {
   openModal("receiptModal");
 }
 
-// --- GESTION DU DASHBOARD ADMIN (UTILISATEURS & MOUVEMENTS EN TEMPS RÃ‰EL) ---
-function renderAdminDashboard() {
-  renderAdminUserStats();
-}
+// --- DASHBOARD ADMIN ---
+function renderAdminDashboard() { renderAdminUserStats(); }
 
 function renderAdminUserStats() {
   const totalUsersEl = document.getElementById("adminTotalUsersCount");
@@ -1035,14 +1105,14 @@ function adminResolveTicket(ticketId) {
   const ticket = MAINTENANCE_TICKETS.find(t => t.id === ticketId);
   if (ticket) {
     ticket.status = "âœ… ProblÃ¨me RÃ©solu & ClÃ´turÃ©";
-    ticket.resolutionNotes = "Intervention finalisÃ©e par l'artisan mandatÃ©. Attestation de rÃ©paration signÃ©e.";
+    ticket.resolutionNotes = "Intervention finalisÃ©e par l'artisan mandatÃ©.";
     localStorage.setItem("locagabon_maintenance_tickets", JSON.stringify(MAINTENANCE_TICKETS));
 
-    logUserMovement("Super-Admin LocaGabon", "Administration", "RÃ©solution de Panne", `Ticket #${ticketId} clÃ´turÃ© avec succÃ¨s pour ${ticket.property}`);
+    logUserMovement("Super-Admin LocaGabon", "Administration", "RÃ©solution de Panne", `Ticket #${ticketId} clÃ´turÃ© pour ${ticket.property}`);
 
     renderAdminUserStats();
     renderUserTicketsUI();
-    alert(`âœ… TICKET #${ticketId} CLÃ”TURÃ‰ AVEC SUCCÃˆS !\n\nLe locataire ${ticket.tenant} a Ã©tÃ© notifiÃ© de la rÃ©solution.`);
+    alert(`âœ… TICKET #${ticketId} CLÃ”TURÃ‰ AVEC SUCCÃˆS !`);
   }
 }
 
