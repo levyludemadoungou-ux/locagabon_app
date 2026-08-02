@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocaGabon - Plateforme Immobilière (Location & Vente) | Particuliers & Agences au Gabon</title>
+  <meta name="description" content="La première plateforme d'annonces immobilières (Location & Vente) au Gabon pour Particuliers et Agences Immobilières Pro. Assistant IA Juridique, Géolocalisation GPS et paiement Airtel/Moov Money.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Remixicon SVG Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- En-tête de l'application -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo" id="logoBtn">
+        <div class="logo-icon">
+          <i class="ri-home-heart-fill"></i>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">LocaGabon <span class="badge-ia">IA</span></span>
+          <span class="brand-sub">Locations & Ventes Immobilières au Gabon</span>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-btn active" data-target="section-annonces">
+          <i class="ri-search-line"></i> <span>Annonces</span>
+        </button>
+        <button class="nav-btn" data-target="section-about">
+          <i class="ri-information-line"></i> <span>Qui sommes-nous ?</span>
+        </button>
+        <button class="nav-btn" data-target="section-faq">
+          <i class="ri-question-answer-line"></i> <span>FAQ & Aide</span>
+        </button>
+        <button class="nav-btn" data-target="section-ia-juridique">
+          <i class="ri-robot-2-fill"></i> <span>Assistant IA</span>
+        </button>
+        <button class="nav-btn" data-target="section-tarifs">
+          <i class="ri-vip-crown-line"></i> <span>Tarifs & Abonnements</span>
+        </button>
+        <button class="nav-btn" id="btnNavEspace" data-target="section-locataire">
+          <i class="ri-user-settings-line"></i> <span id="lblNavEspace">Mon Espace</span>
+        </button>
+        <a href="admin.html" class="nav-btn" style="color: var(--accent-gold); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;" title="Accès au Tableau de Bord Administration (PIN : 241077)">
+          <i class="ri-shield-keyhole-fill"></i> <span>Administration</span>
+        </a>
+      </nav>
+
+      <div class="header-actions" id="headerAuthZone">
+        <!-- État Non Connecté (Par défaut) -->
+        <button class="btn-auth-outline" id="btnOpenAuthModal">
+          <i class="ri-user-3-line"></i> <span>Connexion / Inscription</span>
+        </button>
+        <button class="btn-primary-sm" id="quickAddPropertyBtn">
+          <i class="ri-add-circle-line"></i> <span>Publier un bien</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Bannière d'accueil et recherche intelligente par IA -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <i class="ri-map-pin-user-fill"></i> Géolocalisation GPS par IA, Contrats de Bail IA & Paiements Digitaux au Gabon
+      </div>
+      <h1>Louez ou achetez au Gabon en toute transparence avec l'IA</h1>
+      <p>Trouvez des <strong>locations</strong> et des <strong>ventes immobilières</strong> vérifiées (terrains avec Titre Foncier, villas, appartements) avec <strong>coordonnées GPS par IA</strong> à Libreville, Akanda, Port-Gentil. En direct avec un particulier ou via une Agence Immobilière Pro.</p>
+
+      <!-- Boîte de recherche IA intelligente -->
+      <div class="ai-search-card">
+        <div class="search-tabs">
+          <button class="search-tab-btn active" id="tabSmartAI"><i class="ri-sparkles-line"></i> Recherche par IA</button>
+          <button class="search-tab-btn" id="tabClassicFilter"><i class="ri-filter-3-line"></i> Filtres avancés</button>
+        </div>
+
+        <div class="search-body" id="aiSearchContainer">
+          <div class="ai-input-wrapper">
+            <i class="ri-magic-line ai-input-icon"></i>
+            <input type="text" id="aiSearchInput" placeholder="Ex. : Villa avec GPS à Akanda, ou appartement en location à Louis par une Agence Pro...">
+            <button class="btn-accent" id="btnRunAISearch"><i class="ri-send-plane-fill"></i> Analyser</button>
+          </div>
+          <div class="ai-suggestions">
+            <span class="sug-label">Exemples :</span>
+            <button class="sug-chip" data-query="Terrain à vendre Akanda Angondjé Titre Foncier GPS">Terrain Vente Angondjé GPS</button>
+            <button class="sug-chip" data-query="Location appartement Agence Pro Louis ou Batterie IV">Appartement Agence Louis</button>
+            <button class="sug-chip" data-query="Direct Particulier sans frais d'agence studio Libreville">Direct Particulier Studio</button>
+          </div>
+        </div>
+
+        <div class="search-body hidden" id="classicFilterContainer">
+          <div class="filter-grid">
+            <div class="filter-group">
+              <label><i class="ri-exchange-cfa-line"></i> Type d'opération</label>
+              <select id="filterOperation">
+                <option value="all">Toutes (Location & Vente)</option>
+                <option value="Location">Location uniquement</option>
+                <option value="Vente">Vente (Achat Immobilier)</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label><i class="ri-user-star-line"></i> Type d'annonceur</label>
+              <select id="filterSellerType">
+                <option value="all">Tous (Particuliers & Agences)</option>
+                <option value="Agence Pro">Agence Immobilière Pro</option>
+                <option value="Particulier">Particulier Direct</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label><i class="ri-map-pin-2-line"></i> Ville / Zone</label>
+              <select id="filterCity">
+                <option value="all">Toutes les zones</option>
+                <option value="Libreville (Centre)">Libreville (Centre / Louis / Glass)</option>
+                <option value="Akanda (Angondjé)">Akanda (Angondjé / Avorbam)</option>
+                <option value="Owendo">Owendo</option>
+                <option value="Batterie IV">Batterie IV / Haut de Gué-Gué</option>
+                <option value="Nkembo / PK">Nkembo / PK5 - PK12</option>
+                <option value="Port-Gentil">Port-Gentil</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label><i class="ri-building-line"></i> Type de bien</label>
+              <select id="filterType">
+                <option value="all">Tous les biens</option>
+                <option value="Studio">Studio</option>
+                <option value="Appartement">Appartement</option>
+                <option value="Villa">Villa / Duplex</option>
+                <option value="Terrain">Terrain à bâtir</option>
+              </select>
+            </div>
+            <div class="filter-group align-end full-col">
+              <button class="btn-primary-block" id="btnApplyClassicFilter">
+                <i class="ri-search-2-line"></i> Appliquer les filtres
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenu principal de l'application -->
+  <main class="main-content">
+
+    <!-- SECTION 1: ANNONCES IMMOBILIÈRES -->
+    <section id="section-annonces" class="app-section active">
+      <div class="section-header">
+        <div>
+          <h2><i class="ri-building-4-line"></i> Offres Immobilières au Gabon</h2>
+          <p>Cliquez sur une annonce pour consulter la fiche détaillée, les coordonnées <strong>GPS par IA</strong> et le contrat IA.</p>
+        </div>
+        <div class="results-count" id="resultsCount">6 annonces trouvées</div>
+      </div>
+
+      <div class="property-grid" id="propertyGrid">
+        <!-- Annonces injectées dynamiquement -->
+      </div>
+    </section>
+
+    <!-- SECTION 2: QUI SOMMES-NOUS ? -->
+    <section id="section-about" class="app-section">
+      <div class="section-header center">
+        <h2><i class="ri-team-fill" style="color: var(--accent-emerald);"></i> Qui Sommes-Nous ?</h2>
+        <p>La première PropTech 100% gabonaise conçue pour moderniser et sécuriser l'immobilier au Gabon.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon"><i class="ri-flag-fill"></i></div>
+          <h3>Notre Mission au Gabon</h3>
+          <p>Éliminer les litiges locatifs et les arnaques immobilières en offrant une plateforme transparente qui connecte locataires, propriétaires particuliers et agences immobilières certifiées à Libreville, Akanda, Owendo et Port-Gentil.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-icon"><i class="ri-sparkles-fill"></i></div>
+          <h3>Innovation par l'IA & GPS</h3>
+          <p>Nous intégrons un Assistant IA juridique entraîné sur la législation gabonaise ainsi qu'un système de repérage cartographique GPS par IA pour géolocaliser chaque logement avec précision.</p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-icon"><i class="ri-smartphone-fill"></i></div>
+          <h3>Paiement 100% Digital</h3>
+          <p>En partenariat avec les solutions Airtel Money (*150#) et Moov Money (*555#), nous digitalisons la collecte des loyers et la délivrance de quittances numériques certifiées.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: FAQ & AIDE -->
+    <section id="section-faq" class="app-section">
+      <div class="section-header center">
+        <h2><i class="ri-question-answer-fill" style="color: var(--accent-gold);"></i> Foire aux Questions (FAQ)</h2>
+        <p>Toutes les réponses à vos questions sur l'utilisation de LocaGabon AI.</p>
+      </div>
+
+      <div class="faq-accordion-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment se repérer avec les coordonnées GPS par IA des biens ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Sur chaque annonce, cliquez sur le macaron <strong>"📍 GPS IA & Carte"</strong>. Une carte interactive d'orientation s'affiche avec la latitude et longitude exactes, vous permettant de lancer le guidage GPS direct vers le logement au Gabon.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment modifier mon adresse email ou mon numéro de téléphone ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Connectez-vous à votre compte et rendez-vous dans la rubrique <strong>"Mon Profil & Sécurité"</strong> dans votre espace. Modifiez vos informations puis validez le <strong>code de sécurité à 6 chiffres</strong> envoyé par SMS/Email pour enregistrer les modifications.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Comment fonctionne la génération automatique du contrat de bail par l'IA ?</span>
+            <i class="ri-add-line faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Lorsque vous cliquez sur réserver un logement, l'<strong>Intelligence Artificielle LocaGabon</strong> rédige instantanément votre <strong>Contrat de Bail d'Habitation Officiel</strong> avec l'ensemble des clauses légales gabonaises. Vous pouvez lire, valider et signer numériquement votre bail avant de procéder au règlement Mobile Money.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: ASSISTANT IA JURIDIQUE -->
+    <section id="section-ia-juridique" class="app-section">
+      <div class="section-header center">
+        <h2><i class="ri-robot-2-fill" style="color: var(--accent-emerald);"></i> Assistant IA Juris-Immo Gabon</h2>
+        <p>Spécialiste de la législation immobilière et des baux d'habitation au Gabon.</p>
+      </div>
+
+      <div class="ia-workspace">
+        <div class="ia-sidebar">
+          <div class="ia-brand">
+            <div class="ia-avatar"><i class="ri-robot-2-line"></i></div>
+            <div>
+              <h3>Assistant IA Juris-Immo Gabon</h3>
+              <span class="status-online"><i class="ri-checkbox-blank-circle-fill"></i> Spécialiste Loi Gabonaise</span>
+            </div>
+          </div>
+          <p class="ia-intro-text">Posez n'importe quelle question sur la réglementation des baux d'habitation au Gabon, les droits du locataire ou du bailleur.</p>
+
+          <div class="preset-questions">
+            <h4><i class="ri-questionnaire-line"></i> Questions fréquentes :</h4>
+            <button class="btn-preset-ia" data-prompt="Combien de mois de caution un bailleur peut-il exiger au Gabon selon la loi ?">
+              <i class="ri-scales-line"></i> Plafond légal de la caution au Gabon ?
+            </button>
+            <button class="btn-preset-ia" data-prompt="Qui doit payer les réparations de plomberie et d'étanchéité entre le bailleur et le locataire ?">
+              <i class="ri-tools-line"></i> Réparations : Locataire ou Bailleur ?
+            </button>
+            <button class="btn-preset-ia" data-prompt="Quel est le préavis légal pour résilier un contrat de bail d'habitation au Gabon ?">
+              <i class="ri-time-line"></i> Préavis légal de résiliation
+            </button>
+          </div>
+        </div>
+
+        <div class="ia-chat-container">
+          <div class="chat-messages" id="chatMessages">
+            <div class="message msg-ai">
+              <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
+              <div class="msg-content">
+                <p><strong>Bonjour ! Je suis l'Assistant IA LocaGabon.</strong></p>
+                <p>Je connais parfaitement la réglementation gabonaise sur les baux d'habitation et la vente immobilière. Comment puis-je vous aider aujourd'hui ?</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <textarea id="chatInput" placeholder="Posez votre question juridique ou décrivez votre litige locatif..." rows="2"></textarea>
+            <button id="btnSendChatMessage" class="btn-send-chat"><i class="ri-send-plane-2-fill"></i> Envoyer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: TARIFS & FORMULES D'ABONNEMENT -->
+    <section id="section-tarifs" class="app-section foldable-card mt-4 mb-4">
+      <button class="foldable-header" data-toggle="tarifs-fold-content">
+        <div class="foldable-title">
+          <div class="foldable-icon-bg gold"><i class="ri-vip-crown-fill"></i></div>
+          <div>
+            <h3>Tarifs & Formules d'Abonnement</h3>
+            <span class="foldable-subtitle">Des offres adaptées et transparentes pour Locataires, Propriétaires Privés & Agences Pro</span>
+          </div>
+        </div>
+        <i class="ri-add-line foldable-arrow"></i>
+      </button>
+
+      <div class="foldable-body hidden" id="tarifs-fold-content">
+        
+        <!-- BLOC 1: FORMULES LOCATAIRES / ACHETEURS -->
+        <div class="subscription-block mb-4 mt-3">
+          <div class="sub-block-header">
+            <h3><i class="ri-user-heart-fill" style="color: var(--accent-emerald);"></i> BLOC 1 : Offres Locataires & Acheteurs</h3>
+            <span class="sub-block-badge emerald">Pour trouver & sécuriser votre logement</span>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <div class="pricing-head">
+                <h3>Pass Basique Locataire</h3>
+                <p>Pour rechercher et consulter les offres.</p>
+                <div class="price-amount">0 FCFA <span>/mois</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li><i class="ri-check-line"></i> Recherche d'annonces vérifiées</li>
+                <li><i class="ri-check-line"></i> Consultation des fiches détaillées & photos</li>
+                <li><i class="ri-check-line"></i> Assistant IA Juridique (3 questions/jour)</li>
+                <li class="disabled"><i class="ri-close-line"></i> Contrat de bail automatique par l'IA</li>
+              </ul>
+              <button class="btn-pricing-outline btn-select-plan" data-plan="Pass Basique Locataire (Gratuit)">Choisir cette formule</button>
+            </div>
+
+            <div class="pricing-card popular">
+              <div class="popular-badge">RECOMMANDÉ LOCATAIRE</div>
+              <div class="pricing-head">
+                <h3>Pass Essentiel Locataire</h3>
+                <p>Pour réserver et signer votre bail numériquement.</p>
+                <div class="price-amount">2 500 FCFA <span>/mois</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li><i class="ri-check-line"></i> Tout le plan Basique inclus</li>
+                <li><i class="ri-check-line"></i> <strong>Contrat de Bail IA automatique certifié</strong></li>
+                <li><i class="ri-check-line"></i> <strong>Alerte SMS/WhatsApp nouveaux biens</strong></li>
+                <li><i class="ri-check-line"></i> Quittances numériques imprimables</li>
+              </ul>
+              <button class="btn-pricing-accent btn-select-plan" data-plan="Pass Essentiel Locataire (2 500 FCFA)">Activer par Airtel/Moov Money</button>
+            </div>
+
+            <div class="pricing-card">
+              <div class="pricing-head">
+                <h3>Pass Pro Locataire Premium</h3>
+                <p>Assistance prioritaire & garantie de séquestre.</p>
+                <div class="price-amount">5 000 FCFA <span>/mois</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li><i class="ri-check-line"></i> Tout le Pass Essentiel inclus</li>
+                <li><i class="ri-check-line"></i> <strong>Assistant IA Juridique Illimité 24/7</strong></li>
+                <li><i class="ri-check-line"></i> <strong>Garantie Séquestre Anti-Litige</strong></li>
+                <li><i class="ri-check-line"></i> Support client dédié WhatsApp VIP</li>
+              </ul>
+              <button class="btn-pricing-outline btn-select-plan" data-plan="Pass Pro Locataire (5 000 FCFA)">Souscrire au Pass Pro</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOC 2: FORMULES BAILLEURS PARTICULIERS & AGENCES IMMOBILIÈRES PRO -->
+        <div class="subscription-block">
+          <div class="sub-block-header">
+            <h3><i class="ri-building-4-fill" style="color: var(--accent-gold);"></i> BLOC 2 : Offres Bailleurs Particuliers & Agences Pro</h3>
+            <span class="sub-block-badge gold">Pour encaisser & gérer vos biens</span>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <div class="pricing-head">
+                <h3>Pack Basique Propriétaire</h3>
+                <p>Pour publier un premier bien en direct.</p>
+                <div class="price-amount">0 FCFA <span>/mois</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li><i class="ri-check-line"></i> 1 Annonce active (Location ou Vente)</li>
+                <li><i class="ri-check-line"></i> Contact direct des candidats</li>
+                <li class="disabled"><i class="ri-close-line"></i> Encaissement Mobile Money automatique</li>
+                <li class="disabled"><i class="ri-close-line"></i> Badge Agence Pro Certifiée</li>
+              </ul>
+              <button class="btn-pricing-outline btn-select-plan" data-plan="Pack Basique Propriétaire (Gratuit)">Activer mon offre</button>
+            </div>
+
+            <div class="pricing-card">
+              <div class="pricing-head">
+                <h3>Pack Essentiel Bailleur</h3>
+                <p>Pour les propriétaires privés (jusqu'à 5 biens).</p>
+                <div class="price-amount">15 000 FCFA <span>/mois</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li><i class="ri-check-line"></i> Jusqu'à 5 Annonces (Locations & Ventes)</li>
+                <li><i class="ri-check-line"></i> <strong>Encaissement Airtel Money / Moov Money</strong></li>
+                <li><i class="ri-check-line"></i> Contrats de bail IA conformes au Droit Gabonais</li>
+                <li><i class="ri-check-line"></i> Suivi des loyers & quittances certifiées</li>
+              </ul>
+              <button class="btn-pricing-accent btn-select-plan" data-plan="Pack Essentiel Bailleur (15 000 FCFA)">Activer par Mobile Money</button>
+            </div>
+
+            <div class="pricing-card pro">
+              <div class="popular-badge" style="background: var(--accent-gold);">RÉSERVÉ AGENCE PRO</div>
+              <div class="pricing-head">
+                <h3>Pack Pro Agence Immobilière</h3>
+                <p>Pour les agences professionnelles & promoteurs.</p>
+                <div class="price-amount">35 000 FCFA <span>/mois</span></div>
+              </div>
+              <ul class="pricing-features">
+                <li><i class="ri-check-line"></i> <strong>Annonces illimitées (Locations & Ventes Terrains/Villas)</strong></li>
+                <li><i class="ri-check-line"></i> <strong>Badge "Agence Pro Certifiée" (NIF / RCCM)</strong></li>
+                <li><i class="ri-check-line"></i> Multi-comptes pour agents immobiliers</li>
+                <li><i class="ri-check-line"></i> Reversement automatique sur Banque Gabon (BGFI/UGB)</li>
+              </ul>
+              <button class="btn-pricing-gold btn-select-plan" data-plan="Pack Pro Agence (35 000 FCFA)">Activer le Pack Agence Pro</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: MON ESPACE UTILISATEUR & SÉCURITÉ -->
+    <section id="section-locataire" class="app-section foldable-card mb-4">
+      <button class="foldable-header" data-toggle="espace-fold-content">
+        <div class="foldable-title">
+          <div class="foldable-icon-bg emerald"><i class="ri-user-settings-fill"></i></div>
+          <div>
+            <h3>Mon Espace Utilisateur & Sécurité</h3>
+            <span class="foldable-subtitle">Consultez vos contrats, quittances et modifiez vos coordonnées personnelles en toute sécurité</span>
+          </div>
+        </div>
+        <i class="ri-add-line foldable-arrow"></i>
+      </button>
+
+      <div class="foldable-body hidden" id="espace-fold-content">
+        
+        <div class="locataire-container mt-3">
+          <!-- CARTE BAIL OU ACTIVITÉ ACTIVE -->
+          <div class="loc-card-active mb-4">
+            <div class="loc-header">
+              <span class="badge-status-ok"><i class="ri-checkbox-circle-fill"></i> Compte Vérifié</span>
+              <span class="loc-id" id="profileUserRole">Profil : LOCATAIRE</span>
+            </div>
+            <h3 id="profileWelcomeTitle">Bienvenue sur l'Espace Membre de Marc KASSA</h3>
+            <p><i class="ri-map-pin-line"></i> République Gabonaise | Statut CNPDCP : <strong>Conforme</strong></p>
+
+            <div class="loc-details-grid">
+              <div class="detail-box">
+                <span class="label">Nom complet / Raison Sociale</span>
+                <span class="val highlight" id="profileDisplayName">Marc KASSA</span>
+              </div>
+              <div class="detail-box">
+                <span class="label">Adresse Email</span>
+                <span class="val" id="profileDisplayEmail">marc.kassa@email.ga</span>
+              </div>
+              <div class="detail-box">
+                <span class="label">Numéro Téléphone Gabon</span>
+                <span class="val" id="profileDisplayPhone">+241 077 45 89 12</span>
+              </div>
+              <div class="detail-box">
+                <span class="label">Statut Sécurité</span>
+                <span class="val text-success"><i class="ri-shield-check-fill"></i> Authentification Sécurisée</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RUBRIQUE CONSULTATION ET MODIFICATION DU PROFIL -->
+          <div class="history-card mb-4" style="border: 1px solid var(--border-color-glow);">
+            <h3><i class="ri-edit-box-line" style="color: var(--accent-emerald);"></i> Modifier mes Informations Personnelles (Email & Téléphone)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
+              Toute modification de vos coordonnées déclenche un protocole de sécurité automatique avec envoi d'un code de vérification SMS.
+            </p>
+
+            <form id="formEditProfile">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label><i class="ri-user-3-line"></i> Nom complet ou Nom d'utilisateur</label>
+                  <input type="text" id="editProfileName" value="Marc KASSA" required>
+                </div>
+
+                <div class="form-group">
+                  <label><i class="ri-mail-line"></i> Nouvelle Adresse Email</label>
+                  <input type="email" id="editProfileEmail" value="marc.kassa@email.ga" required>
+                </div>
+
+                <div class="form-group full">
+                  <label><i class="ri-smartphone-line"></i> Nouveau Numéro de Téléphone (Airtel / Moov Gabon)</label>
+                  <div class="input-with-prefix">
+                    <span class="prefix">+241</span>
+                    <input type="tel" id="editProfilePhone" value="077 45 89 12" required>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-pricing-accent mt-3" style="width: 100%; padding: 0.85rem; font-size: 0.95rem;">
+                <i class="ri-shield-keyhole-line"></i> Enregistrer les Modifications & Déclencher la Vérification
+              </button>
+            </form>
+          </div>
+
+                    <!-- CARTE 2 : GESTION DES Ã‰TATS DES LIEUX (ENTRÃ‰E & SORTIE) -->
+          <div class="history-card mb-4" style="border: 1px solid var(--border-color-glow);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div>
+                <h3><i class="ri-clipboard-line" style="color: var(--accent-emerald);"></i> Fiche & Attestation d'Ã‰tat des Lieux (EntrÃ©e & Sortie)</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  Ã‰tablissez ou consultez les procÃ¨s-verbaux d'Ã©tat des lieux certifiÃ©s avec relevÃ© des compteurs (EDAN & SEEG).
+                </p>
+              </div>
+              <div style="display: flex; gap: 0.6rem;">
+                <button class="btn-pricing-accent" id="btnOpenEtatEntree" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;">
+                  <i class="ri-add-circle-line"></i> Ã‰tat des Lieux d'EntrÃ©e
+                </button>
+                <button class="btn-pricing-outline" id="btnOpenEtatSortie" style="padding: 0.5rem 0.9rem; font-size: 0.8rem;">
+                  <i class="ri-logout-box-r-line"></i> Ã‰tat des Lieux de Sortie
+                </button>
+              </div>
+            </div>
+
+            <div id="etatDesLieuxHistoryList" style="display: flex; flex-direction: column; gap: 0.6rem;">
+              <!-- InjectÃ© dynamiquement par app.js -->
+            </div>
+          </div>
+
+          <!-- CARTE 3 : SIGNALEMENT DE PROBLÃˆME & FICHES DE RÃ‰SOLUTION (DÃ‰PANNAGE) -->
+          <div class="history-card mb-4" style="border: 1px solid var(--border-color-glow);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <div>
+                <h3><i class="ri-tools-fill" style="color: var(--accent-gold);"></i> Signalement de ProblÃ¨me & Fiches de RÃ©solution (DÃ©pannage)</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                  Signalez une panne (Plomberie SEEG, Compteur EDAN, Climatisation) et suivez l'intervention du bailleur en direct.
+                </p>
+              </div>
+              <button class="btn-pricing-gold" id="btnOpenReportProblem" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                <i class="ri-alarm-warning-line"></i> Signaler un ProblÃ¨me
+              </button>
+            </div>
+
+            <div id="userTicketsList" style="display: flex; flex-direction: column; gap: 0.8rem;">
+              <!-- InjectÃ© dynamiquement par app.js -->
+            </div>
+          </div>
+
+          <!-- HISTORIQUE DES QUITTANCES -->
+          <div class="history-card">
+            <h3><i class="ri-history-line"></i> Mes Quittances & Contrats de Bail Signés</h3>
+            <ul class="history-list" id="receiptHistoryList">
+              <li class="history-item">
+                <div>
+                  <strong>Quittance #GAB-2026-771 - Août 2026</strong>
+                  <p>Appartement 3P Angondjé Château | 250 000 FCFA (Airtel Money)</p>
+                </div>
+                <button class="btn-secondary" onclick="openReceiptModal('GAB-2026-771', 'Mme/M. KASSA Marc', 'Immo Gabon Pro SA', 'Appartement 3P Angondjé', '250 000 FCFA', 'Airtel Money')">
+                  <i class="ri-file-download-line"></i> Voir la Quittance
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL GÉOLOCALISATION GPS PAR IA -->
+  <div class="modal-overlay hidden" id="gpsMapModal">
+    <div class="modal-box" style="max-width: 720px;">
+      <button class="modal-close" id="closeGpsModal"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);"><i class="ri-map-pin-user-fill"></i></div>
+        <div>
+          <h3>Localisation GPS par IA - République Gabonaise</h3>
+          <p id="gpsModalPropertyTitle">Repérage cartographique du logement</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div style="background: var(--bg-primary); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--border-color); margin-bottom: 1.2rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+            <div>
+              <span style="font-size: 0.78rem; color: var(--text-secondary);">Zone & Adresse :</span>
+              <h4 id="gpsModalAddress" style="color: var(--text-primary); margin-top: 0.2rem;">Charbonnages, Libreville</h4>
+            </div>
+            <span class="badge-status-ok" style="font-size: 0.78rem;"><i class="ri-radar-fill"></i> Précision GPS IA : 100%</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; background: var(--bg-surface); padding: 0.8rem; border-radius: var(--radius-sm); font-size: 0.85rem;">
+            <div>
+              <span style="color: var(--text-muted);">Latitude GPS :</span>
+              <strong id="gpsModalLat" style="color: var(--accent-emerald); display: block;">0.5283 N</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-muted);">Longitude GPS :</span>
+              <strong id="gpsModalLng" style="color: var(--accent-emerald); display: block;">9.4215 E</strong>
+            </div>
+          </div>
+        </div>
+
+        <div id="gpsMapContainer" style="width: 100%; height: 260px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-color-glow); position: relative; background: #1e293b;">
+          <iframe id="gpsIframeMap" width="100%" height="100%" frameborder="0" style="border:0" src="" allowfullscreen></iframe>
+        </div>
+
+        <div class="confirm-actions-grid mt-3">
+          <a id="btnOpenExternalGoogleMaps" href="#" target="_blank" class="btn-pay-submit" style="text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            <i class="ri-navigation-fill"></i> Lancer le Guidage GPS Google Maps
+          </a>
+          <button class="btn-secondary" onclick="closeModal('gpsMapModal')">
+            <i class="ri-close-line"></i> Fermer la carte
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE SÉCURITÉ : VÉRIFICATION DU CODE SECRET SMS/EMAIL -->
+  <div class="modal-overlay hidden" id="securityCodeModal">
+    <div class="modal-box" style="border-color: var(--accent-gold);">
+      <button class="modal-close" id="closeSecurityModal"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);"><i class="ri-shield-keyhole-line"></i></div>
+        <div>
+          <h3>Vérification de Sécurité Automatique</h3>
+          <p>Validation obligatoire pour la mise à jour de vos coordonnées.</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="confirm-notice mb-3">
+          <i class="ri-information-fill"></i> Pour sécuriser votre compte selon les normes CNPDCP Gabon, un <strong>Code de Sécurité à 6 chiffres</strong> a été automatiquement envoyé par SMS sur votre numéro.
+        </div>
+
+        <form id="formValidateSecurityCode">
+          <div class="form-group mb-3">
+            <label style="text-align: center; display: block;">Saisissez le code secret à 6 chiffres :</label>
+            <input type="text" id="inputSecurityCode" placeholder="Ex. : 892104" style="width: 100%; padding: 0.8rem; text-align: center; font-size: 1.3rem; letter-spacing: 6px; font-weight: 800; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-primary); color: #fff;" required>
+          </div>
+
+          <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+            Code test par défaut : <strong>892104</strong>
+          </p>
+
+          <button type="submit" class="btn-pay-submit">
+            <i class="ri-checkbox-circle-line"></i> Valider le Code & Confirmer les Modifications
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL FICHE DÉTAILLÉE D'UNE ANNONCE -->
+  <div class="modal-overlay hidden" id="propertyDetailModal">
+    <div class="modal-box" style="max-width: 820px; max-height: 92vh; overflow-y: auto;">
+      <button class="modal-close" id="closePropertyDetailModal"><i class="ri-close-line"></i></button>
+      <div id="propertyDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL 1: PAIEMENT DYNAMIQUE AVEC AFFICHAGE CLAIR DES 3 PARTIES (PAYEUR, LOCAGABON, BÉNÉFICIAIRE) POUR TOUS LES MODES -->
+  <div class="modal-overlay hidden" id="paymentModal">
+    <div class="modal-box card-pay">
+      <button class="modal-close" id="closePayModal"><i class="ri-close-line"></i></button>
+      
+      <div class="modal-header">
+        <div class="pay-icon"><i class="ri-smartphone-line"></i></div>
+        <div>
+          <h3>Étape 1 : Coordonnées des 3 Parties de la Transaction</h3>
+          <p>Identification obligatoire du Payeur, du Transitaire (LocaGabon) et du Bénéficiaire.</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="pay-amount-box">
+          <span>Montant de la transaction :</span>
+          <h2 id="payAmountVal">250 000 FCFA</h2>
+          <small>Génère automatiquement votre contrat de bail IA certifié</small>
+        </div>
+
+        <!-- AFFICHAGE ET SAISIE DES 3 RÔLES SYSTÉMATIQUES POUR CHAQUE TRANSACTION -->
+        <div class="transaction-roles-box mb-3" style="display: flex; flex-direction: column; gap: 0.8rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color-glow);">
+          
+          <!-- RÔLE 1: LE PAYEUR -->
+          <div class="input-group">
+            <label for="payPayerIdentity" style="color: var(--accent-emerald); font-weight: 700;">
+              <i class="ri-user-shared-line"></i> 1. Le Payeur (Nom complet / CNI du Locataire ou Acheteur) :
+            </label>
+            <input type="text" id="payPayerIdentity" placeholder="Ex. : Marc KASSA (CNI n° 092019-GA)" value="Marc KASSA" style="background: var(--bg-primary); border-color: var(--accent-emerald);" required>
+          </div>
+
+          <!-- RÔLE 2: L'INTERMÉDIAIRE / TRANSITAIRE (LOCAGABON) -->
+          <div class="input-group">
+            <label for="payTransitaireAccount" style="color: var(--accent-gold); font-weight: 700;">
+              <i class="ri-shield-flash-line"></i> 2. Le Transitaire (LocaGabon SA - Séquestre Numérique Certifié) :
+            </label>
+            <input type="text" id="payTransitaireAccount" value="LocaGabon SA (Compte Séquestre Certifié CNPDCP - *150# / *555# / BGFI)" readonly style="background: rgba(245, 158, 11, 0.1); color: var(--accent-gold); font-weight: 700; border-color: rgba(245, 158, 11, 0.3); cursor: not-allowed;">
+          </div>
+
+          <!-- RÔLE 3: LE BÉNÉFICIAIRE -->
+          <div class="input-group">
+            <label for="payBeneficiaryAccount" style="color: var(--accent-azure); font-weight: 700;">
+              <i class="ri-user-received-line"></i> 3. Le Bénéficiaire (Bailleur / Propriétaire / Agence Immobilière) :
+            </label>
+            <input type="text" id="payBeneficiaryAccount" value="Immo Gabon Pro SA (Bailleur Certifié)" readonly style="background: rgba(59, 130, 246, 0.1); color: var(--accent-azure); font-weight: 700; border-color: rgba(59, 130, 246, 0.3);">
+          </div>
+
+        </div>
+
+        <div class="pay-methods-title">Mode de règlement :</div>
+
+        <div class="pay-methods-grid">
+          <label class="pay-method-card active">
+            <input type="radio" name="payMethod" value="airtel" checked>
+            <div class="pay-method-content">
+              <div class="pay-logo airtel">Airtel Money</div>
+              <span class="pay-code">*150# Gabon</span>
+            </div>
+          </label>
+
+          <label class="pay-method-card">
+            <input type="radio" name="payMethod" value="moov">
+            <div class="pay-method-content">
+              <div class="pay-logo moov">Moov Money</div>
+              <span class="pay-code">*555# Flooz</span>
+            </div>
+          </label>
+
+          <label class="pay-method-card">
+            <input type="radio" name="payMethod" value="card">
+            <div class="pay-method-content">
+              <div class="pay-logo card">Carte Visa / MC</div>
+              <span class="pay-code">Bancaire</span>
+            </div>
+          </label>
+
+          <label class="pay-method-card">
+            <input type="radio" name="payMethod" value="transfer">
+            <div class="pay-method-content">
+              <div class="pay-logo bank">Virement</div>
+              <span class="pay-code">BGFI / UGB / Eco</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- ZONE DE CHAMPS FINANCIERS DYNAMIQUES SELON LE MODE SÉLECTIONNÉ -->
+        <div class="pay-form-fields mt-3">
+          
+          <!-- CHAMPS SPÉCIFIQUES MOBILE MONEY (AIRTEL / MOOV) -->
+          <div id="fieldGroupMobileMoney" class="payment-method-fields">
+            <div class="input-group">
+              <label for="payPhoneNumber"><i class="ri-smartphone-line" style="color: var(--accent-emerald);"></i> Numéro de Téléphone Mobile Money du Payeur (+241) :</label>
+              <div class="input-with-prefix">
+                <span class="prefix">+241</span>
+                <input type="tel" id="payPhoneNumber" placeholder="077 12 34 56 ou 066 98 76 54" value="077 45 89 12">
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAMPS SPÉCIFIQUES CARTE BANCAIRE (VISA / MASTERCARD) -->
+          <div id="fieldGroupCard" class="payment-method-fields hidden">
+            <div class="input-group mb-3">
+              <label for="cardHolderName"><i class="ri-user-3-line"></i> Nom figurant sur la Carte Bancaire du Payeur :</label>
+              <input type="text" id="cardHolderName" placeholder="Ex. : Marc KASSA" value="Marc KASSA">
+            </div>
+
+            <div class="input-group mb-3">
+              <label for="cardNumber"><i class="ri-bank-card-line"></i> Numéro de Carte (16 chiffres) :</label>
+              <input type="text" id="cardNumber" placeholder="4532 •••• •••• 8912" value="4532 8912 3456 7890">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+              <div class="input-group">
+                <label for="cardExpiry"><i class="ri-calendar-event-line"></i> Expiration (MM/AA) :</label>
+                <input type="text" id="cardExpiry" placeholder="12/28" value="12/28">
+              </div>
+              <div class="input-group">
+                <label for="cardCvc"><i class="ri-lock-password-line"></i> Code CVC/CVV :</label>
+                <input type="password" id="cardCvc" placeholder="892" maxlength="4" value="892">
+              </div>
+            </div>
+          </div>
+
+          <!-- CHAMPS SPÉCIFIQUES VIREMENT BANCAIRE (BGFI / UGB / ECOBANK / ORABANK) -->
+          <div id="fieldGroupTransfer" class="payment-method-fields hidden">
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--accent-emerald); margin-bottom: 1rem;">
+              <span style="font-size: 0.78rem; color: var(--text-muted);"><i class="ri-bank-line"></i> RIB / IBAN Officiel du Séquestre LocaGabon SA :</span>
+              <h4 style="color: var(--accent-emerald); margin-top: 0.3rem; font-family: monospace; font-size: 0.95rem;">BGFI Bank Gabon — RIB : 40001 09920 00192837492 88</h4>
+            </div>
+
+            <div class="input-group">
+              <label for="transferReference"><i class="ri-file-list-3-line"></i> Référence de l'ordre de virement :</label>
+              <input type="text" id="transferReference" placeholder="Ex. : VIR-LOCAGABON-2026" value="VIR-LOCAGABON-2026">
+            </div>
+          </div>
+
+        </div>
+
+        <button class="btn-pay-submit mt-3" id="btnGoToAILeaseContract">
+          <i class="ri-file-text-line"></i> Générer mon Contrat de Bail IA & Continuer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ÉTAPE IA: PRÉVISUALISATION DU CONTRAT DE BAIL IA -->
+  <div class="modal-overlay hidden" id="leaseContractModal">
+    <div class="modal-box" style="max-width: 680px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" id="closeLeaseModal"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);"><i class="ri-robot-2-line"></i></div>
+        <div>
+          <h3>Étape 2 : Contrat de Bail Officiel Généré par l'IA</h3>
+          <p>Lisez et approuvez votre contrat de bail conforme au Droit Gabonais avant le règlement.</p>
+        </div>
+      </div>
+
+      <div class="lease-paper-container">
+        <div class="lease-paper" id="leaseContractContent"></div>
+      </div>
+
+      <div class="lease-acceptance-box" style="margin-top: 1rem; background: var(--bg-primary); padding: 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+        <label style="font-size: 0.85rem; display: flex; align-items: center; gap: 0.6rem; cursor: pointer;">
+          <input type="checkbox" id="chkAcceptAILease" checked>
+          <span>J'ai lu et j'accepte les clauses du Contrat de Bail d'Habitation conforme au Droit du Gabon.</span>
+        </label>
+      </div>
+
+      <div class="confirm-actions-grid mt-3">
+        <button class="btn-pay-submit" id="btnApproveLeaseAndGoToPay">
+          <i class="ri-shield-check-line"></i> Valider le Bail & Signer Numériquement
+        </button>
+        <button class="btn-secondary" id="btnBackToStep1">
+          <i class="ri-arrow-left-line"></i> Modifier les coordonnées de paiement
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ÉTAPE 3: CONFIRMATION FINALE DU PAIEMENT ET DÉBIT USSD PUSH -->
+  <div class="modal-overlay hidden" id="paymentConfirmModal">
+    <div class="modal-box card-pay" style="border-color: var(--accent-gold);">
+      <button class="modal-close" id="closePayConfirmModal"><i class="ri-close-line"></i></button>
+      
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);"><i class="ri-checkbox-circle-line"></i></div>
+        <div>
+          <h3>Étape 3 : Déclenchement de la Transaction</h3>
+          <p>Validez les détails pour envoyer la requête d'autorisation sur votre mobile ou banque.</p>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="confirm-summary-box">
+          <div class="confirm-row">
+            <span>Bien / Service :</span>
+            <strong id="confirmTitleVal">Appartement 3P - Akanda Angondjé</strong>
+          </div>
+          <div class="confirm-row">
+            <span>Montant Total :</span>
+            <strong id="confirmAmountVal" class="text-gold">250 000 FCFA</strong>
+          </div>
+          <div class="confirm-row">
+            <span>Contrat de Bail IA :</span>
+            <strong style="color: var(--accent-emerald);"><i class="ri-checkbox-circle-fill"></i> Signé & Conforme au Droit Gabonais</strong>
+          </div>
+          <div class="confirm-row">
+            <span>Moyen de Paiement :</span>
+            <strong id="confirmMethodVal">Airtel Money Gabon (*150#)</strong>
+          </div>
+          <div class="confirm-row">
+            <span>1. Le Payeur :</span>
+            <strong id="confirmPayerIdentityVal" style="color: var(--accent-emerald);">Marc KASSA</strong>
+          </div>
+          <div class="confirm-row">
+            <span>Compte / Débit :</span>
+            <strong id="confirmPhoneVal">+241 077 45 89 12</strong>
+          </div>
+          <div class="confirm-row">
+            <span>2. Le Transitaire :</span>
+            <strong style="color: var(--accent-gold);">LocaGabon SA (Séquestre Certifié)</strong>
+          </div>
+          <div class="confirm-row">
+            <span>3. Le Bénéficiaire :</span>
+            <strong id="confirmBeneficiaryVal" style="color: var(--accent-azure);">Immo Gabon Pro SA</strong>
+          </div>
+        </div>
+
+        <div class="confirm-notice">
+          <i class="ri-information-fill"></i> En cliquant sur "Confirmer & Payer", vous recevrez une demande d'autorisation d'encaissement certifiée sur votre compte.
+        </div>
+
+        <div class="confirm-actions-grid">
+          <button class="btn-pay-submit" id="btnFinalConfirmPayment">
+            <i class="ri-check-double-line"></i> Confirmer & Payer Maintenant
+          </button>
+          <button class="btn-secondary" id="btnBackToLeaseStep" style="margin-top: 0.5rem;">
+            <i class="ri-arrow-left-line"></i> Revoir le Contrat de Bail
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AUTHENTIFICATION -->
+  <div class="modal-overlay hidden" id="authModal">
+    <div class="modal-box card-auth">
+      <button class="modal-close" id="closeAuthModal"><i class="ri-close-line"></i></button>
+
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabAuthLogin"><i class="ri-login-circle-line"></i> Se Connecter</button>
+        <button class="auth-tab-btn" id="tabAuthRegister"><i class="ri-user-add-line"></i> S'inscrire</button>
+      </div>
+
+      <div class="social-login-box mt-3 mb-3">
+        <button class="btn-google-login" id="btnSocialGoogle">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#ea4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/><path fill="#4285f4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"/><path fill="#fbbc05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3s.2-1.6.4-2.3L1.9 7.3C.7 9.7 0 10.8 0 12.5s.7 2.8 1.9 5.2l3.7-2.9z"/><path fill="#34a853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.4-6.4-5.2L1.9 17C3.7 20.7 7.5 24 12 24z"/></svg>
+          <span>Continuer avec Google / Gmail</span>
+        </button>
+
+        <div class="auth-divider"><span>OU AVEC VOS IDENTIFIANTS</span></div>
+      </div>
+
+      <form id="formLogin" class="auth-form">
+        <div class="form-group">
+          <label><i class="ri-user-line"></i> Email, Nom d'utilisateur ou Téléphone (+241)</label>
+          <input type="text" id="loginIdentifier" placeholder="Ex. : 077123456, marc.kassa ou email@domaine.ga" value="077 45 89 12" required>
+        </div>
+
+        <div class="form-group">
+          <label><i class="ri-lock-line"></i> Mot de passe</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" value="123456" required>
+        </div>
+
+        <button type="submit" class="btn-primary-block mt-3">
+          <i class="ri-login-box-line"></i> Se Connecter
+        </button>
+      </form>
+
+      <form id="formRegister" class="auth-form hidden">
+        <div class="form-group">
+          <label><i class="ri-user-star-line"></i> Vous êtes ?</label>
+          <select id="userRoleSelect">
+            <option value="locataire">Locataire / Acheteur (Pass Locataire)</option>
+            <option value="particulier">Bailleur Particulier (Propriétaire privé)</option>
+            <option value="agence">Agence Immobilière Pro (NIF / RCCM)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label id="lblRegisterName">Nom complet / Nom d'utilisateur</label>
+          <input type="text" id="regNameInput" placeholder="Ex. : KASSA Marc ou Immo Gabon Pro" required>
+        </div>
+
+        <div class="form-group" id="groupAgencyNif" style="display: none;">
+          <label>Numéro NIF / RCCM (Si Agence Pro)</label>
+          <input type="text" id="regNifInput" placeholder="Ex. : RCCM-2026-B-89192">
+        </div>
+
+        <div class="form-group">
+          <label>Numéro de Téléphone (Airtel / Moov Gabon)</label>
+          <input type="tel" id="regPhoneInput" placeholder="077 XX XX XX ou 066 XX XX XX" required>
+        </div>
+
+        <div class="form-group">
+          <label>Adresse Email</label>
+          <input type="email" id="regEmailInput" placeholder="votre.email@domaine.ga" required>
+        </div>
+
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" id="regPasswordInput" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-primary-block mt-3">
+          <i class="ri-user-check-line"></i> Créer mon compte
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL RECEIPT VIEW -->
+  <div class="modal-overlay hidden" id="receiptModal">
+    <div class="modal-box receipt-box">
+      <button class="modal-close" id="closeReceiptModal"><i class="ri-close-line"></i></button>
+
+      <div class="receipt-paper" id="receiptPaper">
+        <div class="receipt-header">
+          <div class="receipt-badge">QUITTANCE / ATTESTATION OFFICIELLE</div>
+          <h2>LocaGabon Digital Receipt</h2>
+          <span class="receipt-id">Code de vérification : <strong id="recIdVal">GAB-99201948</strong></span>
+        </div>
+
+        <hr class="receipt-divider">
+
+        <div class="receipt-info-grid">
+          <div>
+            <span class="rec-label">Locataire / Acheteur :</span>
+            <span class="rec-val" id="recTenantName">Mme/M. KASSA Marc</span>
+          </div>
+          <div>
+            <span class="rec-label">Vendeur / Bailleur :</span>
+            <span class="rec-val" id="recLandlordName">M. MBOUMBA Jean-Pierre</span>
+          </div>
+          <div>
+            <span class="rec-label">Adresse du bien :</span>
+            <span class="rec-val" id="recAddress">Appartement 3P - Akanda Angondjé</span>
+          </div>
+          <div>
+            <span class="rec-label">Période / Transaction :</span>
+            <span class="rec-val" id="recPeriod">Août 2026</span>
+          </div>
+        </div>
+
+        <div class="receipt-amount-block">
+          <span>Montant perçu :</span>
+          <h1 id="recAmount">250 000 FCFA</h1>
+          <span class="rec-method" id="recMethod">Payé via Airtel Money Gabon (*150#)</span>
+        </div>
+
+        <div class="receipt-footer">
+          <p><i class="ri-shield-check-line"></i> Document valant attestation numérique officielle délivrée par la plateforme LocaGabon.</p>
+          <div class="receipt-qr-stamp">
+            <div class="qr-mock"><i class="ri-qr-code-line"></i></div>
+            <div class="stamp-mock">SCELLÉ DIGITAL LOCAGABON</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="receipt-actions">
+        <button class="btn-primary" onclick="window.print()"><i class="ri-printer-line"></i> Imprimer / Enregistrer en PDF</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <!-- MODAL FICHES Ã‰TAT DES LIEUX (ENTRÃ‰E & SORTIE) -->
+  <div class="modal-overlay hidden" id="etatDesLieuxModal">
+    <div class="modal-box" style="max-width: 760px; max-height: 92vh; overflow-y: auto;">
+      <button class="modal-close" onclick="closeModal('etatDesLieuxModal')"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald);"><i class="ri-clipboard-line"></i></div>
+        <div>
+          <h3 id="edlModalTitle">Fiche d'Ã‰tat des Lieux NumÃ©rique CertifiÃ©</h3>
+          <p>Conforme Ã  la RÃ©glementation du Bail d'Habitation en RÃ©publique Gabonaise</p>
+        </div>
+      </div>
+
+      <form id="formSaveEtatDesLieux">
+        <input type="hidden" id="edlTypeVal" value="EntrÃ©e">
+
+        <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.2rem;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label><i class="ri-building-line"></i> SÃ©lectionner le Bien / Logement</label>
+              <select id="edlPropertySelect" required>
+                <option value="Villa Duplex Spacieuse - Akanda AngondjÃ©">Villa Duplex Spacieuse - Akanda AngondjÃ©</option>
+                <option value="RÃ©sidence SÃ©curisÃ©e - Quartier Louis">RÃ©sidence SÃ©curisÃ©e - Quartier Louis</option>
+                <option value="CitÃ© SNI Avorbam - Akanda">CitÃ© SNI Avorbam - Akanda</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label><i class="ri-user-3-line"></i> Nom de l'Occupant / Locataire</label>
+              <input type="text" id="edlTenantName" value="Marc KASSA" required>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 0.6rem;"><i class="ri-dashboard-3-line"></i> RelevÃ© des Compteurs & Index</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;">
+          <div class="form-group">
+            <label><i class="ri-flashlight-line"></i> Compteur Ã‰lectrique EDAN (Index kWh)</label>
+            <input type="number" id="edlIndexEdan" placeholder="Ex. : 48920" value="48920" required>
+          </div>
+
+          <div class="form-group">
+            <label><i class="ri-drop-line"></i> Compteur d'Eau SEEG (Index mÂ³)</label>
+            <input type="number" id="edlIndexSeeg" placeholder="Ex. : 1240" value="1240" required>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 0.6rem;"><i class="ri-key-2-line"></i> Inventaire des ClÃ©s & AccÃ¨s</h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.2rem;">
+          <div class="form-group">
+            <label>ClÃ©s Porte Principale</label>
+            <input type="number" id="edlKeysMain" value="3" required>
+          </div>
+          <div class="form-group">
+            <label>ClÃ©s Chambres/Portes</label>
+            <input type="number" id="edlKeysRooms" value="4" required>
+          </div>
+          <div class="form-group">
+            <label>Bip / TÃ©lÃ©commande Portail</label>
+            <input type="number" id="edlKeysGate" value="1" required>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 0.6rem;"><i class="ri-checkbox-multiple-line"></i> Ã‰valuation de l'Ã‰tat des Ã‰quipements</h4>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.2rem;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Peinture & Murs :</label>
+            <select id="edlStateWalls"><option value="Neuf / Bon Ã©tat">Neuf / Bon Ã©tat</option><option value="Moyen / Traces">Moyen / Traces</option><option value="Ã€ repeindre">Ã€ repeindre</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Plomberie & Sanitaires :</label>
+            <select id="edlStatePlumbing"><option value="Bon Ã©tat / Aucune fuite">Bon Ã©tat / Aucune fuite</option><option value="Petit suintement">Petit suintement</option><option value="Ã€ rÃ©parer">Ã€ rÃ©parer</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Climatisation & Split :</label>
+            <select id="edlStateAC"><option value="Fonctionnel / Froid parfait">Fonctionnel / Froid parfait</option><option value="Filtre Ã  nettoyer">Filtre Ã  nettoyer</option><option value="En panne">En panne</option></select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Surpresseur d'Eau SEEG :</label>
+            <select id="edlStatePump"><option value="En service">En service</option><option value="Sans surpresseur">Sans surpresseur</option><option value="En panne">En panne</option></select>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label><i class="ri-chat-1-line"></i> Remarques particuliÃ¨res & Observations</label>
+          <textarea id="edlRemarks" rows="2" placeholder="Saisissez des observations complÃ©mentaires..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-pay-submit">
+          <i class="ri-save-3-line"></i> Valider & GÃ©nÃ©rer la Fiche CertifiÃ©e
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL SIGNALEMENT DE PROBLÃˆME / PANNE (INCIDENT) -->
+  <div class="modal-overlay hidden" id="reportProblemModal">
+    <div class="modal-box" style="border-color: var(--accent-gold);">
+      <button class="modal-close" onclick="closeModal('reportProblemModal')"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);"><i class="ri-alarm-warning-fill"></i></div>
+        <div>
+          <h3>Fiche de Signalement d'Incident ou Panne</h3>
+          <p>Transmis automatiquement au Bailleur & Ã  l'Assistance DÃ©pannage LocaGabon</p>
+        </div>
+      </div>
+
+      <form id="formSaveReportProblem">
+        <div class="form-group mb-3">
+          <label><i class="ri-building-line"></i> Bien concernÃ©</label>
+          <select id="ticketPropertySelect" required>
+            <option value="Villa Duplex Spacieuse - Akanda AngondjÃ©">Villa Duplex Spacieuse - Akanda AngondjÃ©</option>
+            <option value="RÃ©sidence SÃ©curisÃ©e - Quartier Louis">RÃ©sidence SÃ©curisÃ©e - Quartier Louis</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+          <div class="form-group">
+            <label><i class="ri-tools-line"></i> CatÃ©gorie de la Panne</label>
+            <select id="ticketCategorySelect" required>
+              <option value="Plomberie / Fuite d'Eau SEEG">Plomberie / Fuite d'Eau SEEG</option>
+              <option value="Ã‰lectricitÃ© / Compteur EDAN">Ã‰lectricitÃ© / Compteur EDAN</option>
+              <option value="Climatisation / Split">Climatisation / Split</option>
+              <option value="Infiltration / Toiture">Infiltration / Toiture</option>
+              <option value="Serrure / Portail">Serrure / Portail</option>
+              <option value="Autre">Autre problÃ¨me</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label><i class="ri-time-line"></i> Niveau d'Urgence</label>
+            <select id="ticketUrgencySelect" required>
+              <option value="Normale (Intervention sous 48h)">Normale (Intervention sous 48h)</option>
+              <option value="Urgente (Intervention sous 24h)">Urgente (Intervention sous 24h)</option>
+              <option value="Urgence Absolue (Intervention immÃ©diate)">Urgence Absolue (Intervention immÃ©diate)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label><i class="ri-file-text-line"></i> Description dÃ©taillÃ©e du dysfonctionnement</label>
+          <textarea id="ticketDescription" rows="3" placeholder="DÃ©crivez prÃ©cisÃ©ment le problÃ¨me rencontrÃ© (ex. : fuite d'eau sur le surpresseur, le voyant EDAN clignote en rouge...)" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-pay-submit" style="background: linear-gradient(135deg, #f59e0b, #ea580c);">
+          <i class="ri-send-plane-fill"></i> Transmettre le Signalement au Bailleur
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

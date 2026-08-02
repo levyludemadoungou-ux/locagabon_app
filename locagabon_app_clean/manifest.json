@@ -1,0 +1,16 @@
+{
+  "name": "LocaGabon AI - Location & Droit Gabonais",
+  "short_name": "LocaGabon",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b132b",
+  "theme_color": "#10b981",
+  "description": "Plateforme immobilière intelligente au Gabon avec Assistant IA Juridique et paiement Airtel Money / Moov Money.",
+  "icons": [
+    {
+      "src": "https://cdn.jsdelivr.net/npm/remixicon@3.5.0/icons/Buildings/home-heart-fill.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
