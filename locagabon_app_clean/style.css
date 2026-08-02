@@ -981,3 +981,119 @@ a {
     right: 15px;
   }
 }
+
+/* ==========================================================================
+   OPTIMISATIONS RESPONSIVES AVANCÃ‰ES POUR SMARTPHONES (ANDROID & APPLE iOS)
+   ========================================================================== */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+  overscroll-behavior-y: none;
+}
+
+/* Ã‰viter le zoom automatique gÃªnant sur iPhone/iOS lors de la saisie */
+@media (max-width: 768px) {
+  input, select, textarea, button {
+    font-size: 16px !important;
+  }
+}
+
+/* BARRE DE NAVIGATION TACTILE INFÃ‰RIEURE MOBILE (ANDROID & APPLE iOS) */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 64px;
+  background: rgba(11, 19, 43, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 998;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  gap: 2px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  height: 100%;
+  transition: var(--transition-fast);
+}
+
+.mobile-nav-item i {
+  font-size: 1.35rem;
+}
+
+.mobile-nav-item.active {
+  color: var(--accent-emerald);
+}
+
+.mobile-nav-item.gold {
+  color: var(--accent-gold);
+}
+
+/* AJUSTEMENT WIDGET ROBOT SUR MOBILE (POSITION AU-DESSUS DE LA BARRE INFÃ‰RIEURE) */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .app-header {
+    padding: 0.6rem 1rem;
+  }
+
+  .main-nav {
+    display: none; /* RemplacÃ© par la barre infÃ©rieure mobile tactile */
+  }
+
+  .ai-floating-widget-container {
+    bottom: 78px;
+    right: 16px;
+  }
+
+  .ai-floating-robot-btn {
+    width: 54px;
+    height: 54px;
+    font-size: 1.5rem;
+  }
+
+  .ai-widget-tooltip {
+    display: none;
+  }
+
+  .ai-chat-floating-window {
+    width: calc(100vw - 24px);
+    height: calc(85vh - 70px);
+    bottom: 75px;
+    right: 12px;
+    border-radius: 20px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-wide-grid-4, .admin-wide-grid-3, .admin-wide-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-box {
+    padding: 1.2rem;
+    max-height: 88vh;
+    overflow-y: auto;
+    border-radius: 16px;
+  }
+}

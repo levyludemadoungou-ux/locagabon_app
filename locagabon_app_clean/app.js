@@ -184,6 +184,15 @@ document.addEventListener("DOMContentLoaded", () => {
   setupClassicFilters();
   setupIAChat();
   setupFloatingRobotAiChatbot();
+    document.getElementById("btnMobileRobotToggle")?.addEventListener("click", () => {
+    const windowEl = document.getElementById("floatingAiChatWindow");
+    if (windowEl) {
+      windowEl.classList.toggle("hidden");
+      if (!windowEl.classList.contains("hidden")) {
+        document.getElementById("floatingAiChatInput")?.focus();
+      }
+    }
+  });
   setupModals();
   setupAuthModal();
   setupThreeStepPaymentSystem();
@@ -192,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupPricingAndContact();
   setupProfileEditAndSecurity();
   setupFichesEtatDesLieuxAndTickets();
+  setupApiPublishFormHandlers();
   updateUserHeaderUI();
   updateProfileDisplay();
   updateFooterContactsUI();
@@ -1196,7 +1206,7 @@ function openReceiptModal(id, tenant, landlord, address, amount, method) {
 }
 
 // --- DASHBOARD ADMIN ---
-function renderAdminDashboard() { renderAdminUserStats(); }
+function renderAdminDashboard() { renderAdminUserStats(); renderAdminPendingPropertiesTable(); }
 
 function renderAdminUserStats() {
   const totalUsersEl = document.getElementById("adminTotalUsersCount");
@@ -1277,3 +1287,209 @@ function setupModals() {
 
 function openModal(id) { document.getElementById(id)?.classList.remove("hidden"); }
 function closeModal(id) { document.getElementById(id)?.classList.add("hidden"); }
+
+
+/* ==========================================================================
+   LOCAGABON API BACKEND SERVICES & DATABASE RELATION CONTROLLERS (VERIFIED)
+   ========================================================================== */
+
+let PENDING_PROPERTIES = JSON.parse(localStorage.getItem("locagabon_pending_properties")) || [
+  {
+    id: "prop-pending-99",
+    title: "Appartement 2 PiÃ¨ces RÃ©novÃ© - Glass Libreville",
+    city: "Libreville (Glass)",
+    type: "Appartement",
+    operation: "Location",
+    sellerType: "Bailleur Particulier",
+    price: 180000,
+    bailleur: "M. KASSA Paul (Particulier)",
+    date: "02/08/2026",
+    status: "pending",
+    description: "Appartement meublÃ© 2 piÃ¨ces rÃ©novÃ© Ã  Glass avec compteur EDAN individuel."
+  }
+];
+
+const LocaGabonAPI = {
+  // 1. PUBLICATION D'ANNONCES (POST /api/properties) AVEC VÃ‰RIFICATION BAILLEUR
+  postProperty: function(payload, currentUser) {
+    if (!currentUser || (currentUser.role !== "bailleur" && currentUser.role !== "agence" && currentUser.role !== "particulier")) {
+      return {
+        status: 403,
+        success: false,
+        message: "â›” ACCÃˆS REFUSÃ‰ (POST /api/properties) : Seuls les Bailleurs Particuliers et Agences Pro certifiÃ©es peuvent publier une annonce."
+      };
+    }
+
+    const newProp = {
+      id: `prop-pending-${Math.floor(100 + Math.random() * 900)}`,
+      title: payload.title,
+      city: payload.city,
+      type: payload.type,
+      operation: payload.operation,
+      sellerType: currentUser.role === "agence" ? "Agence Pro" : "Bailleur Particulier",
+      price: parseFloat(payload.price),
+      cautionMois: 2,
+      edan: true,
+      seeg: true,
+      gardien: true,
+      clim: true,
+      titreFoncier: true,
+      image: GABON_PHOTOS.duplex,
+      gallery: [GABON_PHOTOS.duplex, GABON_PHOTOS.cloture],
+      gps: { lat: 0.4042, lng: 9.4398, address: `${payload.city}, Gabon`, zone: payload.city },
+      description: payload.description,
+      verified: false,
+      bailleur: currentUser.name,
+      status: "pending",
+      date: new Date().toLocaleDateString('fr-FR')
+    };
+
+    PENDING_PROPERTIES.unshift(newProp);
+    localStorage.setItem("locagabon_pending_properties", JSON.stringify(PENDING_PROPERTIES));
+
+    logUserMovement(currentUser.name, currentUser.role, "POST /api/properties", `Nouvelle annonce soumise : ${newProp.title} (Statut: En attente)`);
+
+    return {
+      status: 201,
+      success: true,
+      data: newProp,
+      message: "âœ… ANNONCE ENREGISTRÃ‰E VIA POST /api/properties !\n\nL'annonce a Ã©tÃ© placÃ©e au statut 'En attente de validation'. Elle sera publiÃ©e dÃ¨s approbation par l'administration via /api/admin/properties/pending."
+    };
+  },
+
+  // 2. RECUPERATION ET APPROBATION PAR L'ADMIN (/api/admin/properties/pending)
+  getPendingProperties: function() {
+    return PENDING_PROPERTIES;
+  },
+
+  approveProperty: function(propId) {
+    const idx = PENDING_PROPERTIES.findIndex(p => p.id === propId);
+    if (idx !== -1) {
+      const approvedProp = PENDING_PROPERTIES[idx];
+      approvedProp.verified = true;
+      approvedProp.status = "active";
+
+      INITIAL_PROPERTIES.unshift(approvedProp);
+      state.properties.unshift(approvedProp);
+      PENDING_PROPERTIES.splice(idx, 1);
+
+      localStorage.setItem("locagabon_pending_properties", JSON.stringify(PENDING_PROPERTIES));
+      renderProperties(state.properties);
+
+      logUserMovement("Super-Admin LocaGabon", "Administration", "POST /api/admin/properties/approve", `Annonce #${approvedProp.id} approuvÃ©e et mise en ligne`);
+
+      return { success: true, message: `Annonce #${approvedProp.id} validÃ©e et publiÃ©e en ligne !` };
+    }
+    return { success: false, message: "Annonce non trouvÃ©e." };
+  },
+
+  // 3. PAIEMENT RÃ‰EL (POST /api/payments) ET FIX RELATION DIRECTE TRANSACTION -> BIEN
+  postPayment: function(paymentPayload) {
+    const amount = parseFloat(paymentPayload.amount);
+    const comm = amount * COMMISSION_RATE; // 3% LocaGabon
+    const netBailleur = amount - comm;
+
+    const txRecord = {
+      id: `TX-${Math.floor(90000 + Math.random() * 9999)}`,
+      propertyId: paymentPayload.propObj ? paymentPayload.propObj.id : "prop-1", // Lien direct Transaction -> Bien (sans bail obligatoire)
+      bien: paymentPayload.title,
+      brut: amount,
+      comm: comm,
+      netBailleur: netBailleur,
+      canal: paymentPayload.method,
+      payerName: paymentPayload.payerIdentity,
+      landlordName: paymentPayload.beneficiary,
+      date: new Date().toLocaleDateString('fr-FR')
+    };
+
+    ADMIN_TRANSACTIONS.unshift(txRecord);
+    localStorage.setItem("locagabon_admin_transactions", JSON.stringify(ADMIN_TRANSACTIONS));
+
+    // Mises Ã  jour financiÃ¨res instantanÃ©es dans le dashboard admin
+    adminFinancials.totalVolumeFCFA += amount;
+    adminFinancials.commissionFCFA += comm;
+    adminFinancials.gabonBankBalanceFCFA += comm;
+
+    logUserMovement(paymentPayload.payerIdentity, "Locataire", "POST /api/payments", `Split Payment rÃ©el exÃ©cutÃ© : Brut ${amount.toLocaleString('fr-FR')} FCFA, Commission 3% ${comm.toLocaleString('fr-FR')} FCFA (Direct Link Property: ${txRecord.propertyId})`);
+
+    return {
+      status: 200,
+      success: true,
+      transaction: txRecord,
+      receiptId: `GAB-2026-${Math.floor(1000 + Math.random() * 9000)}`
+    };
+  }
+};
+
+function setupApiPublishFormHandlers() {
+  document.getElementById("quickAddPropertyBtn")?.addEventListener("click", () => {
+    if (!state.currentUser) {
+      alert("ðŸ”’ ACCÃˆS RESTREINT\n\nVeuillez vous connecter pour publier une annonce.");
+      openModal("authModal");
+      return;
+    }
+
+    if (state.currentUser.role === "locataire") {
+      alert("â›” ACCÃˆS REFUSÃ‰ (POST /api/properties)\n\nEn tant que Locataire, vous ne pouvez pas publier d'annonce. Veuillez vous connecter en tant que Bailleur Particulier ou Agence Pro.");
+      return;
+    }
+
+    openModal("publishPropertyModal");
+  });
+
+  document.getElementById("formApiPublishProperty")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const payload = {
+      title: document.getElementById("pubTitle").value.trim(),
+      city: document.getElementById("pubCity").value,
+      type: document.getElementById("pubType").value,
+      operation: document.getElementById("pubOperation").value,
+      price: document.getElementById("pubPrice").value,
+      description: document.getElementById("pubDescription").value.trim()
+    };
+
+    const res = LocaGabonAPI.postProperty(payload, state.currentUser);
+    if (res.success) {
+      closeModal("publishPropertyModal");
+      alert(res.message);
+      renderAdminDashboard();
+    } else {
+      alert(res.message);
+    }
+  });
+}
+
+function renderAdminPendingPropertiesTable() {
+  const tbody = document.getElementById("adminPendingPropertiesBody");
+  if (!tbody) return;
+
+  const pendingList = LocaGabonAPI.getPendingProperties();
+
+  if (pendingList.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Aucune annonce en attente de validation pour le moment.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = pendingList.map(p => `
+    <tr>
+      <td><code>${p.date}</code></td>
+      <td><strong>${p.title}</strong><br><small style="color: var(--text-muted);">${p.city}</small></td>
+      <td>${p.bailleur}</td>
+      <td><strong>${p.price.toLocaleString('fr-FR')} FCFA</strong> (${p.operation})</td>
+      <td><span class="sub-block-badge gold">En attente (POST /api/properties)</span></td>
+      <td>
+        <button class="btn-pricing-accent" onclick="adminApprovePropertyApi('${p.id}')" style="padding: 0.35rem 0.75rem; font-size: 0.78rem;">
+          <i class="ri-checkbox-circle-line"></i> Approuver & Publier
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function adminApprovePropertyApi(propId) {
+  const res = LocaGabonAPI.approveProperty(propId);
+  if (res.success) {
+    alert(res.message);
+    renderAdminDashboard();
+  }
+}

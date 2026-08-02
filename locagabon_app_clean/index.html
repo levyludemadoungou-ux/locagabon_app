@@ -2,7 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0b132b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="LocaGabon AI">
+  <link rel="apple-touch-icon" href="manifest.json">
   <title>LocaGabon - Plateforme Immobilière (Location & Vente) | Particuliers & Agences au Gabon</title>
   <meta name="description" content="La première plateforme d'annonces immobilières (Location & Vente) au Gabon pour Particuliers et Agences Immobilières Pro. Assistant IA Juridique, Géolocalisation GPS et paiement Airtel/Moov Money.">
   <link rel="stylesheet" href="style.css">
@@ -1180,6 +1185,7 @@
     </div>
   </div>
   <!-- WIDGET IA FLOTTANT ROBOT TRANSPARENT (TCHATBOT IA 24/7) -->
+    <!-- WIDGET IA FLOTTANT ROBOT TRANSPARENT (TCHATBOT IA 24/7) -->
   <div class="ai-floating-widget-container">
     
     <!-- FENÃŠTRE DE DIALOGUE AVEC L'AGENT IA -->
@@ -1191,7 +1197,7 @@
           </div>
           <div>
             <h4 style="font-size: 0.95rem; color: var(--text-primary); margin: 0;">Assistant IA LocaGabon</h4>
-            <span class="status-online" style="font-size: 0.72rem;"><i class="ri-checkbox-blank-circle-fill"></i> SpÃ©cialiste Immo & Droit Gabon</span>
+            <span class="status-online" style="font-size: 0.72rem;"><i class="ri-checkbox-blank-circle-fill"></i> Sp&eacute;cialiste Immo & Droit Gabon</span>
           </div>
         </div>
         <div style="display: flex; gap: 0.4rem;">
@@ -1203,18 +1209,18 @@
         <div class="message msg-ai">
           <div class="msg-avatar"><i class="ri-robot-2-fill"></i></div>
           <div class="msg-content">
-            <p><strong>Bonjour ! Je suis l'Agent IA LocaGabon.</strong> ðŸ¤–ðŸ‡¬ðŸ‡¦</p>
-            <p>Je rÃ©ponds Ã  toutes vos questions sur l'immobilier au Gabon, la loi sur les baux, la caution, les compteurs EDAN/SEEG, les paiements Mobile Money et l'utilisation du site.</p>
+            <p><strong>Bonjour ! Je suis l'Agent IA LocaGabon.</strong> <i class="ri-robot-line"></i></p>
+            <p>Je r&eacute;ponds &agrave; toutes vos questions sur l'immobilier au Gabon, la loi sur les baux, la caution, les compteurs EDAN/SEEG, les paiements Mobile Money et l'utilisation du site.</p>
           </div>
         </div>
       </div>
 
       <!-- SUGGESTIONS RAPIDES DE QUESTIONS -->
       <div style="padding: 0.5rem 0.8rem; background: rgba(15, 23, 42, 0.9); border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 0.4rem; overflow-x: auto;">
-        <button class="sug-chip btn-quick-ai-question" data-question="Combien de mois de caution au Gabon ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ›ï¸ Plafond Caution ?</button>
-        <button class="sug-chip btn-quick-ai-question" data-question="Comment fonctionne le repÃ©rage GPS IA ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ“ RepÃ©rage GPS IA ?</button>
-        <button class="sug-chip btn-quick-ai-question" data-question="Comment payer par Airtel Money ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ“± Paiement Airtel/Moov</button>
-        <button class="sug-chip btn-quick-ai-question" data-question="Comment signaler une panne d'eau ou d'Ã©lectricitÃ© ?" style="font-size: 0.72rem; white-space: nowrap;">ðŸ”§ Signaler une Panne</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Combien de mois de caution au Gabon ?" style="font-size: 0.72rem; white-space: nowrap;"><i class="ri-bank-line"></i> Plafond Caution ?</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Comment fonctionne le rep&eacute;rage GPS IA ?" style="font-size: 0.72rem; white-space: nowrap;"><i class="ri-map-pin-line"></i> Rep&eacute;rage GPS IA ?</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Comment payer par Airtel Money ?" style="font-size: 0.72rem; white-space: nowrap;"><i class="ri-smartphone-line"></i> Paiement Airtel/Moov</button>
+        <button class="sug-chip btn-quick-ai-question" data-question="Comment signaler une panne d'eau ou d'&eacute;lectricit&eacute; ?" style="font-size: 0.72rem; white-space: nowrap;"><i class="ri-tools-line"></i> Signaler une Panne</button>
       </div>
 
       <!-- ZONE DE SAISIE DU TCHAT -->
@@ -1231,6 +1237,90 @@
       <i class="ri-robot-2-fill"></i>
     </button>
 
+  </div>
+  <!-- BARRE DE NAVIGATION TACTILE INFÃ‰RIEURE EN BAS SUR MOBILE (ANDROID & APPLE iOS) -->
+  <nav class="mobile-bottom-nav mb-nav-fixed">
+    <button class="mobile-nav-item active" data-target="section-annonces">
+      <i class="ri-search-line"></i> <span>Annonces</span>
+    </button>
+    <button class="mobile-nav-item" id="btnMobileRobotToggle">
+      <i class="ri-robot-2-line"></i> <span>Assistant IA</span>
+    </button>
+    <button class="mobile-nav-item" data-target="section-tarifs">
+      <i class="ri-vip-crown-line"></i> <span>Tarifs</span>
+    </button>
+    <button class="mobile-nav-item" data-target="section-locataire">
+      <i class="ri-user-settings-line"></i> <span>Espace</span>
+    </button>
+    <a href="admin.html" class="mobile-nav-item gold" style="text-decoration: none;">
+      <i class="ri-shield-keyhole-fill"></i> <span>Admin</span>
+    </a>
+  </nav>
+  <!-- MODAL PUBLICATION D'ANNONCE (POST /api/properties) -->
+  <div class="modal-overlay hidden" id="publishPropertyModal">
+    <div class="modal-box" style="max-width: 680px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" onclick="closeModal('publishPropertyModal')"><i class="ri-close-line"></i></button>
+
+      <div class="modal-header">
+        <div class="pay-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-gold);"><i class="ri-building-add-fill"></i></div>
+        <div>
+          <h3>Publier une Annonce ImmobiliÃ¨re (POST /api/properties)</h3>
+          <p>RÃ©servÃ© aux Bailleurs Particuliers & Agences Pro CertifiÃ©es au Gabon</p>
+        </div>
+      </div>
+
+      <form id="formApiPublishProperty">
+        <div class="form-group mb-3">
+          <label><i class="ri-edit-line"></i> Titre de l'annonce</label>
+          <input type="text" id="pubTitle" placeholder="Ex. : Villa Duplex 4 PiÃ¨ces - Akanda AngondjÃ©" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+          <div class="form-group">
+            <label><i class="ri-map-pin-line"></i> Ville / Zone (Gabon)</label>
+            <select id="pubCity" required>
+              <option value="Akanda (AngondjÃ©)">Akanda (AngondjÃ©)</option>
+              <option value="Libreville (Centre)">Libreville (Centre / Louis / Batterie IV)</option>
+              <option value="Owendo">Owendo (Octra)</option>
+              <option value="Port-Gentil">Port-Gentil (NtchorÃ©rÃ©)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label><i class="ri-home-4-line"></i> Type de Bien</label>
+            <select id="pubType" required>
+              <option value="Villa">Villa / Duplex</option>
+              <option value="Appartement">Appartement / Studio</option>
+              <option value="Terrain">Terrain / Parcelle</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+          <div class="form-group">
+            <label><i class="ri-exchange-line"></i> OpÃ©ration</label>
+            <select id="pubOperation" required>
+              <option value="Location">Location</option>
+              <option value="Vente">Vente</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label><i class="ri-money-cfa-box-line"></i> Prix (FCFA /mois ou Prix Total)</label>
+            <input type="number" id="pubPrice" placeholder="Ex. : 250000" required>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label><i class="ri-file-text-line"></i> Description dÃ©taillÃ©e du bien</label>
+          <textarea id="pubDescription" rows="3" placeholder="PrÃ©sentez les caractÃ©ristiques du logement (chambres, climatisation, compteur EDAN individuel, rÃ©serve d'eau SEEG...)" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-pay-submit" style="background: linear-gradient(135deg, #10b981, #059669);">
+          <i class="ri-send-plane-fill"></i> Soumettre l'annonce Ã  l'API (Statut : En attente)
+        </button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
